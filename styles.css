@@ -662,6 +662,11 @@ ul, ol {
   flex: 1;
 }
 
+.hero__solid-block--top {
+  padding-top: 48px;
+  padding-bottom: 32px;
+}
+
 .hero__content {
   max-width: 700px;
   margin: 0 auto;
@@ -979,7 +984,7 @@ ul, ol {
 
 .why-kore__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
 
