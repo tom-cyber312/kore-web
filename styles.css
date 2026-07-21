@@ -669,8 +669,10 @@ ul, ol {
 
 .hero-desc {
   background: var(--black);
-  padding: 8px 0 16px;
-  margin-top: -60px;
+  padding: 0 0 16px;
+  margin-top: -80px;
+  position: relative;
+  z-index: 5;
 }
 
 .hero-desc__content {
