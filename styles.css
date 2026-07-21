@@ -674,7 +674,7 @@ ul, ol {
   margin-top: -460px;
   position: relative;
   z-index: 5;
-  padding-bottom: 200px;
+}
 
 .hero-desc__content {
   max-width: 700px;
