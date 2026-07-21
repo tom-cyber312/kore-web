@@ -671,7 +671,7 @@ ul, ol {
 .hero-desc {
   background: var(--black);
   padding: 0 0 16px;
-  margin-top: -180px;
+  margin-top: -300px;
   position: relative;
   z-index: 5;
 }
