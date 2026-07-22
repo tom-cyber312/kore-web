@@ -2170,9 +2170,9 @@ ul, ol {
   }
 
   .intro__img--bottom {
-    bottom: 5%;
-    max-width: 90vw;
-    max-height: 95vh;
+    bottom: 0;
+    max-width: 100vw;
+    max-height: 100vh;
   }
 
   .intro__btn {
@@ -2236,6 +2236,9 @@ ul, ol {
 
   .hero__img--mobile {
     display: block;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
   }
 
   .ai-scan-badge {
