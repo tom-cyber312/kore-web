@@ -33,6 +33,17 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ========================================
+  // DROPS OVERLAY
+  // ========================================
+  const dropsSection = document.getElementById('drops');
+  const dropsClose = document.getElementById('dropsClose');
+
+  dropsClose.addEventListener('click', () => {
+    dropsSection.classList.remove('visible');
+    document.body.style.overflow = '';
+  });
+
+  // ========================================
   // HEADER SCROLL EFFECT
   // ========================================
   const header = document.getElementById('header');
@@ -424,6 +435,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // ========================================
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
+      dropsSection.classList.remove('visible');
+      document.body.style.overflow = '';
       closeProductModal();
       closeCart();
       closeMobileNav();
@@ -442,12 +455,14 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         if (targetId === '#drops') {
           target.classList.add('visible');
+          document.body.style.overflow = 'hidden';
+          return;
         }
         const offset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) + parseInt(getComputedStyle(document.documentElement).getPropertyValue('--announcement-height')) + 4;
         setTimeout(() => {
           const top = target.getBoundingClientRect().top + window.scrollY - offset;
           window.scrollTo({ top, behavior: 'smooth' });
-        }, targetId === '#drops' ? 50 : 0);
+        }, 0);
       }
     });
   });
