@@ -2024,10 +2024,12 @@ ul, ol {
 }
 
 .intro__img--top {
-  top: 8%;
+  top: 2%;
   left: 50%;
   transform: translate(-50%, -120vh) scale(0.8);
   opacity: 0;
+  max-width: 50vw;
+  max-height: 35vh;
 }
 
 .intro.playing .intro__img--top {
@@ -2084,30 +2086,21 @@ ul, ol {
   text-transform: uppercase;
   cursor: pointer;
   opacity: 0;
-  transition: opacity 0.6s ease, background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  transition: opacity 0.6s ease 2.2s, transform 0.6s ease 2.2s, background 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 30px rgba(248, 187, 208, 0.3);
   pointer-events: none;
 }
 
 .intro.playing .intro__btn {
-  animation: introBtnAppear 0.8s ease 2.2s forwards;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
 }
 
 .intro__btn:hover {
   background: #f48fb1;
   transform: translateX(-50%) translateY(-2px);
   box-shadow: 0 8px 40px rgba(248, 187, 208, 0.5);
-}
-
-@keyframes introBtnAppear {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
 }
 
 /* ========================================
@@ -2170,6 +2163,11 @@ ul, ol {
   .intro__img {
     max-width: 85vw;
     max-height: 35vh;
+  }
+
+  .intro__img--top {
+    max-width: 60vw;
+    max-height: 28vh;
   }
 
   .intro__btn {
