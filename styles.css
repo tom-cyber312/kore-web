@@ -539,7 +539,7 @@ ul, ol {
 .hero__artwork {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 80vh;
 }
 
 .hero__baroque-image {
@@ -805,7 +805,7 @@ ul, ol {
    DROPS / PRODUCTS
    ======================================== */
 .drops {
-  padding: 100px 0;
+  padding: 40px 0 100px;
   background: var(--black-light);
 }
 
@@ -2026,8 +2026,8 @@ ul, ol {
   left: 50%;
   transform: translate(-50%, -120vh) scale(0.8);
   opacity: 0;
-  max-width: 35vw;
-  max-height: 25vh;
+  max-width: 45vw;
+  max-height: 32vh;
 }
 
 .intro.playing .intro__img--top {
@@ -2035,12 +2035,12 @@ ul, ol {
 }
 
 .intro__img--bottom {
-  bottom: 18%;
+  bottom: 12%;
   left: 50%;
   transform: translate(-50%, 120vh) scale(0.8);
   opacity: 0;
-  max-width: 95vw;
-  max-height: 65vh;
+  max-width: 100vw;
+  max-height: 72vh;
 }
 
 .intro.playing .intro__img--bottom {
@@ -2072,7 +2072,7 @@ ul, ol {
 .intro__btn {
   position: absolute;
   z-index: 5;
-  bottom: 28%;
+  bottom: 32%;
   left: 50%;
   transform: translateX(-50%) translateY(30px);
   padding: 16px 48px;
@@ -2160,8 +2160,8 @@ ul, ol {
   }
 
   .intro__img {
-    max-width: 90vw;
-    max-height: 45vh;
+    max-width: 95vw;
+    max-height: 55vh;
   }
 
   .intro__img--top {
@@ -2169,21 +2169,35 @@ ul, ol {
     max-height: 22vh;
   }
 
+  .intro__img--bottom {
+    bottom: 8%;
+    max-width: 100vw;
+    max-height: 70vh;
+  }
+
   .intro__btn {
     padding: 14px 40px;
     font-size: 1.1rem;
-    bottom: 12%;
+    bottom: 50%;
+    transform: translateX(-50%) translateY(50%);
+  }
+
+  .intro.playing .intro__btn {
+    transform: translateX(-50%) translateY(50%);
   }
 
   .announcement-bar {
     height: auto;
     min-height: 24px;
-    padding: 4px 0;
+    padding: 6px 0;
+    overflow: visible;
   }
 
   .announcement-bar__inner p {
     font-size: 0.6rem;
-    line-height: 1.3;
+    line-height: 1.4;
+    white-space: normal;
+    padding: 0 12px;
   }
 
   .announcement-bar__badge:last-child {
@@ -2191,7 +2205,7 @@ ul, ol {
   }
 
   .hero__artwork {
-    height: 100vh;
+    height: 70vh;
   }
 
   .hero__baroque-image {
@@ -2322,13 +2336,19 @@ ul, ol {
 
 @media (max-width: 480px) {
   .intro__img {
-    max-width: 92vw;
-    max-height: 40vh;
+    max-width: 100vw;
+    max-height: 50vh;
   }
 
   .intro__btn {
     padding: 12px 36px;
     font-size: 1rem;
+    bottom: 50%;
+    transform: translateX(-50%) translateY(50%);
+  }
+
+  .intro.playing .intro__btn {
+    transform: translateX(-50%) translateY(50%);
   }
 
   .drops__grid {
