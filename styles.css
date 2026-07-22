@@ -2330,11 +2330,11 @@ ul, ol {
     object-fit: contain;
     object-position: top center;
     position: absolute;
-    left: 0;
-    top: -80px;
+    left: 50%;
+    top: -60px;
     width: 100%;
-    height: calc(100% + 80px);
-    transform: scale(1.15);
+    height: calc(100% + 60px);
+    transform: translateX(-50%) scale(1.08);
     transform-origin: top center;
   }
 
