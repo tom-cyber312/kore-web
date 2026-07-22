@@ -2321,11 +2321,11 @@ ul, ol {
     height: 100%;
   }
 
-  .hero__img--desktop {
-    display: none;
+  .hero__baroque-image .hero__img--desktop {
+    display: none !important;
   }
 
-  .hero__img--mobile {
+  .hero__baroque-image .hero__img--mobile {
     display: block;
     object-fit: contain;
     width: 100%;
