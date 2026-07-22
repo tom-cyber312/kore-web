@@ -37,11 +37,29 @@ document.addEventListener('DOMContentLoaded', () => {
   // ========================================
   const dropsSection = document.getElementById('drops');
   const dropsClose = document.getElementById('dropsClose');
+  const dropsCartBtn = document.getElementById('dropsCartBtn');
+  const dropsCartCount = document.getElementById('dropsCartCount');
 
   dropsClose.addEventListener('click', () => {
     dropsSection.classList.remove('visible');
     document.body.style.overflow = '';
+    closeProductModal();
   });
+
+  dropsCartBtn.addEventListener('click', () => {
+    dropsSection.classList.remove('visible');
+    openCart();
+  });
+
+  function syncDropsCartCount() {
+    const total = cart.reduce((sum, item) => sum + item.qty, 0);
+    dropsCartCount.textContent = total;
+    if (total > 0) {
+      dropsCartCount.classList.add('visible');
+    } else {
+      dropsCartCount.classList.remove('visible');
+    }
+  }
 
   // ========================================
   // HEADER SCROLL EFFECT
@@ -235,6 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
       cartFooter.style.display = 'flex';
       cartCount.classList.add('visible');
       cartCount.textContent = cart.reduce((sum, item) => sum + item.qty, 0);
+      syncDropsCartCount();
 
       let html = '';
       cart.forEach((item, index) => {

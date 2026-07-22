@@ -89,7 +89,13 @@
 
   <!-- DROPS / PRODUCTS -->
   <section class="drops" id="drops">
-    <button class="drops__close" id="dropsClose" aria-label="Cerrar">&times;</button>
+    <div class="drops__topbar">
+      <button class="drops__cart-btn" id="dropsCartBtn" aria-label="Carrito">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="drops__cart-count" id="dropsCartCount">0</span>
+      </button>
+      <button class="drops__close" id="dropsClose" aria-label="Cerrar">&times;</button>
+    </div>
     <div class="container">
       <div class="section-header reveal">
         <h2 class="section-title">Productos</h2>
@@ -97,7 +103,7 @@
 
       <!-- CATEGORY FILTER -->
       <div class="drops__filters reveal">
-        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn active" data-filter="all">Todo</button>
         <button class="filter-btn" data-filter="remeras">Remeras</button>
         <button class="filter-btn" data-filter="pantalones">Pantalones</button>
         <button class="filter-btn" data-filter="camperas">Camperas</button>
