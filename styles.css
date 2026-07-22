@@ -2017,8 +2017,6 @@ ul, ol {
 .intro__img {
   position: absolute;
   z-index: 3;
-  max-width: 70vw;
-  max-height: 45vh;
   object-fit: contain;
   will-change: transform, opacity;
 }
@@ -2028,8 +2026,8 @@ ul, ol {
   left: 50%;
   transform: translate(-50%, -120vh) scale(0.8);
   opacity: 0;
-  max-width: 50vw;
-  max-height: 35vh;
+  max-width: 35vw;
+  max-height: 25vh;
 }
 
 .intro.playing .intro__img--top {
@@ -2041,6 +2039,8 @@ ul, ol {
   left: 50%;
   transform: translate(-50%, 120vh) scale(0.8);
   opacity: 0;
+  max-width: 85vw;
+  max-height: 55vh;
 }
 
 .intro.playing .intro__img--bottom {
@@ -2161,13 +2161,13 @@ ul, ol {
   }
 
   .intro__img {
-    max-width: 85vw;
-    max-height: 35vh;
+    max-width: 90vw;
+    max-height: 45vh;
   }
 
   .intro__img--top {
-    max-width: 60vw;
-    max-height: 28vh;
+    max-width: 45vw;
+    max-height: 22vh;
   }
 
   .intro__btn {
@@ -2323,8 +2323,8 @@ ul, ol {
 
 @media (max-width: 480px) {
   .intro__img {
-    max-width: 90vw;
-    max-height: 30vh;
+    max-width: 92vw;
+    max-height: 40vh;
   }
 
   .intro__btn {
