@@ -21,11 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   introBtn.addEventListener('click', () => {
     intro.classList.add('hidden');
-    document.body.style.overflow = '';
+    document.body.style.overflow = 'auto';
+    document.body.style.overflowX = 'hidden';
     if (introVideo) {
       introVideo.pause();
     }
-    // Remove intro from DOM after transition
+    window.scrollTo(0, 0);
     setTimeout(() => {
       intro.remove();
     }, 900);
