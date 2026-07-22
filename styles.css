@@ -2713,11 +2713,13 @@ ul, ol {
 
 .hero__baroque-image .hero__img--desktop {
   position: absolute;
-  inset: 0;
-  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
   height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  max-width: 90%;
+  object-fit: contain;
   z-index: 1;
   display: block;
 }
