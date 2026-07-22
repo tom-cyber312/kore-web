@@ -1997,7 +1997,7 @@ ul, ol {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 4;
+  z-index: 2;
   opacity: 0;
   transition: opacity 1s ease 0.8s;
 }
@@ -2010,7 +2010,7 @@ ul, ol {
   position: absolute;
   inset: 0;
   background: rgba(1, 1, 0, 0.3);
-  z-index: 6;
+  z-index: 4;
   pointer-events: none;
 }
 
@@ -2071,7 +2071,7 @@ ul, ol {
 
 .intro__btn {
   position: absolute;
-  z-index: 7;
+  z-index: 5;
   bottom: 32%;
   left: 50%;
   transform: translateX(-50%) translateY(30px);
@@ -2189,7 +2189,7 @@ ul, ol {
   .announcement-bar {
     height: auto;
     min-height: unset;
-    padding: 6px 12px;
+    padding: 8px 16px;
     overflow: visible;
   }
 
@@ -2199,9 +2199,15 @@ ul, ol {
   }
 
   .announcement-bar__inner p {
-    font-size: 0.6rem;
+    font-size: 0.72rem;
+    font-weight: 600;
     line-height: 1.4;
     white-space: normal;
+    text-align: center;
+  }
+
+  .announcement-bar__inner p a {
+    display: none;
   }
 
   .announcement-bar__badge:last-child {
