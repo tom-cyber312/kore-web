@@ -539,7 +539,7 @@ ul, ol {
 .hero__artwork {
   position: relative;
   width: 100%;
-  height: 80vh;
+  height: 100vh;
 }
 
 .hero__baroque-image {
@@ -805,7 +805,7 @@ ul, ol {
    DROPS / PRODUCTS
    ======================================== */
 .drops {
-  padding: 80px 0 100px;
+  padding: 120px 0 100px;
   background: var(--black);
 }
 
@@ -2160,7 +2160,7 @@ ul, ol {
   }
 
   .intro__img {
-    max-width: 100vw;
+    max-width: 90vw;
     max-height: 65vh;
   }
 
@@ -2171,8 +2171,8 @@ ul, ol {
 
   .intro__img--bottom {
     bottom: 5%;
-    max-width: 110vw;
-    max-height: 90vh;
+    max-width: 90vw;
+    max-height: 95vh;
   }
 
   .intro__btn {
@@ -2215,17 +2215,17 @@ ul, ol {
   }
 
   .hero__artwork {
-    height: 70vh;
+    height: 60vh;
   }
 
   .hero__baroque-image {
     top: 0;
-    height: 100vh;
-    min-height: 100dvh;
+    height: 60vh;
+    min-height: 60dvh;
   }
 
   .hero__baroque-image .circular-reveal__img {
-    object-fit: cover;
+    object-fit: contain;
     width: 100%;
     height: 100%;
   }
@@ -2348,8 +2348,8 @@ ul, ol {
 
 @media (max-width: 480px) {
   .intro__img {
-    max-width: 110vw;
-    max-height: 60vh;
+    max-width: 90vw;
+    max-height: 55vh;
   }
 
   .intro__btn {
