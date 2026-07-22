@@ -2330,12 +2330,12 @@ ul, ol {
     object-fit: contain;
     object-position: top center;
     position: absolute;
-    left: 50%;
-    top: 0;
-    transform: translateX(-50%);
-    width: 115%;
-    height: 100%;
-    margin-top: -80px;
+    left: 0;
+    top: -80px;
+    width: 100%;
+    height: calc(100% + 80px);
+    transform: scale(1.15);
+    transform-origin: top center;
   }
 
   .ai-scan-badge {
@@ -2387,7 +2387,7 @@ ul, ol {
   }
 
   .why-kore {
-    padding: 40px 0;
+    padding: 20px 0;
   }
 
   .outfits__grid {
@@ -2725,7 +2725,7 @@ ul, ol {
   height: 100%;
   object-fit: contain;
   object-position: top center;
-  clip-path: inset(5px 0 20px 0);
+  clip-path: inset(5px 0 15px 0);
   z-index: 1;
   display: block;
 }
