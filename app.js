@@ -231,17 +231,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const cartFooter = document.getElementById('cartFooter');
   const cartTotal = document.getElementById('cartTotal');
   const cartCount = document.getElementById('cartCount');
-  const checkoutWhatsapp = document.getElementById('checkoutWhatsapp');
   const clearCartBtn = document.getElementById('clearCart');
+  const continueBtn = document.getElementById('continueBtn');
+  const checkoutForm = document.getElementById('checkoutForm');
+  const shippingForm = document.getElementById('shippingForm');
+  const shippingMethod = document.getElementById('shippingMethod');
+  const shippingCompany = document.getElementById('shippingCompany');
+  const empresaField = document.getElementById('empresaField');
+  const direccionField = document.getElementById('direccionField');
 
   function openCart() {
     cartSidebar.classList.add('active');
     document.body.style.overflow = 'hidden';
+    checkoutForm.style.display = 'none';
+    cartItemsContainer.style.display = '';
+    if (cart.length > 0) cartFooter.style.display = 'flex';
   }
 
   function closeCart() {
     cartSidebar.classList.remove('active');
     document.body.style.overflow = '';
+    checkoutForm.style.display = 'none';
+    cartItemsContainer.style.display = '';
+    if (cart.length > 0) cartFooter.style.display = 'flex';
   }
 
   function updateCartUI() {
@@ -283,15 +295,69 @@ document.addEventListener('DOMContentLoaded', () => {
       const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
       cartTotal.textContent = '$' + total.toLocaleString('es-AR');
 
-      let msg = 'Hola! Quiero hacer un pedido desde KØRE:\n\n';
-      cart.forEach(item => {
-        msg += `- ${item.name} (Talle: ${item.talle}, Color: ${item.color}) x${item.qty} — $${(item.price * item.qty).toLocaleString('es-AR')}\n`;
-      });
-      msg += `\nTotal: $${total.toLocaleString('es-AR')}`;
-      const encoded = encodeURIComponent(msg);
-      checkoutWhatsapp.href = `https://wa.me/5493496653146?text=${encoded}`;
+      checkoutForm.style.display = 'none';
+      cartItemsContainer.style.display = '';
+      cartFooter.style.display = 'flex';
     }
   }
+
+  function buildWhatsAppMessage(shippingData) {
+    let msg = 'Hola! Quiero hacer un pedido desde KØRE:\n\n';
+    cart.forEach(item => {
+      msg += `- ${item.name} (Talle: ${item.talle}, Color: ${item.color}) x${item.qty} — $${(item.price * item.qty).toLocaleString('es-AR')}\n`;
+    });
+    const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    msg += `\nTotal: $${total.toLocaleString('es-AR')}`;
+    msg += `\n\n--- Datos de envío ---`;
+    msg += `\nMétodo: ${shippingData.metodo}`;
+    if (shippingData.metodo !== 'retiro') {
+      msg += `\nEmpresa: ${shippingData.empresa}`;
+    }
+    msg += `\nNombre: ${shippingData.nombre}`;
+    if (shippingData.metodo !== 'retiro') {
+      msg += `\nDirección: ${shippingData.direccion}`;
+    }
+    msg += `\nLocalidad: ${shippingData.localidad}`;
+    msg += `\nProvincia: ${shippingData.provincia}`;
+    msg += `\nCódigo Postal: ${shippingData.cp}`;
+    msg += `\nTeléfono: ${shippingData.telefono}`;
+    msg += `\nGmail: ${shippingData.email}`;
+    return msg;
+  }
+
+  continueBtn.addEventListener('click', () => {
+    cartFooter.style.display = 'none';
+    cartItemsContainer.style.display = 'none';
+    checkoutForm.style.display = 'block';
+  });
+
+  shippingMethod.addEventListener('change', () => {
+    if (shippingMethod.value === 'retiro') {
+      empresaField.style.display = 'none';
+      direccionField.style.display = 'none';
+    } else {
+      empresaField.style.display = 'block';
+      direccionField.style.display = 'block';
+    }
+  });
+
+  shippingForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = {
+      metodo: shippingMethod.options[shippingMethod.selectedIndex].text,
+      empresa: shippingCompany.value ? shippingCompany.options[shippingCompany.selectedIndex].text : '',
+      nombre: document.getElementById('clientName').value,
+      direccion: document.getElementById('clientAddress').value,
+      localidad: document.getElementById('clientCity').value,
+      provincia: document.getElementById('clientProvince').value,
+      cp: document.getElementById('clientZip').value,
+      telefono: document.getElementById('clientPhone').value,
+      email: document.getElementById('clientEmail').value
+    };
+    const msg = buildWhatsAppMessage(data);
+    const encoded = encodeURIComponent(msg);
+    window.open(`https://wa.me/5493496653146?text=${encoded}`, '_blank');
+  });
 
   function addToCart(name, price, talle, color) {
     const key = `${name}-${talle}-${color}`;
@@ -311,6 +377,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   clearCartBtn.addEventListener('click', () => {
     cart = [];
+    checkoutForm.style.display = 'none';
+    cartItemsContainer.style.display = '';
     updateCartUI();
   });
 
