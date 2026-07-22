@@ -539,7 +539,7 @@ ul, ol {
 .hero__artwork {
   position: relative;
   width: 100%;
-  height: 400vh;
+  height: 100vh;
 }
 
 .hero__baroque-image {
@@ -2192,8 +2192,7 @@ ul, ol {
   }
 
   .hero__artwork {
-    height: auto;
-    min-height: 200vh;
+    height: 100vh;
   }
 
   .hero__baroque-image {
