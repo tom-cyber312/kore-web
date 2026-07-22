@@ -2115,12 +2115,12 @@ ul, ol {
 }
 
 .intro__img--bottom {
-  bottom: -10%;
+  bottom: -5%;
   left: 50%;
   transform: translate(-50%, 120vh);
   opacity: 0;
-  max-width: 100vw;
-  max-height: 85vh;
+  max-width: 110vw;
+  max-height: 95vh;
 }
 
 .intro.playing .intro__img--bottom {
@@ -2258,12 +2258,12 @@ ul, ol {
   }
 
   .intro__img--bottom {
-    bottom: -15%;
+    bottom: -10%;
     left: 50%;
     transform: translate(-50%, 120vh);
-    max-width: 120vw;
-    max-height: 120vh;
-    object-fit: cover;
+    max-width: 100vw;
+    max-height: 90vh;
+    object-fit: contain;
   }
 
   .intro__btn {
@@ -2459,10 +2459,10 @@ ul, ol {
   }
 
   .intro__img--bottom {
-    max-width: 120vw;
-    max-height: 120vh;
-    object-fit: cover;
-    bottom: -15%;
+    max-width: 100vw;
+    max-height: 85vh;
+    object-fit: contain;
+    bottom: -10%;
   }
 
   .intro__btn {
@@ -2622,7 +2622,7 @@ ul, ol {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   z-index: 1;
   display: block;
 }
