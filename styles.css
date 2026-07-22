@@ -2035,12 +2035,12 @@ ul, ol {
 }
 
 .intro__img--bottom {
-  bottom: 5%;
+  bottom: 2%;
   left: 50%;
   transform: translate(-50%, 120vh) scale(0.8);
   opacity: 0;
   max-width: 100vw;
-  max-height: 78vh;
+  max-height: 85vh;
 }
 
 .intro.playing .intro__img--bottom {
@@ -2072,9 +2072,9 @@ ul, ol {
 .intro__btn {
   position: absolute;
   z-index: 5;
-  bottom: 32%;
+  bottom: 50%;
   left: 50%;
-  transform: translateX(-50%) translateY(30px);
+  transform: translateX(-50%) translateY(50%);
   padding: 16px 48px;
   background: transparent;
   color: #F8BBD0;
@@ -2092,7 +2092,7 @@ ul, ol {
 
 .intro.playing .intro__btn {
   opacity: 1;
-  transform: translateX(-50%) translateY(0);
+  transform: translateX(-50%) translateY(50%);
   pointer-events: auto;
 }
 
@@ -2161,7 +2161,7 @@ ul, ol {
 
   .intro__img {
     max-width: 100vw;
-    max-height: 60vh;
+    max-height: 65vh;
   }
 
   .intro__img--top {
@@ -2170,15 +2170,15 @@ ul, ol {
   }
 
   .intro__img--bottom {
-    bottom: 2%;
-    max-width: 100vw;
-    max-height: 80vh;
+    bottom: 5%;
+    max-width: 110vw;
+    max-height: 90vh;
   }
 
   .intro__btn {
     padding: 14px 40px;
     font-size: 1.1rem;
-    bottom: 55%;
+    bottom: 45%;
     transform: translateX(-50%) translateY(50%);
   }
 
@@ -2348,14 +2348,14 @@ ul, ol {
 
 @media (max-width: 480px) {
   .intro__img {
-    max-width: 100vw;
-    max-height: 55vh;
+    max-width: 110vw;
+    max-height: 60vh;
   }
 
   .intro__btn {
     padding: 12px 36px;
     font-size: 1rem;
-    bottom: 55%;
+    bottom: 45%;
     transform: translateX(-50%) translateY(50%);
   }
 
@@ -2436,7 +2436,7 @@ ul, ol {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   display: block;
 }
 
