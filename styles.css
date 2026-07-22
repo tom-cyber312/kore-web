@@ -807,6 +807,11 @@ ul, ol {
 .drops {
   padding: 120px 0 100px;
   background: var(--black);
+  display: none;
+}
+
+.drops.visible {
+  display: block;
 }
 
 .drops__filters {
@@ -1227,7 +1232,7 @@ ul, ol {
    ======================================== */
 .wholesale {
   padding: 100px 0;
-  background: var(--black-light);
+  background: var(--black);
 }
 
 .wholesale__layout {
@@ -1471,7 +1476,7 @@ ul, ol {
 
 .footer__grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+  grid-template-columns: 1fr 1fr;
   gap: 40px;
   margin-bottom: 48px;
 }
