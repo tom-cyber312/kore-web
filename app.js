@@ -33,23 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ========================================
-  // SCROLL REVEAL (fire image from bottom)
-  // ========================================
-  const heroArtwork = document.querySelector('.hero__artwork');
-  const revealAlt = document.querySelector('.circular-reveal__img--alt');
-
-  if (heroArtwork && revealAlt) {
-    window.addEventListener('scroll', () => {
-      const rect = heroArtwork.getBoundingClientRect();
-      const total = heroArtwork.offsetHeight - window.innerHeight;
-      const scrolled = -rect.top;
-      const progress = Math.min(Math.max(scrolled / total, 0), 1);
-      const invertPct = 100 - (progress * 100);
-      revealAlt.style.clipPath = `inset(${invertPct}% 0 0 0)`;
-    }, { passive: true });
-  }
-
-  // ========================================
   // HEADER SCROLL EFFECT
   // ========================================
   const header = document.getElementById('header');
