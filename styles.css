@@ -2258,11 +2258,11 @@ ul, ol {
   }
 
   .intro__img--bottom {
-    bottom: -10%;
+    bottom: -5%;
     left: 50%;
     transform: translate(-50%, 120vh);
     max-width: 100vw;
-    max-height: 90vh;
+    max-height: calc(90vh + 30px);
     object-fit: contain;
   }
 
@@ -2460,9 +2460,9 @@ ul, ol {
 
   .intro__img--bottom {
     max-width: 100vw;
-    max-height: 85vh;
+    max-height: calc(85vh + 30px);
     object-fit: contain;
-    bottom: -10%;
+    bottom: -5%;
   }
 
   .intro__btn {
