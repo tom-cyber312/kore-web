@@ -2329,10 +2329,13 @@ ul, ol {
     display: block;
     object-fit: contain;
     object-position: top center;
-    width: 110%;
-    height: 110%;
-    margin-left: -5%;
-    margin-top: -60px;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    width: 115%;
+    height: 100%;
+    margin-top: -80px;
   }
 
   .ai-scan-badge {
@@ -2722,6 +2725,7 @@ ul, ol {
   height: 100%;
   object-fit: contain;
   object-position: top center;
+  clip-path: inset(5px 0 20px 0);
   z-index: 1;
   display: block;
 }
