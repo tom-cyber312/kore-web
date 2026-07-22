@@ -534,22 +534,21 @@ ul, ol {
    ======================================== */
 .hero {
   position: relative;
-  height: 100vh;
 }
 
 .hero__artwork {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  width: 100%;
+  height: 100vh;
 }
 
 .hero__baroque-image {
-  position: fixed;
+  position: relative;
   top: 0;
-  left: 0;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background: #010100;
-  z-index: -1;
+  overflow: hidden;
 }
 
 .hero__baroque-image::before {
@@ -2329,8 +2328,11 @@ ul, ol {
   .hero__baroque-image .hero__img--mobile {
     display: block;
     object-fit: contain;
-    width: 100%;
-    height: 100%;
+    object-position: top center;
+    width: 120%;
+    height: 120%;
+    margin-left: -10%;
+    margin-top: -10%;
   }
 
   .ai-scan-badge {
@@ -2575,6 +2577,97 @@ ul, ol {
 
 .cart-sidebar__checkout .btn {
   margin-top: 8px;
+}
+
+/* Payment options */
+.cart-sidebar__payment {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.cart-sidebar__payment h3,
+.cart-sidebar__transfer h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--white);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.payment-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 16px 18px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 10px;
+  color: var(--white);
+  font-size: 1rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  margin-bottom: 10px;
+}
+
+.payment-btn:hover {
+  border-color: var(--red);
+  background: rgba(255,255,255,0.1);
+}
+
+.payment-btn__icon {
+  font-size: 1.4rem;
+}
+
+/* Transfer info */
+.cart-sidebar__transfer {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.transfer__details {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 16px;
+}
+
+.transfer__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.transfer__row:last-child {
+  border-bottom: none;
+}
+
+.transfer__label {
+  font-size: 0.75rem;
+  color: var(--white-dim);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.transfer__value {
+  font-size: 0.95rem;
+  color: var(--white);
+  font-weight: 600;
+}
+
+.transfer__note {
+  font-size: 0.82rem;
+  color: var(--white-dim);
+  text-align: center;
+  margin-bottom: 16px;
+  font-style: italic;
 }
 
 /* ========================================

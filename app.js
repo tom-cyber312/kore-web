@@ -234,16 +234,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const clearCartBtn = document.getElementById('clearCart');
   const continueBtn = document.getElementById('continueBtn');
   const checkoutForm = document.getElementById('checkoutForm');
+  const paymentOptions = document.getElementById('paymentOptions');
+  const transferInfo = document.getElementById('transferInfo');
+  const payCashBtn = document.getElementById('payCash');
+  const payTransferBtn = document.getElementById('payTransfer');
+  const sendWhatsAppBtn = document.getElementById('sendWhatsApp');
   const shippingForm = document.getElementById('shippingForm');
   const shippingMethod = document.getElementById('shippingMethod');
   const shippingCompany = document.getElementById('shippingCompany');
   const empresaField = document.getElementById('empresaField');
   const direccionField = document.getElementById('direccionField');
+  let shippingData = {};
 
   function openCart() {
     cartSidebar.classList.add('active');
     document.body.style.overflow = 'hidden';
     checkoutForm.style.display = 'none';
+    paymentOptions.style.display = 'none';
+    transferInfo.style.display = 'none';
     cartItemsContainer.style.display = '';
     if (cart.length > 0) cartFooter.style.display = 'flex';
   }
@@ -252,6 +260,8 @@ document.addEventListener('DOMContentLoaded', () => {
     cartSidebar.classList.remove('active');
     document.body.style.overflow = '';
     checkoutForm.style.display = 'none';
+    paymentOptions.style.display = 'none';
+    transferInfo.style.display = 'none';
     cartItemsContainer.style.display = '';
     if (cart.length > 0) cartFooter.style.display = 'flex';
   }
@@ -296,12 +306,14 @@ document.addEventListener('DOMContentLoaded', () => {
       cartTotal.textContent = '$' + total.toLocaleString('es-AR');
 
       checkoutForm.style.display = 'none';
+      paymentOptions.style.display = 'none';
+      transferInfo.style.display = 'none';
       cartItemsContainer.style.display = '';
       cartFooter.style.display = 'flex';
     }
   }
 
-  function buildWhatsAppMessage(shippingData) {
+  function buildWhatsAppMessage(shippingData, paymentMethod) {
     let msg = 'Hola! Quiero hacer un pedido desde KØRE:\n\n';
     cart.forEach(item => {
       msg += `- ${item.name} (Talle: ${item.talle}, Color: ${item.color}) x${item.qty} — $${(item.price * item.qty).toLocaleString('es-AR')}\n`;
@@ -310,11 +322,11 @@ document.addEventListener('DOMContentLoaded', () => {
     msg += `\nTotal: $${total.toLocaleString('es-AR')}`;
     msg += `\n\n--- Datos de envío ---`;
     msg += `\nMétodo: ${shippingData.metodo}`;
-    if (shippingData.metodo !== 'retiro') {
+    if (shippingData.metodo !== 'Retiro personal') {
       msg += `\nEmpresa: ${shippingData.empresa}`;
     }
     msg += `\nNombre: ${shippingData.nombre}`;
-    if (shippingData.metodo !== 'retiro') {
+    if (shippingData.metodo !== 'Retiro personal') {
       msg += `\nDirección: ${shippingData.direccion}`;
     }
     msg += `\nLocalidad: ${shippingData.localidad}`;
@@ -322,6 +334,14 @@ document.addEventListener('DOMContentLoaded', () => {
     msg += `\nCódigo Postal: ${shippingData.cp}`;
     msg += `\nTeléfono: ${shippingData.telefono}`;
     msg += `\nGmail: ${shippingData.email}`;
+    msg += `\n\n--- Pago ---`;
+    msg += `\nMétodo: ${paymentMethod}`;
+    if (paymentMethod === 'Transferencia') {
+      msg += `\nAlias: kore.arg`;
+      msg += `\nA nombre de: Tomas Martin Rodriguez`;
+      msg += `\nEmpresa: Mercado Pago`;
+      msg += `\nPaso comprobante por WhatsApp`;
+    }
     return msg;
   }
 
@@ -343,7 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   shippingForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const data = {
+    shippingData = {
       metodo: shippingMethod.options[shippingMethod.selectedIndex].text,
       empresa: shippingCompany.value ? shippingCompany.options[shippingCompany.selectedIndex].text : '',
       nombre: document.getElementById('clientName').value,
@@ -354,9 +374,25 @@ document.addEventListener('DOMContentLoaded', () => {
       telefono: document.getElementById('clientPhone').value,
       email: document.getElementById('clientEmail').value
     };
-    const msg = buildWhatsAppMessage(data);
+    checkoutForm.style.display = 'none';
+    paymentOptions.style.display = 'block';
+  });
+
+  payCashBtn.addEventListener('click', () => {
+    const msg = buildWhatsAppMessage(shippingData, 'Efectivo');
     const encoded = encodeURIComponent(msg);
-    window.open(`https://wa.me/5493496653146?text=${encoded}`, '_blank');
+    window.open('https://wa.me/5493496653146?text=' + encoded, '_blank');
+  });
+
+  payTransferBtn.addEventListener('click', () => {
+    paymentOptions.style.display = 'none';
+    transferInfo.style.display = 'block';
+  });
+
+  sendWhatsAppBtn.addEventListener('click', () => {
+    const msg = buildWhatsAppMessage(shippingData, 'Transferencia');
+    const encoded = encodeURIComponent(msg);
+    window.open('https://wa.me/5493496653146?text=' + encoded, '_blank');
   });
 
   function addToCart(name, price, talle, color) {
@@ -378,6 +414,8 @@ document.addEventListener('DOMContentLoaded', () => {
   clearCartBtn.addEventListener('click', () => {
     cart = [];
     checkoutForm.style.display = 'none';
+    paymentOptions.style.display = 'none';
+    transferInfo.style.display = 'none';
     cartItemsContainer.style.display = '';
     updateCartUI();
   });
