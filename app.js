@@ -5,39 +5,47 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // ========================================
-  // CIRCULAR REVEAL
+  // INTRO SCREEN
   // ========================================
-  const revealContainer = document.getElementById('circularReveal');
-  const revealAlt = revealContainer ? revealContainer.querySelector('.circular-reveal__img--alt') : null;
+  const intro = document.getElementById('intro');
+  const introBtn = document.getElementById('introBtn');
+  const introVideo = document.getElementById('introVideo');
 
-  if (revealContainer && revealAlt) {
-    const RADIUS = 60;
+  // Prevent scroll during intro
+  document.body.style.overflow = 'hidden';
 
-    function setRevealCircle(x, y) {
-      revealAlt.style.clipPath = `circle(${RADIUS}px at ${x}px ${y}px)`;
-      revealContainer.classList.add('active');
+  // Start the playing class to trigger animations
+  requestAnimationFrame(() => {
+    intro.classList.add('playing');
+  });
+
+  introBtn.addEventListener('click', () => {
+    intro.classList.add('hidden');
+    document.body.style.overflow = '';
+    if (introVideo) {
+      introVideo.pause();
     }
+    // Remove intro from DOM after transition
+    setTimeout(() => {
+      intro.remove();
+    }, 900);
+  });
 
-    function hideRevealCircle() {
-      revealAlt.style.clipPath = 'circle(0px at -9999px -9999px)';
-      revealContainer.classList.remove('active');
-    }
+  // ========================================
+  // SCROLL REVEAL (fire image from bottom)
+  // ========================================
+  const heroArtwork = document.querySelector('.hero__artwork');
+  const revealAlt = document.querySelector('.circular-reveal__img--alt');
 
-    revealContainer.addEventListener('mousemove', (e) => {
-      const rect = revealContainer.getBoundingClientRect();
-      setRevealCircle(e.clientX - rect.left, e.clientY - rect.top);
-    });
-
-    revealContainer.addEventListener('mouseleave', hideRevealCircle);
-
-    revealContainer.addEventListener('touchmove', (e) => {
-      e.preventDefault();
-      const touch = e.touches[0];
-      const rect = revealContainer.getBoundingClientRect();
-      setRevealCircle(touch.clientX - rect.left, touch.clientY - rect.top);
-    }, { passive: false });
-
-    revealContainer.addEventListener('touchend', hideRevealCircle);
+  if (heroArtwork && revealAlt) {
+    window.addEventListener('scroll', () => {
+      const rect = heroArtwork.getBoundingClientRect();
+      const total = heroArtwork.offsetHeight - window.innerHeight;
+      const scrolled = -rect.top;
+      const progress = Math.min(Math.max(scrolled / total, 0), 1);
+      const invertPct = 100 - (progress * 100);
+      revealAlt.style.clipPath = `inset(${invertPct}% 0 0 0)`;
+    }, { passive: true });
   }
 
   // ========================================
@@ -241,6 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="cart-item__image"><span>${brandShort}</span></div>
             <div class="cart-item__info">
               <div class="cart-item__name">${item.name}</div>
+              <div class="cart-item__detail">${item.talle} / ${item.color}</div>
               <div class="cart-item__price">$${(item.price * item.qty).toLocaleString('es-AR')} x${item.qty}</div>
             </div>
             <button class="cart-item__remove" data-index="${index}" aria-label="Eliminar">&times;</button>
@@ -262,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       let msg = 'Hola! Quiero hacer un pedido desde KØRE:\n\n';
       cart.forEach(item => {
-        msg += `- ${item.name} x${item.qty} — $${(item.price * item.qty).toLocaleString('es-AR')}\n`;
+        msg += `- ${item.name} (Talle: ${item.talle}, Color: ${item.color}) x${item.qty} — $${(item.price * item.qty).toLocaleString('es-AR')}\n`;
       });
       msg += `\nTotal: $${total.toLocaleString('es-AR')}`;
       const encoded = encodeURIComponent(msg);
@@ -270,24 +279,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function addToCart(name, price) {
-    const existing = cart.find(item => item.name === name);
+  function addToCart(name, price, talle, color) {
+    const key = `${name}-${talle}-${color}`;
+    const existing = cart.find(item => `${item.name}-${item.talle}-${item.color}` === key);
     if (existing) {
       existing.qty++;
     } else {
-      cart.push({ name, price, qty: 1 });
+      cart.push({ name, price, talle, color, qty: 1 });
     }
     updateCartUI();
     openCart();
   }
-
-  document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const name = btn.dataset.name;
-      const price = parseInt(btn.dataset.price);
-      addToCart(name, price);
-    });
-  });
 
   cartBtn.addEventListener('click', openCart);
   cartOverlay.addEventListener('click', closeCart);
@@ -308,23 +310,51 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalBrand = document.getElementById('modalBrand');
   const modalName = document.getElementById('modalName');
   const modalPrice = document.getElementById('modalPrice');
-  const modalWhatsapp = document.getElementById('modalWhatsapp');
   const addToCartModalBtn = document.querySelector('.add-to-cart-modal-btn');
 
   const productData = {
-    'corteiz-puppet': { brand: 'Corteiz', name: 'Corteiz Puppet', price: 17500, watermark: 'CTZ' },
-    'corteiz-lata': { brand: 'Corteiz', name: 'Corteiz Lata', price: 16800, watermark: 'CTZ' },
-    'corteiz-oval': { brand: 'Corteiz', name: 'Corteiz Oval', price: 17200, watermark: 'CTZ' },
-    'corteiz-world': { brand: 'Corteiz', name: 'Corteiz World', price: 18500, watermark: 'CTZ' },
-    'air-jordan': { brand: 'Air Jordan', name: 'Air Jordan Tee', price: 15900, watermark: 'JRD' },
-    'jordan-pink': { brand: 'Jordan', name: 'Jordan Pink', price: 16200, watermark: 'JRD' },
-    'ck-vrtc': { brand: 'Calvin Klein', name: 'Calvin Klein Vrtc', price: 14900, watermark: 'CK' },
-    'ck-classic': { brand: 'Calvin Klein', name: 'Calvin Klein Clásic', price: 14500, watermark: 'CK' },
-    'nike-stussy': { brand: 'Nike x Stüssy', name: 'Nike x Stüssy Tee', price: 19800, watermark: 'NK' },
-    'lacoste': { brand: 'Lacoste', name: 'Lacoste Classic', price: 15500, watermark: 'LAC' },
-    'supreme': { brand: 'Supreme', name: 'Supreme Box Logo', price: 21000, watermark: 'SUP' },
-    'adidas': { brand: 'Adidas', name: 'Adidas OG Tee', price: 14200, watermark: 'ADI' }
+    'corteiz-puppet': { brand: 'Corteiz', name: 'Corteiz Puppet', price: 17500, watermark: 'CTZ', category: 'remeras' },
+    'corteiz-lata': { brand: 'Corteiz', name: 'Corteiz Lata', price: 16800, watermark: 'CTZ', category: 'remeras' },
+    'corteiz-oval': { brand: 'Corteiz', name: 'Corteiz Oval', price: 17200, watermark: 'CTZ', category: 'remeras' },
+    'corteiz-world': { brand: 'Corteiz', name: 'Corteiz World', price: 18500, watermark: 'CTZ', category: 'remeras' },
+    'air-jordan': { brand: 'Air Jordan', name: 'Air Jordan Tee', price: 15900, watermark: 'JRD', category: 'remeras' },
+    'jordan-pink': { brand: 'Jordan', name: 'Jordan Pink', price: 16200, watermark: 'JRD', category: 'remeras' },
+    'ck-vrtc': { brand: 'Calvin Klein', name: 'Calvin Klein Vrtc', price: 14900, watermark: 'CK', category: 'remeras' },
+    'ck-classic': { brand: 'Calvin Klein', name: 'Calvin Klein Clásic', price: 14500, watermark: 'CK', category: 'remeras' },
+    'nike-stussy': { brand: 'Nike x Stüssy', name: 'Nike x Stüssy Tee', price: 19800, watermark: 'NK', category: 'remeras' },
+    'lacoste': { brand: 'Lacoste', name: 'Lacoste Classic', price: 15500, watermark: 'LAC', category: 'remeras' },
+    'supreme': { brand: 'Supreme', name: 'Supreme Box Logo', price: 21000, watermark: 'SUP', category: 'remeras' },
+    'adidas': { brand: 'Adidas', name: 'Adidas OG Tee', price: 14200, watermark: 'ADI', category: 'remeras' },
+    'corteiz-cargo': { brand: 'Corteiz', name: 'Corteiz Cargo Pant', price: 28500, watermark: 'CTZ', category: 'pantalones' },
+    'nike-tech': { brand: 'Nike', name: 'Nike Tech Fleece', price: 32000, watermark: 'NK', category: 'pantalones' },
+    'adidas-track': { brand: 'Adidas', name: 'Adidas Track Pant', price: 24900, watermark: 'ADI', category: 'pantalones' },
+    'nike-puffer': { brand: 'Nike', name: 'Nike Puffer Jacket', price: 55000, watermark: 'NK', category: 'camperas' },
+    'corteiz-shell': { brand: 'Corteiz', name: 'Corteiz Shell Jacket', price: 48000, watermark: 'CTZ', category: 'camperas' },
+    'supreme-tnf': { brand: 'Supreme x TNF', name: 'Supreme Nuptse Jacket', price: 72000, watermark: 'SUP', category: 'camperas' }
   };
+
+  const colorSets = {
+    remeras: [
+      { name: 'Negro', bg: '#1a1a1a', border: 'none' },
+      { name: 'Blanco', bg: '#f5f5f5', border: '1px solid #333' },
+      { name: 'Rojo', bg: '#e53935', border: 'none' },
+      { name: 'Azul', bg: '#1e88e5', border: 'none' }
+    ],
+    pantalones: [
+      { name: 'Negro', bg: '#1a1a1a', border: 'none' },
+      { name: 'Blanco', bg: '#f5f5f5', border: '1px solid #333' },
+      { name: 'Gris', bg: '#888', border: 'none' },
+      { name: 'Rosa Bebé', bg: '#f8bbd0', border: 'none' }
+    ],
+    camperas: [
+      { name: 'Negro', bg: '#1a1a1a', border: 'none' },
+      { name: 'Blanco', bg: '#f5f5f5', border: '1px solid #333' },
+      { name: 'Gris', bg: '#888', border: 'none' },
+      { name: 'Rosa Bebé', bg: '#f8bbd0', border: 'none' }
+    ]
+  };
+
+  const colorSelectorContainer = document.querySelector('.color-selector');
 
   let currentModalProduct = null;
 
@@ -342,8 +372,24 @@ document.addEventListener('DOMContentLoaded', () => {
       modalName.textContent = data.name;
       modalPrice.textContent = '$' + data.price.toLocaleString('es-AR');
 
-      const encoded = encodeURIComponent(`Hola! Quiero consultar por ${data.name} — $${data.price.toLocaleString('es-AR')}`);
-      modalWhatsapp.href = `https://wa.me/5493496653146?text=${encoded}`;
+      const colors = colorSets[data.category] || colorSets.remeras;
+      colorSelectorContainer.innerHTML = '';
+      colors.forEach((c, i) => {
+        const cbtn = document.createElement('button');
+        cbtn.className = 'color-btn' + (i === 0 ? ' active' : '');
+        cbtn.dataset.color = c.name;
+        cbtn.style.background = c.bg;
+        if (c.border !== 'none') cbtn.style.border = c.border;
+        cbtn.setAttribute('aria-label', c.name);
+        colorSelectorContainer.appendChild(cbtn);
+      });
+
+      colorSelectorContainer.querySelectorAll('.color-btn').forEach(cbtn => {
+        cbtn.addEventListener('click', () => {
+          colorSelectorContainer.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+          cbtn.classList.add('active');
+        });
+      });
 
       productModal.classList.add('active');
       document.body.style.overflow = 'hidden';
@@ -365,48 +411,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  document.querySelectorAll('.color-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      btn.parentElement.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    });
-  });
-
   addToCartModalBtn.addEventListener('click', () => {
     if (currentModalProduct) {
-      addToCart(currentModalProduct.name, currentModalProduct.price);
+      const activeSize = document.querySelector('.size-btn.active');
+      const activeColor = document.querySelector('.color-btn.active');
+      const talle = activeSize ? activeSize.dataset.size : 'M';
+      const color = activeColor ? activeColor.dataset.color : 'Negro';
+      addToCart(currentModalProduct.name, currentModalProduct.price, talle, color);
       closeProductModal();
     }
   });
 
   // ========================================
-  // FORM SUBMISSIONS
+  // NEWSLETTER
   // ========================================
-  const wholesaleForm = document.getElementById('wholesaleForm');
-  wholesaleForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = document.getElementById('ws-name').value;
-    const email = document.getElementById('ws-email').value;
-    const phone = document.getElementById('ws-phone').value;
-    const business = document.getElementById('ws-business').value;
-    const message = document.getElementById('ws-message').value;
-
-    let text = `Hola! Soy ${name} y quiero ser mayorista KØRE.\n\n`;
-    text += `Email: ${email}\n`;
-    if (phone) text += `WhatsApp: ${phone}\n`;
-    if (business) text += `Local/Marca: ${business}\n`;
-    if (message) text += `Mensaje: ${message}\n`;
-
-    const encoded = encodeURIComponent(text);
-    window.open(`https://wa.me/5493496653146?text=${encoded}`, '_blank');
-    wholesaleForm.reset();
-  });
-
   const newsletterForm = document.getElementById('newsletterForm');
   newsletterForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = newsletterForm.querySelector('input').value;
-    alert(`Gracias por suscribirte! Te avisaremos de nuevos drops en ${email}`);
+    const subject = encodeURIComponent('Nueva suscripción al newsletter KØRE');
+    const body = encodeURIComponent(`Nuevo suscriptor al newsletter KØRE:\n\nEmail: ${email}`);
+    window.location.href = `mailto:kore.argentina0@gmail.com?subject=${subject}&body=${body}`;
     newsletterForm.reset();
   });
 
