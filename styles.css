@@ -2378,9 +2378,9 @@ ul, ol {
     object-position: top center;
     position: absolute;
     left: 50%;
-    top: -30px;
+    top: -50px;
     width: 100%;
-    height: calc(100% + 30px);
+    height: calc(100% + 50px);
     transform: translateX(-50%) scale(1.05);
     transform-origin: top center;
   }
