@@ -2382,6 +2382,7 @@ ul, ol {
     width: 100%;
     height: calc(100% + 105px);
     transform: translateX(calc(-50% - 5px)) scale(1.05);
+    clip-path: inset(0 0 40px 0);
     transform-origin: top center;
   }
 
@@ -2435,6 +2436,7 @@ ul, ol {
 
   .why-kore {
     padding: 20px 0;
+    margin-top: -20px;
   }
 
   .outfits__grid {
