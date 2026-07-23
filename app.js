@@ -315,6 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const finishSummary = document.getElementById('finishSummary');
   const finishOrderBtn = document.getElementById('finishOrderBtn');
   const finishBack = document.getElementById('finishBack');
+  const transferTotalEl = document.getElementById('transferTotal');
   let currentPaymentMethod = '';
 
   // Coupon
@@ -440,36 +441,50 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const total = subtotal - discount;
     cartTotal.textContent = '$' + total.toLocaleString('es-AR');
+    if (transferTotalEl) transferTotalEl.textContent = '$' + total.toLocaleString('es-AR');
   }
 
   function buildWhatsAppMessage(shippingData, paymentMethod) {
     let msg = 'Hola! Quiero hacer un pedido desde KØRE:\n\n';
     cart.forEach(item => {
-      msg += `- ${item.name} (Talle: ${item.talle}, Color: ${item.color}) x${item.qty} — $${(item.price * item.qty).toLocaleString('es-AR')}\n`;
+      msg += '- ' + item.name + ' (Talle: ' + item.talle + ', Color: ' + item.color + ') x' + item.qty + ' — $' + (item.price * item.qty).toLocaleString('es-AR') + '\n';
     });
-    const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-    msg += `\nTotal: $${total.toLocaleString('es-AR')}`;
-    msg += `\n\n--- Datos de envío ---`;
-    msg += `\nMétodo: ${shippingData.metodo}`;
-    if (shippingData.metodo !== 'Retiro personal') {
-      msg += `\nEmpresa: ${shippingData.empresa}`;
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    let discount = 0;
+    if (appliedCoupon) {
+      if (appliedCoupon.type === 'percent') {
+        discount = Math.round(subtotal * appliedCoupon.value / 100);
+      } else {
+        discount = Math.min(appliedCoupon.value, subtotal);
+      }
     }
-    msg += `\nNombre: ${shippingData.nombre}`;
-    if (shippingData.metodo !== 'Retiro personal') {
-      msg += `\nDirección: ${shippingData.direccion}`;
+    const total = subtotal - discount;
+    msg += '\nSubtotal: $' + subtotal.toLocaleString('es-AR');
+    if (discount > 0) {
+      msg += '\nDescuento (' + appliedCoupon.code + '): -$' + discount.toLocaleString('es-AR');
     }
-    msg += `\nLocalidad: ${shippingData.localidad}`;
-    msg += `\nProvincia: ${shippingData.provincia}`;
-    msg += `\nCódigo Postal: ${shippingData.cp}`;
-    msg += `\nTeléfono: ${shippingData.telefono}`;
-    msg += `\nGmail: ${shippingData.email}`;
-    msg += `\n\n--- Pago ---`;
-    msg += `\nMétodo: ${paymentMethod}`;
+    msg += '\nTotal: $' + total.toLocaleString('es-AR');
+    msg += '\n\n--- Datos de envío ---';
+    msg += '\nMétodo: ' + shippingData.metodo;
+    if (shippingData.metodo !== 'Retiro personal') {
+      msg += '\nEmpresa: ' + shippingData.empresa;
+    }
+    msg += '\nNombre: ' + shippingData.nombre;
+    if (shippingData.metodo !== 'Retiro personal') {
+      msg += '\nDirección: ' + shippingData.direccion;
+    }
+    msg += '\nLocalidad: ' + shippingData.localidad;
+    msg += '\nProvincia: ' + shippingData.provincia;
+    msg += '\nCódigo Postal: ' + shippingData.cp;
+    msg += '\nTeléfono: ' + shippingData.telefono;
+    msg += '\nGmail: ' + shippingData.email;
+    msg += '\n\n--- Pago ---';
+    msg += '\nMétodo: ' + paymentMethod;
     if (paymentMethod === 'Transferencia') {
-      msg += `\nAlias: kore.arg`;
-      msg += `\nA nombre de: Tomas Martin Rodriguez`;
-      msg += `\nEmpresa: Mercado Pago`;
-      msg += `\nPaso comprobante por WhatsApp`;
+      msg += '\nAlias: kore.arg';
+      msg += '\nA nombre de: Tomas Martin Rodriguez';
+      msg += '\nEmpresa: Mercado Pago';
+      msg += '\nPaso comprobante por WhatsApp';
     }
     return msg;
   }
@@ -505,6 +520,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     checkoutForm.style.display = 'none';
     paymentOptions.style.display = 'block';
+    updateCartTotals();
   });
 
   payCashBtn.addEventListener('click', () => {
@@ -521,11 +537,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (cart.length === 0) return;
       const msg = buildWhatsAppMessage(shippingData, 'Transferencia');
       const encoded = encodeURIComponent(msg);
-      window.open('https://wa.me/5493496653146?text=' + encoded, '_blank');
+      openWhatsApp('https://wa.me/5493496653146?text=' + encoded);
     });
   }
 
-  function addToCart(name, price, talle, color, qty = 1) {
+  function addToCart(name, price, talle, color, qty = 1, openAfter = true) {
     const key = `${name}-${talle}-${color}`;
     const existing = cart.find(item => `${item.name}-${item.talle}-${item.color}` === key);
     if (existing) {
@@ -534,7 +550,38 @@ document.addEventListener('DOMContentLoaded', () => {
       cart.push({ name, price, talle, color, qty: qty });
     }
     updateCartUI();
-    openCart();
+    if (openAfter) {
+      openCart();
+    } else {
+      showAddedToast();
+    }
+  }
+
+  function showAddedToast() {
+    let toast = document.getElementById('cartToast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'cartToast';
+      toast.className = 'cart-toast';
+      toast.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Agregado al carrito';
+      document.body.appendChild(toast);
+    }
+    toast.classList.add('visible');
+    clearTimeout(toast._timeout);
+    toast._timeout = setTimeout(() => {
+      toast.classList.remove('visible');
+    }, 2000);
+  }
+
+  function openWhatsApp(url) {
+    try {
+      var w = window.open(url, '_blank');
+      if (!w || w.closed || typeof w.closed === 'undefined') {
+        window.location.href = url;
+      }
+    } catch (e) {
+      window.location.href = url;
+    }
   }
 
   cartBtn.addEventListener('click', openCart);
@@ -614,7 +661,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cart.length === 0) return;
     const msg = buildWhatsAppMessage(shippingData, currentPaymentMethod);
     const encoded = encodeURIComponent(msg);
-    window.open('https://wa.me/5493496653146?text=' + encoded, '_blank');
+    openWhatsApp('https://wa.me/5493496653146?text=' + encoded);
   });
 
   // Coupon logic
@@ -804,7 +851,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const activeColor = document.querySelector('.color-btn.active');
       const talle = activeSize ? activeSize.dataset.size : 'M';
       const color = activeColor ? activeColor.dataset.color : 'Negro';
-      addToCart(currentModalProduct.name, currentModalProduct.price, talle, color, modalQty);
+      addToCart(currentModalProduct.name, currentModalProduct.price, talle, color, modalQty, false);
       modalQty = 1;
       if (modalQtyValue) modalQtyValue.textContent = '1';
       closeProductModal();

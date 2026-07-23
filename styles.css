@@ -2995,6 +2995,68 @@ ul, ol {
 }
 
 /* ========================================
+   TRANSFER TOTAL BAR
+   ======================================== */
+.transfer__total-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(244, 143, 177, 0.1);
+  border: 1px solid rgba(244, 143, 177, 0.25);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+
+.transfer__total-bar span:first-child {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--white-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.transfer__total-amount {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--red);
+}
+
+/* ========================================
+   ADDED-TO-CART TOAST
+   ======================================== */
+.cart-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--black-elevated);
+  border: 1px solid rgba(244, 143, 177, 0.3);
+  color: var(--white);
+  padding: 12px 24px;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.cart-toast svg {
+  color: #4caf50;
+}
+
+.cart-toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ========================================
    SCROLLBAR
    ======================================== */
 ::-webkit-scrollbar {
