@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const allBtn = document.createElement('button');
     allBtn.className = 'subfilter-btn active';
     allBtn.dataset.subfilter = 'all';
-    allBtn.textContent = 'Todos';
+    allBtn.textContent = 'Todo';
     subfiltersContainer.appendChild(allBtn);
 
     subcategories[category].forEach(sub => {
