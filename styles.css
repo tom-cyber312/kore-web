@@ -2378,10 +2378,10 @@ ul, ol {
     object-position: top center;
     position: absolute;
     left: 50%;
-    top: -90px;
+    top: -105px;
     width: 100%;
-    height: calc(100% + 90px);
-    transform: translateX(-50%) scale(1.05);
+    height: calc(100% + 105px);
+    transform: translateX(calc(-50% - 5px)) scale(1.05);
     transform-origin: top center;
   }
 
