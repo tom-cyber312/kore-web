@@ -157,30 +157,89 @@ document.addEventListener('DOMContentLoaded', () => {
   // ========================================
   const filterBtns = document.querySelectorAll('.filter-btn');
   const productCards = document.querySelectorAll('.product-card');
+  const subfiltersContainer = document.getElementById('subfilters');
+  let currentFilter = 'all';
+  let currentSubfilter = null;
+
+  const subcategories = {
+    remeras: ['jordan', 'nike', 'corteiz', 'supreme', 'adidas', 'lacoste', 'calvin-klein', 'bape'],
+    pantalones: ['chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz'],
+    camperas: ['chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz']
+  };
+
+  const subcategoryLabels = {
+    'jordan': 'Jordan',
+    'nike': 'Nike',
+    'corteiz': 'Corteiz',
+    'supreme': 'Supreme',
+    'adidas': 'Adidas',
+    'lacoste': 'Lacoste',
+    'calvin-klein': 'Calvin Klein',
+    'bape': 'Bape',
+    'chrome-heart': 'Chrome Heart',
+    'hellstar': 'Hellstar',
+    'trapstar': 'Trapstar',
+    'nocta': 'Nocta'
+  };
+
+  function buildSubfilters(category) {
+    subfiltersContainer.innerHTML = '';
+    if (!subcategories[category]) return;
+
+    const allBtn = document.createElement('button');
+    allBtn.className = 'subfilter-btn active';
+    allBtn.dataset.subfilter = 'all';
+    allBtn.textContent = 'Todos';
+    subfiltersContainer.appendChild(allBtn);
+
+    subcategories[category].forEach(sub => {
+      const btn = document.createElement('button');
+      btn.className = 'subfilter-btn';
+      btn.dataset.subfilter = sub;
+      btn.textContent = subcategoryLabels[sub] || sub;
+      subfiltersContainer.appendChild(btn);
+    });
+
+    subfiltersContainer.querySelectorAll('.subfilter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        subfiltersContainer.querySelectorAll('.subfilter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentSubfilter = btn.dataset.subfilter === 'all' ? null : btn.dataset.subfilter;
+        applyFilters();
+      });
+    });
+  }
+
+  function applyFilters() {
+    productCards.forEach(card => {
+      const matchCategory = currentFilter === 'all' || card.dataset.brand === currentFilter;
+      const matchSubcategory = !currentSubfilter || card.dataset.subcategory === currentSubfilter;
+
+      if (matchCategory && matchSubcategory) {
+        card.classList.remove('hidden');
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          });
+        });
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
 
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
-      const filter = btn.dataset.filter;
-
-      productCards.forEach(card => {
-        if (filter === 'all' || card.dataset.brand === filter) {
-          card.classList.remove('hidden');
-          card.style.opacity = '0';
-          card.style.transform = 'translateY(20px)';
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-              card.style.opacity = '1';
-              card.style.transform = 'translateY(0)';
-            });
-          });
-        } else {
-          card.classList.add('hidden');
-        }
-      });
+      currentFilter = btn.dataset.filter;
+      currentSubfilter = null;
+      buildSubfilters(currentFilter);
+      applyFilters();
     });
   });
 
@@ -445,12 +504,28 @@ document.addEventListener('DOMContentLoaded', () => {
     'lacoste': { brand: 'Lacoste', name: 'Lacoste Classic', price: 15500, watermark: 'LAC', category: 'remeras' },
     'supreme': { brand: 'Supreme', name: 'Supreme Box Logo', price: 21000, watermark: 'SUP', category: 'remeras' },
     'adidas': { brand: 'Adidas', name: 'Adidas OG Tee', price: 14200, watermark: 'ADI', category: 'remeras' },
+    'bape-shark': { brand: 'Bape', name: 'Bape Shark Tee', price: 18900, watermark: 'BPE', category: 'remeras' },
+    'bape-camo': { brand: 'Bape', name: 'Bape Camo Tee', price: 19500, watermark: 'BPE', category: 'remeras' },
     'corteiz-cargo': { brand: 'Corteiz', name: 'Corteiz Cargo Pant', price: 28500, watermark: 'CTZ', category: 'pantalones' },
-    'nike-tech': { brand: 'Nike', name: 'Nike Tech Fleece', price: 32000, watermark: 'NK', category: 'pantalones' },
-    'adidas-track': { brand: 'Adidas', name: 'Adidas Track Pant', price: 24900, watermark: 'ADI', category: 'pantalones' },
-    'nike-puffer': { brand: 'Nike', name: 'Nike Puffer Jacket', price: 55000, watermark: 'NK', category: 'camperas' },
+    'corteiz-track': { brand: 'Corteiz', name: 'Corteiz Track Pant', price: 26800, watermark: 'CTZ', category: 'pantalones' },
+    'chrome-jeans': { brand: 'Chrome Heart', name: 'Chrome Heart Jeans', price: 35000, watermark: 'CH', category: 'pantalones' },
+    'chrome-cargo': { brand: 'Chrome Heart', name: 'Chrome Heart Cargo', price: 38500, watermark: 'CH', category: 'pantalones' },
+    'hellstar-sweat': { brand: 'Hellstar', name: 'Hellstar Sweatpant', price: 29900, watermark: 'HLS', category: 'pantalones' },
+    'hellstar-track': { brand: 'Hellstar', name: 'Hellstar Track Pant', price: 31200, watermark: 'HLS', category: 'pantalones' },
+    'trapstar-chaleco': { brand: 'Trapstar', name: 'Trapstar Chaleco Pant', price: 27500, watermark: 'TSP', category: 'pantalones' },
+    'trapstar-ice': { brand: 'Trapstar', name: 'Trapstar Ice Pant', price: 30800, watermark: 'TSP', category: 'pantalones' },
+    'nocta-track': { brand: 'Nocta', name: 'Nocta Track Pant', price: 33500, watermark: 'NCT', category: 'pantalones' },
+    'nocta-fleece': { brand: 'Nocta', name: 'Nocta Fleece Pant', price: 35200, watermark: 'NCT', category: 'pantalones' },
     'corteiz-shell': { brand: 'Corteiz', name: 'Corteiz Shell Jacket', price: 48000, watermark: 'CTZ', category: 'camperas' },
-    'supreme-tnf': { brand: 'Supreme x TNF', name: 'Supreme Nuptse Jacket', price: 72000, watermark: 'SUP', category: 'camperas' }
+    'corteiz-puffer': { brand: 'Corteiz', name: 'Corteiz Puffer', price: 52000, watermark: 'CTZ', category: 'camperas' },
+    'chrome-denim': { brand: 'Chrome Heart', name: 'Chrome Heart Denim Jacket', price: 65000, watermark: 'CH', category: 'camperas' },
+    'chrome-hoodie': { brand: 'Chrome Heart', name: 'Chrome Heart Hoodie Jacket', price: 58000, watermark: 'CH', category: 'camperas' },
+    'hellstar-varsity': { brand: 'Hellstar', name: 'Hellstar Varsity Jacket', price: 55000, watermark: 'HLS', category: 'camperas' },
+    'hellstar-puffer': { brand: 'Hellstar', name: 'Hellstar Puffer Jacket', price: 62000, watermark: 'HLS', category: 'camperas' },
+    'trapstar-chaleco-jkt': { brand: 'Trapstar', name: 'Trapstar Chaleco Jacket', price: 45000, watermark: 'TSP', category: 'camperas' },
+    'trapstar-ice-jkt': { brand: 'Trapstar', name: 'Trapstar Ice Jacket', price: 50000, watermark: 'TSP', category: 'camperas' },
+    'nocta-puffer': { brand: 'Nocta', name: 'Nocta Puffer Jacket', price: 60000, watermark: 'NCT', category: 'camperas' },
+    'nocta-track-jkt': { brand: 'Nocta', name: 'Nocta Track Jacket', price: 42000, watermark: 'NCT', category: 'camperas' }
   };
 
   const colorSets = {
