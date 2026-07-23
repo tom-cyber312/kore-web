@@ -305,12 +305,38 @@ document.addEventListener('DOMContentLoaded', () => {
   const direccionField = document.getElementById('direccionField');
   let shippingData = {};
 
+  // Back buttons
+  const checkoutBack = document.getElementById('checkoutBack');
+  const paymentBack = document.getElementById('paymentBack');
+  const transferBack = document.getElementById('transferBack');
+
+  // Finish order
+  const finishOrder = document.getElementById('finishOrder');
+  const finishSummary = document.getElementById('finishSummary');
+  const finishOrderBtn = document.getElementById('finishOrderBtn');
+  const finishBack = document.getElementById('finishBack');
+  let currentPaymentMethod = '';
+
+  // Coupon
+  const couponToggle = document.getElementById('couponToggle');
+  const couponForm = document.getElementById('couponForm');
+  const couponInput = document.getElementById('couponInput');
+  const couponApply = document.getElementById('couponApply');
+  const couponMessage = document.getElementById('couponMessage');
+  let appliedCoupon = null;
+  const validCoupons = {
+    'KORE10': { type: 'percent', value: 10 },
+    'KORE20': { type: 'percent', value: 20 },
+    'DESCUENTO': { type: 'fixed', value: 1000 }
+  };
+
   function openCart() {
     cartSidebar.classList.add('active');
     document.body.style.overflow = 'hidden';
     checkoutForm.style.display = 'none';
     paymentOptions.style.display = 'none';
     transferInfo.style.display = 'none';
+    finishOrder.style.display = 'none';
     cartItemsContainer.style.display = '';
     if (cart.length > 0) cartFooter.style.display = 'flex';
   }
@@ -321,6 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
     checkoutForm.style.display = 'none';
     paymentOptions.style.display = 'none';
     transferInfo.style.display = 'none';
+    finishOrder.style.display = 'none';
     cartItemsContainer.style.display = '';
     if (cart.length > 0) cartFooter.style.display = 'flex';
   }
@@ -330,6 +357,10 @@ document.addEventListener('DOMContentLoaded', () => {
       cartItemsContainer.innerHTML = '<p class="cart-sidebar__empty">Tu carrito está vacío</p>';
       cartFooter.style.display = 'none';
       cartCount.classList.remove('visible');
+      appliedCoupon = null;
+      if (couponToggle) couponToggle.style.display = '';
+      if (couponForm) couponForm.style.display = 'none';
+      if (couponMessage) couponMessage.style.display = 'none';
     } else {
       cartFooter.style.display = 'flex';
       cartCount.classList.add('visible');
@@ -345,7 +376,12 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="cart-item__info">
               <div class="cart-item__name">${item.name}</div>
               <div class="cart-item__detail">${item.talle} / ${item.color}</div>
-              <div class="cart-item__price">$${(item.price * item.qty).toLocaleString('es-AR')} x${item.qty}</div>
+              <div class="cart-item__price">$${(item.price * item.qty).toLocaleString('es-AR')}</div>
+            </div>
+            <div class="cart-item__qty">
+              <button class="cart-item__qty-btn cart-qty-minus" data-index="${index}" aria-label="Restar">−</button>
+              <span class="cart-item__qty-value">${item.qty}</span>
+              <button class="cart-item__qty-btn cart-qty-plus" data-index="${index}" aria-label="Sumar">+</button>
             </div>
             <button class="cart-item__remove" data-index="${index}" aria-label="Eliminar">&times;</button>
           </div>
@@ -361,15 +397,49 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
 
-      const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-      cartTotal.textContent = '$' + total.toLocaleString('es-AR');
+      cartItemsContainer.querySelectorAll('.cart-qty-minus').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.dataset.index);
+          if (cart[idx].qty > 1) {
+            cart[idx].qty--;
+          } else {
+            cart.splice(idx, 1);
+          }
+          updateCartUI();
+        });
+      });
+
+      cartItemsContainer.querySelectorAll('.cart-qty-plus').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.dataset.index);
+          cart[idx].qty++;
+          updateCartUI();
+        });
+      });
+
+      updateCartTotals();
 
       checkoutForm.style.display = 'none';
       paymentOptions.style.display = 'none';
       transferInfo.style.display = 'none';
+      finishOrder.style.display = 'none';
       cartItemsContainer.style.display = '';
       cartFooter.style.display = 'flex';
     }
+  }
+
+  function updateCartTotals() {
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    let discount = 0;
+    if (appliedCoupon) {
+      if (appliedCoupon.type === 'percent') {
+        discount = Math.round(subtotal * appliedCoupon.value / 100);
+      } else {
+        discount = Math.min(appliedCoupon.value, subtotal);
+      }
+    }
+    const total = subtotal - discount;
+    cartTotal.textContent = '$' + total.toLocaleString('es-AR');
   }
 
   function buildWhatsAppMessage(shippingData, paymentMethod) {
@@ -438,9 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   payCashBtn.addEventListener('click', () => {
-    const msg = buildWhatsAppMessage(shippingData, 'Efectivo');
-    const encoded = encodeURIComponent(msg);
-    window.open('https://wa.me/5493496653146?text=' + encoded, '_blank');
+    showFinishOrder('Efectivo');
   });
 
   payTransferBtn.addEventListener('click', () => {
@@ -448,19 +516,22 @@ document.addEventListener('DOMContentLoaded', () => {
     transferInfo.style.display = 'block';
   });
 
-  sendWhatsAppBtn.addEventListener('click', () => {
-    const msg = buildWhatsAppMessage(shippingData, 'Transferencia');
-    const encoded = encodeURIComponent(msg);
-    window.open('https://wa.me/5493496653146?text=' + encoded, '_blank');
-  });
+  if (sendWhatsAppBtn) {
+    sendWhatsAppBtn.addEventListener('click', () => {
+      if (cart.length === 0) return;
+      const msg = buildWhatsAppMessage(shippingData, 'Transferencia');
+      const encoded = encodeURIComponent(msg);
+      window.open('https://wa.me/5493496653146?text=' + encoded, '_blank');
+    });
+  }
 
-  function addToCart(name, price, talle, color) {
+  function addToCart(name, price, talle, color, qty = 1) {
     const key = `${name}-${talle}-${color}`;
     const existing = cart.find(item => `${item.name}-${item.talle}-${item.color}` === key);
     if (existing) {
-      existing.qty++;
+      existing.qty += qty;
     } else {
-      cart.push({ name, price, talle, color, qty: 1 });
+      cart.push({ name, price, talle, color, qty: qty });
     }
     updateCartUI();
     openCart();
@@ -475,8 +546,106 @@ document.addEventListener('DOMContentLoaded', () => {
     checkoutForm.style.display = 'none';
     paymentOptions.style.display = 'none';
     transferInfo.style.display = 'none';
+    finishOrder.style.display = 'none';
     cartItemsContainer.style.display = '';
     updateCartUI();
+  });
+
+  // Back button handlers
+  checkoutBack.addEventListener('click', () => {
+    checkoutForm.style.display = 'none';
+    cartItemsContainer.style.display = '';
+    cartFooter.style.display = 'flex';
+  });
+
+  paymentBack.addEventListener('click', () => {
+    paymentOptions.style.display = 'none';
+    checkoutForm.style.display = 'block';
+  });
+
+  transferBack.addEventListener('click', () => {
+    transferInfo.style.display = 'none';
+    paymentOptions.style.display = 'block';
+  });
+
+  finishBack.addEventListener('click', () => {
+    finishOrder.style.display = 'none';
+    if (currentPaymentMethod === 'Transferencia') {
+      transferInfo.style.display = 'block';
+    } else {
+      paymentOptions.style.display = 'block';
+    }
+  });
+
+  // Finish order
+  function showFinishOrder(paymentMethod) {
+    paymentOptions.style.display = 'none';
+    transferInfo.style.display = 'none';
+    currentPaymentMethod = paymentMethod;
+
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    let discount = 0;
+    if (appliedCoupon) {
+      if (appliedCoupon.type === 'percent') {
+        discount = Math.round(subtotal * appliedCoupon.value / 100);
+      } else {
+        discount = Math.min(appliedCoupon.value, subtotal);
+      }
+    }
+    const total = subtotal - discount;
+
+    let summaryHtml = '<div class="finish__items">';
+    cart.forEach(item => {
+      summaryHtml += '<div class="finish__item"><span>' + item.name + ' (' + item.talle + '/' + item.color + ') x' + item.qty + '</span><span>$' + (item.price * item.qty).toLocaleString('es-AR') + '</span></div>';
+    });
+    summaryHtml += '</div>';
+    summaryHtml += '<div class="finish__line finish__subtotal"><span>Subtotal</span><span>$' + subtotal.toLocaleString('es-AR') + '</span></div>';
+    if (discount > 0) {
+      summaryHtml += '<div class="finish__line finish__discount"><span>Descuento (' + appliedCoupon.code + ')</span><span>-$' + discount.toLocaleString('es-AR') + '</span></div>';
+    }
+    summaryHtml += '<div class="finish__line finish__total"><span>Total</span><span>$' + total.toLocaleString('es-AR') + '</span></div>';
+    summaryHtml += '<div class="finish__line finish__payment"><span>Método de pago</span><span>' + paymentMethod + '</span></div>';
+
+    finishSummary.innerHTML = summaryHtml;
+    finishOrder.style.display = 'block';
+  }
+
+  finishOrderBtn.addEventListener('click', () => {
+    if (cart.length === 0) return;
+    const msg = buildWhatsAppMessage(shippingData, currentPaymentMethod);
+    const encoded = encodeURIComponent(msg);
+    window.open('https://wa.me/5493496653146?text=' + encoded, '_blank');
+  });
+
+  // Coupon logic
+  couponToggle.addEventListener('click', () => {
+    const isOpen = couponForm.style.display !== 'none';
+    couponForm.style.display = isOpen ? 'none' : 'flex';
+  });
+
+  couponApply.addEventListener('click', () => {
+    const code = couponInput.value.trim().toUpperCase();
+    if (!code) return;
+    if (validCoupons[code]) {
+      appliedCoupon = { type: validCoupons[code].type, value: validCoupons[code].value, code: code };
+      couponMessage.textContent = 'Cupón "' + code + '" aplicado correctamente';
+      couponMessage.style.display = 'block';
+      couponMessage.style.color = '#4caf50';
+      couponForm.style.display = 'none';
+      couponToggle.style.display = 'none';
+      couponInput.value = '';
+      updateCartTotals();
+    } else {
+      couponMessage.textContent = 'Cupón no válido';
+      couponMessage.style.display = 'block';
+      couponMessage.style.color = '#f44336';
+    }
+  });
+
+  couponInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      couponApply.click();
+    }
   });
 
   // ========================================
@@ -552,6 +721,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const colorSelectorContainer = document.querySelector('.color-selector');
 
   let currentModalProduct = null;
+  let modalQty = 1;
+  const modalQtyValue = document.getElementById('modalQtyValue');
+  const modalQtyMinus = document.querySelector('#modalQtySelector .qty-minus');
+  const modalQtyPlus = document.querySelector('#modalQtySelector .qty-plus');
 
   document.querySelectorAll('.product-card__quick-view').forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -586,10 +759,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
 
+      modalQty = 1;
+      if (modalQtyValue) modalQtyValue.textContent = '1';
+
       productModal.classList.add('active');
       document.body.style.overflow = 'hidden';
     });
   });
+
+  if (modalQtyMinus) {
+    modalQtyMinus.addEventListener('click', () => {
+      if (modalQty > 1) {
+        modalQty--;
+        if (modalQtyValue) modalQtyValue.textContent = modalQty;
+      }
+    });
+  }
+
+  if (modalQtyPlus) {
+    modalQtyPlus.addEventListener('click', () => {
+      modalQty++;
+      if (modalQtyValue) modalQtyValue.textContent = modalQty;
+    });
+  }
 
   function closeProductModal() {
     productModal.classList.remove('active');
@@ -612,7 +804,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const activeColor = document.querySelector('.color-btn.active');
       const talle = activeSize ? activeSize.dataset.size : 'M';
       const color = activeColor ? activeColor.dataset.color : 'Negro';
-      addToCart(currentModalProduct.name, currentModalProduct.price, talle, color);
+      addToCart(currentModalProduct.name, currentModalProduct.price, talle, color, modalQty);
+      modalQty = 1;
+      if (modalQtyValue) modalQtyValue.textContent = '1';
       closeProductModal();
     }
   });
