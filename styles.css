@@ -2725,6 +2725,8 @@ ul, ol {
   font-size: 0.95rem;
   color: var(--white);
   font-weight: 600;
+  text-align: right;
+  word-break: break-word;
 }
 
 .transfer__note {
@@ -2977,6 +2979,10 @@ ul, ol {
   color: #4caf50;
 }
 
+.finish__shipping {
+  color: var(--white-dim);
+}
+
 .finish__total {
   font-size: 1.05rem;
   font-weight: 700;
@@ -2992,34 +2998,6 @@ ul, ol {
   margin-top: 4px;
   padding-top: 8px;
   border-top: 1px solid rgba(255,255,255,0.08);
-}
-
-/* ========================================
-   TRANSFER TOTAL BAR
-   ======================================== */
-.transfer__total-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(244, 143, 177, 0.1);
-  border: 1px solid rgba(244, 143, 177, 0.25);
-  border-radius: 8px;
-  padding: 14px 16px;
-  margin-bottom: 16px;
-}
-
-.transfer__total-bar span:first-child {
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--white-muted);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.transfer__total-amount {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--red);
 }
 
 /* ========================================

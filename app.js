@@ -315,8 +315,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const finishSummary = document.getElementById('finishSummary');
   const finishOrderBtn = document.getElementById('finishOrderBtn');
   const finishBack = document.getElementById('finishBack');
-  const transferTotalEl = document.getElementById('transferTotal');
+  const transferSummaryEl = document.getElementById('transferSummary');
   let currentPaymentMethod = '';
+  const SHIPPING_COST = 5000;
 
   // Coupon
   const couponToggle = document.getElementById('couponToggle');
@@ -441,7 +442,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const total = subtotal - discount;
     cartTotal.textContent = '$' + total.toLocaleString('es-AR');
-    if (transferTotalEl) transferTotalEl.textContent = '$' + total.toLocaleString('es-AR');
+    if (transferSummaryEl) transferSummaryEl.innerHTML = buildOrderSummary();
   }
 
   function buildWhatsAppMessage(shippingData, paymentMethod) {
@@ -458,11 +459,12 @@ document.addEventListener('DOMContentLoaded', () => {
         discount = Math.min(appliedCoupon.value, subtotal);
       }
     }
-    const total = subtotal - discount;
+    const total = subtotal - discount + SHIPPING_COST;
     msg += '\nSubtotal: $' + subtotal.toLocaleString('es-AR');
     if (discount > 0) {
       msg += '\nDescuento (' + appliedCoupon.code + '): -$' + discount.toLocaleString('es-AR');
     }
+    msg += '\nEnvío: $' + SHIPPING_COST.toLocaleString('es-AR');
     msg += '\nTotal: $' + total.toLocaleString('es-AR');
     msg += '\n\n--- Datos de envío ---';
     msg += '\nMétodo: ' + shippingData.metodo;
@@ -529,6 +531,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   payTransferBtn.addEventListener('click', () => {
     paymentOptions.style.display = 'none';
+    transferSummaryEl.innerHTML = buildOrderSummary();
     transferInfo.style.display = 'block';
   });
 
@@ -625,11 +628,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Finish order
-  function showFinishOrder(paymentMethod) {
-    paymentOptions.style.display = 'none';
-    transferInfo.style.display = 'none';
-    currentPaymentMethod = paymentMethod;
-
+  function buildOrderSummary() {
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
     let discount = 0;
     if (appliedCoupon) {
@@ -639,21 +638,30 @@ document.addEventListener('DOMContentLoaded', () => {
         discount = Math.min(appliedCoupon.value, subtotal);
       }
     }
-    const total = subtotal - discount;
+    const afterDiscount = subtotal - discount;
+    const total = afterDiscount + SHIPPING_COST;
 
-    let summaryHtml = '<div class="finish__items">';
+    let html = '<div class="finish__items">';
     cart.forEach(item => {
-      summaryHtml += '<div class="finish__item"><span>' + item.name + ' (' + item.talle + '/' + item.color + ') x' + item.qty + '</span><span>$' + (item.price * item.qty).toLocaleString('es-AR') + '</span></div>';
+      html += '<div class="finish__item"><span>' + item.name + ' (' + item.talle + '/' + item.color + ') x' + item.qty + '</span><span>$' + (item.price * item.qty).toLocaleString('es-AR') + '</span></div>';
     });
-    summaryHtml += '</div>';
-    summaryHtml += '<div class="finish__line finish__subtotal"><span>Subtotal</span><span>$' + subtotal.toLocaleString('es-AR') + '</span></div>';
+    html += '</div>';
+    html += '<div class="finish__line finish__subtotal"><span>Subtotal</span><span>$' + subtotal.toLocaleString('es-AR') + '</span></div>';
     if (discount > 0) {
-      summaryHtml += '<div class="finish__line finish__discount"><span>Descuento (' + appliedCoupon.code + ')</span><span>-$' + discount.toLocaleString('es-AR') + '</span></div>';
+      html += '<div class="finish__line finish__discount"><span>Descuento (' + appliedCoupon.code + ')</span><span>-$' + discount.toLocaleString('es-AR') + '</span></div>';
     }
-    summaryHtml += '<div class="finish__line finish__total"><span>Total</span><span>$' + total.toLocaleString('es-AR') + '</span></div>';
-    summaryHtml += '<div class="finish__line finish__payment"><span>Método de pago</span><span>' + paymentMethod + '</span></div>';
+    html += '<div class="finish__line finish__shipping"><span>Envío</span><span>$' + SHIPPING_COST.toLocaleString('es-AR') + '</span></div>';
+    html += '<div class="finish__line finish__total"><span>Total</span><span>$' + total.toLocaleString('es-AR') + '</span></div>';
+    return html;
+  }
 
-    finishSummary.innerHTML = summaryHtml;
+  function showFinishOrder(paymentMethod) {
+    paymentOptions.style.display = 'none';
+    transferInfo.style.display = 'none';
+    currentPaymentMethod = paymentMethod;
+
+    finishSummary.innerHTML = buildOrderSummary() +
+      '<div class="finish__line finish__payment"><span>Método de pago</span><span>' + paymentMethod + '</span></div>';
     finishOrder.style.display = 'block';
   }
 
