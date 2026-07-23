@@ -862,7 +862,6 @@ document.addEventListener('DOMContentLoaded', () => {
       addToCart(currentModalProduct.name, currentModalProduct.price, talle, color, modalQty, false);
       modalQty = 1;
       if (modalQtyValue) modalQtyValue.textContent = '1';
-      closeProductModal();
     }
   });
 
