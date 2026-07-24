@@ -1000,19 +1000,6 @@ ul, ol {
   display: block;
 }
 
-.product-card__image::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 40px;
-  background: url('img/badge.png') no-repeat center bottom;
-  background-size: contain;
-  pointer-events: none;
-  z-index: 2;
-}
-
 .product-card__placeholder {
   width: 100%;
   height: 100%;
