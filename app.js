@@ -569,12 +569,6 @@ document.addEventListener('DOMContentLoaded', () => {
   payTransferBtn.addEventListener('click', () => {
     paymentOptions.style.display = 'none';
     transferSummaryEl.innerHTML = buildOrderSummary();
-    const transferShippingRow = document.getElementById('transferShippingRow');
-    if (shippingData.metodoValue === 'retiro') {
-      transferShippingRow.style.display = 'flex';
-    } else {
-      transferShippingRow.style.display = 'none';
-    }
     transferInfo.style.display = 'block';
   });
 
@@ -698,7 +692,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (discount > 0) {
       html += '<div class="finish__line finish__discount"><span>Descuento (' + appliedCoupon.code + ')</span><span>-$' + discount.toLocaleString('es-AR') + '</span></div>';
     }
-    if (!isRetiro) {
+    if (isRetiro) {
+      html += '<div class="finish__line finish__shipping"><span>Envío</span><span style="color:#4caf50;">Gratis</span></div>';
+    } else {
       const shippingLabel = isViacargo ? 'Se paga al recibir' : getShippingLabel();
       html += '<div class="finish__line finish__shipping"><span>Envío</span><span>' + shippingLabel + '</span></div>';
       if (!isViacargo) {
