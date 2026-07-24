@@ -765,10 +765,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const addToCartModalBtn = document.querySelector('.add-to-cart-modal-btn');
 
   const productData = {
-    'corteiz-puppet': { brand: 'Corteiz', name: 'Corteiz Puppet', price: 17500, watermark: 'CTZ', category: 'remeras' },
-    'corteiz-lata': { brand: 'Corteiz', name: 'Corteiz Lata', price: 16800, watermark: 'CTZ', category: 'remeras' },
-    'corteiz-oval': { brand: 'Corteiz', name: 'Corteiz Oval', price: 17200, watermark: 'CTZ', category: 'remeras' },
-    'corteiz-world': { brand: 'Corteiz', name: 'Corteiz World', price: 18500, watermark: 'CTZ', category: 'remeras' },
+    'corteiz-chico': { brand: 'Corteiz', name: 'Corteiz Chico', price: 16900, watermark: 'CTZ', category: 'remeras', images: ['img/ctz-chi-1.jpg','img/ctz-chi-2.jpg','img/ctz-chi-3.jpg'] },
+    'corteiz-manos': { brand: 'Corteiz', name: 'Corteiz Manos', price: 17600, watermark: 'CTZ', category: 'remeras', images: ['img/ctz-man-1.jpg','img/ctz-man-2.jpg','img/ctz-man-3.jpg','img/ctz-man-4.jpg'] },
+    'corteiz-lata': { brand: 'Corteiz', name: 'Corteiz Lata', price: 17600, watermark: 'CTZ', category: 'remeras', images: ['img/ctz-lat-1.jpg','img/ctz-lat-2.jpg','img/ctz-lat-3.jpg','img/ctz-lat-4.jpg'] },
+    'corteiz-puppet': { brand: 'Corteiz', name: 'Corteiz Puppet', price: 17600, watermark: 'CTZ', category: 'remeras', images: ['img/ctz-pup-1.jpg','img/ctz-pup-2.jpg','img/ctz-pup-3.jpg','img/ctz-pup-4.jpg'] },
+    'corteiz-world': { brand: 'Corteiz', name: 'Corteiz Rules The World', price: 17600, watermark: 'CTZ', category: 'remeras', images: ['img/ctz-rul-1.jpg','img/ctz-rul-2.jpg','img/ctz-rul-3.jpg','img/ctz-rul-4.jpg'] },
+    'corteiz-oval': { brand: 'Corteiz', name: 'Corteiz', price: 17600, watermark: 'CTZ', category: 'remeras', images: ['img/ctz-1.jpg','img/ctz-2.jpg','img/ctz-3.jpg'] },
     'air-jordan': { brand: 'Air Jordan', name: 'Air Jordan Tee', price: 15900, watermark: 'JRD', category: 'remeras' },
     'jordan-pink': { brand: 'Jordan', name: 'Jordan Pink', price: 16200, watermark: 'JRD', category: 'remeras' },
     'ck-vrtc': { brand: 'Calvin Klein', name: 'Calvin Klein', price: 17500, watermark: 'CK', category: 'remeras', images: ['img/ck1.jpg','img/ck1-2.jpg','img/ck1-3.jpg','img/ck1-4.jpg'] },
