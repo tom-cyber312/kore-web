@@ -772,9 +772,9 @@ document.addEventListener('DOMContentLoaded', () => {
     'corteiz-world': { brand: 'Corteiz', name: 'Corteiz World', price: 18500, watermark: 'CTZ', category: 'remeras' },
     'air-jordan': { brand: 'Air Jordan', name: 'Air Jordan Tee', price: 15900, watermark: 'JRD', category: 'remeras' },
     'jordan-pink': { brand: 'Jordan', name: 'Jordan Pink', price: 16200, watermark: 'JRD', category: 'remeras' },
-    'ck-vrtc': { brand: 'Calvin Klein', name: 'Calvin Klein', price: 17500, watermark: 'CK', category: 'remeras', images: ['https://lh3.googleusercontent.com/d/1xgvJWlY76XaGZZ7GEpMYbFeHZ80AClMC','https://lh3.googleusercontent.com/d/1HDSQW-u5Jp66euVe4XgxSBAyfDn1bHQt','https://lh3.googleusercontent.com/d/1A9RFTiZpsTNKtv2sqftmylFZqwg7MEcm','https://lh3.googleusercontent.com/d/1p3DSlJY1xpd5loIZvFb2ZZOUBSsHn93v'] },
-    'ck-classic': { brand: 'Calvin Klein', name: 'Calvin Klein Clasic', price: 17500, watermark: 'CK', category: 'remeras', images: ['https://lh3.googleusercontent.com/d/1pF_pnBYgGQskwFN-WJq28JA5l-7dfYmC','https://lh3.googleusercontent.com/d/1SplfimZXf0PFME8dgLeYTeDOuaLp6ZTD','https://lh3.googleusercontent.com/d/199-bgLi-l8CyzuAERadNFVnLIyDaQ9q3','https://lh3.googleusercontent.com/d/1p3DSlJY1xpd5loIZvFb2ZZOUBSsHn93v'] },
-    'ck-vtcl': { brand: 'Calvin Klein', name: 'Calvin Klein Vrtcl', price: 17000, watermark: 'CK', category: 'remeras', images: ['https://lh3.googleusercontent.com/d/1JBz5X9txLknxJmChfqdIxWxHbLINkXuV','https://lh3.googleusercontent.com/d/1cLIu1jo2eysqseOPyHYkKPPmWDQKJTbw','https://lh3.googleusercontent.com/d/1KnD5HT5iUUjHiHqAOw8gQwfFq7CFZ7ak','https://lh3.googleusercontent.com/d/1zqAD8j33jsAG1njpoG3NN9ubEBDhPFTV'] },
+    'ck-vrtc': { brand: 'Calvin Klein', name: 'Calvin Klein', price: 17500, watermark: 'CK', category: 'remeras', images: ['https://drive.google.com/thumbnail?id=1xgvJWlY76XaGZZ7GEpMYbFeHZ80AClMC&sz=w800','https://drive.google.com/thumbnail?id=1HDSQW-u5Jp66euVe4XgxSBAyfDn1bHQt&sz=w800','https://drive.google.com/thumbnail?id=1A9RFTiZpsTNKtv2sqftmylFZqwg7MEcm&sz=w800','https://drive.google.com/thumbnail?id=1p3DSlJY1xpd5loIZvFb2ZZOUBSsHn93v&sz=w800'] },
+    'ck-classic': { brand: 'Calvin Klein', name: 'Calvin Klein Clasic', price: 17500, watermark: 'CK', category: 'remeras', images: ['https://drive.google.com/thumbnail?id=1pF_pnBYgGQskwFN-WJq28JA5l-7dfYmC&sz=w800','https://drive.google.com/thumbnail?id=1SplfimZXf0PFME8dgLeYTeDOuaLp6ZTD&sz=w800','https://drive.google.com/thumbnail?id=199-bgLi-l8CyzuAERadNFVnLIyDaQ9q3&sz=w800','https://drive.google.com/thumbnail?id=1p3DSlJY1xpd5loIZvFb2ZZOUBSsHn93v&sz=w800'] },
+    'ck-vtcl': { brand: 'Calvin Klein', name: 'Calvin Klein Vrtcl', price: 17000, watermark: 'CK', category: 'remeras', images: ['https://drive.google.com/thumbnail?id=1JBz5X9txLknxJmChfqdIxWxHbLINkXuV&sz=w800','https://drive.google.com/thumbnail?id=1cLIu1jo2eysqseOPyHYkKPPmWDQKJTbw&sz=w800','https://drive.google.com/thumbnail?id=1KnD5HT5iUUjHiHqAOw8gQwfFq7CFZ7ak&sz=w800','https://drive.google.com/thumbnail?id=1zqAD8j33jsAG1njpoG3NN9ubEBDhPFTV&sz=w800'] },
     'nike-stussy': { brand: 'Nike x Stüssy', name: 'Nike x Stüssy Tee', price: 19800, watermark: 'NK', category: 'remeras' },
     'lacoste': { brand: 'Lacoste', name: 'Lacoste Classic', price: 15500, watermark: 'LAC', category: 'remeras' },
     'supreme': { brand: 'Supreme', name: 'Supreme Box Logo', price: 21000, watermark: 'SUP', category: 'remeras' },
@@ -871,6 +871,13 @@ document.addEventListener('DOMContentLoaded', () => {
           });
           modalDotsEl.appendChild(dot);
         });
+        modalImg.onerror = function() {
+          modalImg.style.display = 'none';
+          placeholder.style.display = 'flex';
+          arrowL.style.display = 'none';
+          arrowR.style.display = 'none';
+          modalDotsEl.innerHTML = '';
+        };
         const updateModalImg = (idx) => {
           modalIdx = idx;
           modalImg.src = data.images[idx];
