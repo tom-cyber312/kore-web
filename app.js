@@ -774,7 +774,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'jordan-pink': { brand: 'Jordan', name: 'Jordan Pink', price: 16200, watermark: 'JRD', category: 'remeras' },
     'ck-vrtc': { brand: 'Calvin Klein', name: 'Calvin Klein', price: 17500, watermark: 'CK', category: 'remeras' },
     'ck-classic': { brand: 'Calvin Klein', name: 'Calvin Klein Clasic', price: 17500, watermark: 'CK', category: 'remeras' },
-    'ck-vtcl': { brand: 'Calvin Klein', name: 'Calvin Klein Vtcl', price: 17500, watermark: 'CK', category: 'remeras' },
+    'ck-vtcl': { brand: 'Calvin Klein', name: 'Calvin Klein Vrtcl', price: 17000, watermark: 'CK', category: 'remeras' },
     'nike-stussy': { brand: 'Nike x Stüssy', name: 'Nike x Stüssy Tee', price: 19800, watermark: 'NK', category: 'remeras' },
     'lacoste': { brand: 'Lacoste', name: 'Lacoste Classic', price: 15500, watermark: 'LAC', category: 'remeras' },
     'supreme': { brand: 'Supreme', name: 'Supreme Box Logo', price: 21000, watermark: 'SUP', category: 'remeras' },
