@@ -2683,8 +2683,19 @@ ul, ol {
   background: rgba(255,255,255,0.1);
 }
 
-.payment-btn__icon {
-  font-size: 1.4rem;
+.payment-btn.disabled,
+.payment-btn[disabled] {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.payment-btn__hint {
+  font-size: 0.72rem;
+  color: var(--white-dim);
+  text-align: center;
+  margin: -4px 0 10px;
+  font-style: italic;
 }
 
 /* Transfer info */

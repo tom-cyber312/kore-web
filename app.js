@@ -471,11 +471,11 @@ document.addEventListener('DOMContentLoaded', () => {
     msg += '\nTotal: $' + total.toLocaleString('es-AR');
     msg += '\n\n--- Datos de envío ---';
     msg += '\nMétodo: ' + shippingData.metodo;
-    if (shippingData.metodo !== 'Retiro personal') {
+    if (shippingData.metodo !== 'Retiro en persona') {
       msg += '\nEmpresa: ' + shippingData.empresa;
     }
     msg += '\nNombre: ' + shippingData.nombre;
-    if (shippingData.metodo !== 'Retiro personal') {
+    if (shippingData.metodo !== 'Retiro en persona') {
       msg += '\nDirección: ' + shippingData.direccion;
     }
     msg += '\nLocalidad: ' + shippingData.localidad;
@@ -514,6 +514,7 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     shippingData = {
       metodo: shippingMethod.options[shippingMethod.selectedIndex].text,
+      metodoValue: shippingMethod.value,
       empresa: shippingCompany.value ? shippingCompany.options[shippingCompany.selectedIndex].text : '',
       nombre: document.getElementById('clientName').value,
       direccion: document.getElementById('clientAddress').value,
@@ -526,11 +527,27 @@ document.addEventListener('DOMContentLoaded', () => {
     checkoutForm.style.display = 'none';
     paymentOptions.style.display = 'block';
     updateCartTotals();
+    updatePaymentOptions();
   });
 
   payCashBtn.addEventListener('click', () => {
+    if (payCashBtn.classList.contains('disabled')) return;
     showFinishOrder('Efectivo');
   });
+
+  function updatePaymentOptions() {
+    const isRetiro = shippingData.metodoValue === 'retiro';
+    const cashHint = document.getElementById('cashHint');
+    if (isRetiro) {
+      payCashBtn.classList.remove('disabled');
+      payCashBtn.removeAttribute('disabled');
+      if (cashHint) cashHint.style.display = 'none';
+    } else {
+      payCashBtn.classList.add('disabled');
+      payCashBtn.setAttribute('disabled', 'true');
+      if (cashHint) cashHint.style.display = 'block';
+    }
+  }
 
   payTransferBtn.addEventListener('click', () => {
     paymentOptions.style.display = 'none';
