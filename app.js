@@ -459,12 +459,15 @@ document.addEventListener('DOMContentLoaded', () => {
         discount = Math.min(appliedCoupon.value, subtotal);
       }
     }
-    const total = subtotal - discount + SHIPPING_COST;
+    const isViacargo = shippingData.empresa && shippingData.empresa.toLowerCase().includes('cargo');
+    const shippingCost = isViacargo ? 0 : SHIPPING_COST;
+    const shippingLabel = isViacargo ? 'Se paga al recibir' : '$' + SHIPPING_COST.toLocaleString('es-AR');
+    const total = subtotal - discount + shippingCost;
     msg += '\nSubtotal: $' + subtotal.toLocaleString('es-AR');
     if (discount > 0) {
       msg += '\nDescuento (' + appliedCoupon.code + '): -$' + discount.toLocaleString('es-AR');
     }
-    msg += '\nEnvío: $' + SHIPPING_COST.toLocaleString('es-AR');
+    msg += '\nEnvío: ' + shippingLabel;
     msg += '\nTotal: $' + total.toLocaleString('es-AR');
     msg += '\n\n--- Datos de envío ---';
     msg += '\nMétodo: ' + shippingData.metodo;
@@ -639,7 +642,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     const afterDiscount = subtotal - discount;
-    const total = afterDiscount + SHIPPING_COST;
+    const isViacargo = shippingData.empresa && shippingData.empresa.toLowerCase().includes('cargo');
+    const shippingCost = isViacargo ? 0 : SHIPPING_COST;
+    const shippingLabel = isViacargo ? 'Se paga al recibir' : '$' + SHIPPING_COST.toLocaleString('es-AR');
+    const total = afterDiscount + shippingCost;
 
     let html = '<div class="finish__items">';
     cart.forEach(item => {
@@ -650,7 +656,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (discount > 0) {
       html += '<div class="finish__line finish__discount"><span>Descuento (' + appliedCoupon.code + ')</span><span>-$' + discount.toLocaleString('es-AR') + '</span></div>';
     }
-    html += '<div class="finish__line finish__shipping"><span>Envío</span><span>$' + SHIPPING_COST.toLocaleString('es-AR') + '</span></div>';
+    html += '<div class="finish__line finish__shipping"><span>Envío</span><span>' + shippingLabel + '</span></div>';
     html += '<div class="finish__line finish__total"><span>Total</span><span>$' + total.toLocaleString('es-AR') + '</span></div>';
     return html;
   }
@@ -795,6 +801,8 @@ document.addEventListener('DOMContentLoaded', () => {
       modalName.textContent = data.name;
       modalPrice.textContent = '$' + data.price.toLocaleString('es-AR');
 
+      renderSizeButtons(data.category);
+
       const colors = colorSets[data.category] || colorSets.remeras;
       colorSelectorContainer.innerHTML = '';
       colors.forEach((c, i) => {
@@ -846,18 +854,35 @@ document.addEventListener('DOMContentLoaded', () => {
   productModalOverlay.addEventListener('click', closeProductModal);
   productModalClose.addEventListener('click', closeProductModal);
 
-  document.querySelectorAll('.size-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      btn.parentElement.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+  const sizeSets = {
+    remeras: ['S', 'M', 'L', 'XL'],
+    pantalones: ['2', '3', '4'],
+    camperas: ['2', '3', '4']
+  };
+  const sizeSelector = document.querySelector('.size-selector');
+
+  function renderSizeButtons(category) {
+    const sizes = sizeSets[category] || sizeSets.remeras;
+    sizeSelector.innerHTML = '';
+    sizes.forEach((s, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'size-btn' + (i === 0 ? ' active' : '');
+      btn.dataset.size = s;
+      btn.textContent = s;
+      btn.addEventListener('click', () => {
+        sizeSelector.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+      sizeSelector.appendChild(btn);
     });
-  });
+  }
 
   addToCartModalBtn.addEventListener('click', () => {
     if (currentModalProduct) {
       const activeSize = document.querySelector('.size-btn.active');
       const activeColor = document.querySelector('.color-btn.active');
-      const talle = activeSize ? activeSize.dataset.size : 'M';
+      const defaultSizes = sizeSets[currentModalProduct.category] || sizeSets.remeras;
+      const talle = activeSize ? activeSize.dataset.size : defaultSizes[0];
       const color = activeColor ? activeColor.dataset.color : 'Negro';
       addToCart(currentModalProduct.name, currentModalProduct.price, talle, color, modalQty, false);
       modalQty = 1;
