@@ -474,7 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const isViacargo = shippingData.empresa && shippingData.empresa.toLowerCase().includes('cargo');
     const shippingCost = isViacargo ? 0 : getShippingCost();
-    const shippingLabel = isViacargo ? 'Se paga al recibir (aprox)' : getShippingLabel();
+    const shippingLabel = isViacargo ? 'Se paga al recibir' : getShippingLabel();
     const total = subtotal - discount + shippingCost;
     msg += '\nSubtotal: $' + subtotal.toLocaleString('es-AR');
     if (discount > 0) {
@@ -677,7 +677,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const afterDiscount = subtotal - discount;
     const isViacargo = shippingData.empresa && shippingData.empresa.toLowerCase().includes('cargo');
     const shippingCost = isViacargo ? 0 : getShippingCost();
-    const shippingLabel = isViacargo ? 'Se paga al recibir (aprox)' : getShippingLabel();
+    const shippingLabel = isViacargo ? 'Se paga al recibir' : getShippingLabel();
     const total = afterDiscount + shippingCost;
 
     let html = '<div class="finish__items">';
