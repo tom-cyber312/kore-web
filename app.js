@@ -317,7 +317,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const finishBack = document.getElementById('finishBack');
   const transferSummaryEl = document.getElementById('transferSummary');
   let currentPaymentMethod = '';
-  const SHIPPING_COST = 5000;
+
+  function getShippingCost() {
+    const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+    if (totalQty <= 3) return 6500;
+    if (totalQty <= 6) return 10000;
+    return 13000;
+  }
+
+  function getShippingLabel() {
+    const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+    if (totalQty <= 3) return '$6.500 (aprox)';
+    if (totalQty <= 6) return '$10.000 (aprox)';
+    return '$13.000 (aprox)';
+  }
 
   // Coupon
   const couponToggle = document.getElementById('couponToggle');
@@ -460,14 +473,15 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     const isViacargo = shippingData.empresa && shippingData.empresa.toLowerCase().includes('cargo');
-    const shippingCost = isViacargo ? 0 : SHIPPING_COST;
-    const shippingLabel = isViacargo ? 'Se paga al recibir' : '$' + SHIPPING_COST.toLocaleString('es-AR');
+    const shippingCost = isViacargo ? 0 : getShippingCost();
+    const shippingLabel = isViacargo ? 'Se paga al recibir (aprox)' : getShippingLabel();
     const total = subtotal - discount + shippingCost;
     msg += '\nSubtotal: $' + subtotal.toLocaleString('es-AR');
     if (discount > 0) {
       msg += '\nDescuento (' + appliedCoupon.code + '): -$' + discount.toLocaleString('es-AR');
     }
     msg += '\nEnvío: ' + shippingLabel;
+    msg += '\n(El envío varía dependiendo de qué tipo de prendas lleves)';
     msg += '\nTotal: $' + total.toLocaleString('es-AR');
     msg += '\n\n--- Datos de envío ---';
     msg += '\nMétodo: ' + shippingData.metodo;
@@ -536,16 +550,18 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function updatePaymentOptions() {
+    const empresa = shippingData.empresa ? shippingData.empresa.toLowerCase() : '';
     const isRetiro = shippingData.metodoValue === 'retiro';
+    const isCorreoOCargo = empresa.includes('correo') || empresa.includes('cargo');
     const cashHint = document.getElementById('cashHint');
-    if (isRetiro) {
+    if (isRetiro || !isCorreoOCargo) {
       payCashBtn.classList.remove('disabled');
       payCashBtn.removeAttribute('disabled');
       if (cashHint) cashHint.style.display = 'none';
     } else {
       payCashBtn.classList.add('disabled');
       payCashBtn.setAttribute('disabled', 'true');
-      if (cashHint) cashHint.style.display = 'block';
+      if (cashHint) cashHint.style.display = 'flex';
     }
   }
 
@@ -660,8 +676,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const afterDiscount = subtotal - discount;
     const isViacargo = shippingData.empresa && shippingData.empresa.toLowerCase().includes('cargo');
-    const shippingCost = isViacargo ? 0 : SHIPPING_COST;
-    const shippingLabel = isViacargo ? 'Se paga al recibir' : '$' + SHIPPING_COST.toLocaleString('es-AR');
+    const shippingCost = isViacargo ? 0 : getShippingCost();
+    const shippingLabel = isViacargo ? 'Se paga al recibir (aprox)' : getShippingLabel();
     const total = afterDiscount + shippingCost;
 
     let html = '<div class="finish__items">';
@@ -674,6 +690,7 @@ document.addEventListener('DOMContentLoaded', () => {
       html += '<div class="finish__line finish__discount"><span>Descuento (' + appliedCoupon.code + ')</span><span>-$' + discount.toLocaleString('es-AR') + '</span></div>';
     }
     html += '<div class="finish__line finish__shipping"><span>Envío</span><span>' + shippingLabel + '</span></div>';
+    html += '<div class="finish__line finish__shipping-note"><span class="shipping-note">El envío varía dependiendo de qué tipo de prendas lleves</span></div>';
     html += '<div class="finish__line finish__total"><span>Total</span><span>$' + total.toLocaleString('es-AR') + '</span></div>';
     return html;
   }

@@ -2691,11 +2691,22 @@ ul, ol {
 }
 
 .payment-btn__hint {
-  font-size: 0.72rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.75);
+  border-radius: 10px;
+  font-size: 0.75rem;
   color: var(--white-dim);
-  text-align: center;
-  margin: -4px 0 10px;
   font-style: italic;
+  text-align: center;
+  padding: 0 12px;
+  pointer-events: none;
 }
 
 /* Transfer info */
@@ -2992,6 +3003,18 @@ ul, ol {
 
 .finish__shipping {
   color: var(--white-dim);
+}
+
+.finish__shipping-note {
+  border-top: none;
+  padding: 0;
+  margin: 0;
+}
+
+.shipping-note {
+  font-size: 0.7rem;
+  color: var(--white-muted);
+  font-style: italic;
 }
 
 .finish__total {
