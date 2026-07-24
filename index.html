@@ -212,10 +212,7 @@
 
         <div class="product-card reveal" data-brand="remeras" data-subcategory="calvin-klein" data-delay="0">
           <div class="product-card__image">
-            <div class="product-card__carousel" data-images="https://drive.google.com/uc?export=view&id=1xgvJWlY76XaGZZ7GEpMYbFeHZ80AClMC,https://drive.google.com/uc?export=view&id=1HDSQW-u5Jp66euVe4XgxSBAyfDn1bHQt,https://drive.google.com/uc?export=view&id=1A9RFTiZpsTNKtv2sqftmylFZqwg7MEcm,https://drive.google.com/uc?export=view&id=1p3DSlJY1xpd5loIZvFb2ZZOUBSsHn93v">
-              <img src="https://drive.google.com/uc?export=view&id=1xgvJWlY76XaGZZ7GEpMYbFeHZ80AClMC" alt="Calvin Klein">
-              <div class="carousel__dots"></div>
-            </div>
+            <img src="https://lh3.googleusercontent.com/d/1xgvJWlY76XaGZZ7GEpMYbFeHZ80AClMC" alt="Calvin Klein">
           </div>
           <div class="product-card__info">
             <span class="product-card__brand">Calvin Klein</span>
@@ -229,10 +226,7 @@
 
         <div class="product-card reveal" data-brand="remeras" data-subcategory="calvin-klein" data-delay="100">
           <div class="product-card__image">
-            <div class="product-card__carousel" data-images="https://drive.google.com/uc?export=view&id=1pF_pnBYgGQskwFN-WJq28JA5l-7dfYmC,https://drive.google.com/uc?export=view&id=1SplfimZXf0PFME8dgLeYTeDOuaLp6ZTD,https://drive.google.com/uc?export=view&id=199-bgLi-l8CyzuAERadNFVnLIyDaQ9q3,https://drive.google.com/uc?export=view&id=1p3DSlJY1xpd5loIZvFb2ZZOUBSsHn93v">
-              <img src="https://drive.google.com/uc?export=view&id=1pF_pnBYgGQskwFN-WJq28JA5l-7dfYmC" alt="Calvin Klein Clasic">
-              <div class="carousel__dots"></div>
-            </div>
+            <img src="https://lh3.googleusercontent.com/d/1pF_pnBYgGQskwFN-WJq28JA5l-7dfYmC" alt="Calvin Klein Clasic">
           </div>
           <div class="product-card__info">
             <span class="product-card__brand">Calvin Klein</span>
@@ -246,10 +240,7 @@
 
         <div class="product-card reveal" data-brand="remeras" data-subcategory="calvin-klein" data-delay="200">
           <div class="product-card__image">
-            <div class="product-card__carousel" data-images="https://drive.google.com/uc?export=view&id=1JBz5X9txLknxJmChfqdIxWxHbLINkXuV,https://drive.google.com/uc?export=view&id=1cLIu1jo2eysqseOPyHYkKPPmWDQKJTbw,https://drive.google.com/uc?export=view&id=1KnD5HT5iUUjHiHqAOw8gQwfFq7CFZ7ak,https://drive.google.com/uc?export=view&id=1zqAD8j33jsAG1njpoG3NN9ubEBDhPFTV">
-              <img src="https://drive.google.com/uc?export=view&id=1JBz5X9txLknxJmChfqdIxWxHbLINkXuV" alt="Calvin Klein Vtcl">
-              <div class="carousel__dots"></div>
-            </div>
+            <img src="https://lh3.googleusercontent.com/d/1JBz5X9txLknxJmChfqdIxWxHbLINkXuV" alt="Calvin Klein Vrtcl">
           </div>
           <div class="product-card__info">
             <span class="product-card__brand">Calvin Klein</span>
@@ -1020,8 +1011,14 @@
       <button class="product-modal__close" id="productModalClose" aria-label="Cerrar">&times;</button>
       <div class="product-modal__content">
         <div class="product-modal__image">
-          <div class="product-modal__placeholder" id="modalPlaceholder">
-            <span class="product-card__brand-watermark" id="modalBrandWatermark"></span>
+          <div class="modal-carousel" id="modalCarousel">
+            <img id="modalCarouselImg" src="" alt="">
+            <button class="modal-carousel__arrow modal-carousel__arrow--left" id="modalArrowLeft" aria-label="Imagen anterior">&#10094;</button>
+            <button class="modal-carousel__arrow modal-carousel__arrow--right" id="modalArrowRight" aria-label="Siguiente imagen">&#10095;</button>
+            <div class="modal-carousel__dots" id="modalDots"></div>
+            <div class="product-modal__placeholder" id="modalPlaceholder">
+              <span class="product-card__brand-watermark" id="modalBrandWatermark"></span>
+            </div>
           </div>
         </div>
         <div class="product-modal__details">

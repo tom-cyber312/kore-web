@@ -772,9 +772,9 @@ document.addEventListener('DOMContentLoaded', () => {
     'corteiz-world': { brand: 'Corteiz', name: 'Corteiz World', price: 18500, watermark: 'CTZ', category: 'remeras' },
     'air-jordan': { brand: 'Air Jordan', name: 'Air Jordan Tee', price: 15900, watermark: 'JRD', category: 'remeras' },
     'jordan-pink': { brand: 'Jordan', name: 'Jordan Pink', price: 16200, watermark: 'JRD', category: 'remeras' },
-    'ck-vrtc': { brand: 'Calvin Klein', name: 'Calvin Klein', price: 17500, watermark: 'CK', category: 'remeras' },
-    'ck-classic': { brand: 'Calvin Klein', name: 'Calvin Klein Clasic', price: 17500, watermark: 'CK', category: 'remeras' },
-    'ck-vtcl': { brand: 'Calvin Klein', name: 'Calvin Klein Vrtcl', price: 17000, watermark: 'CK', category: 'remeras' },
+    'ck-vrtc': { brand: 'Calvin Klein', name: 'Calvin Klein', price: 17500, watermark: 'CK', category: 'remeras', images: ['https://lh3.googleusercontent.com/d/1xgvJWlY76XaGZZ7GEpMYbFeHZ80AClMC','https://lh3.googleusercontent.com/d/1HDSQW-u5Jp66euVe4XgxSBAyfDn1bHQt','https://lh3.googleusercontent.com/d/1A9RFTiZpsTNKtv2sqftmylFZqwg7MEcm','https://lh3.googleusercontent.com/d/1p3DSlJY1xpd5loIZvFb2ZZOUBSsHn93v'] },
+    'ck-classic': { brand: 'Calvin Klein', name: 'Calvin Klein Clasic', price: 17500, watermark: 'CK', category: 'remeras', images: ['https://lh3.googleusercontent.com/d/1pF_pnBYgGQskwFN-WJq28JA5l-7dfYmC','https://lh3.googleusercontent.com/d/1SplfimZXf0PFME8dgLeYTeDOuaLp6ZTD','https://lh3.googleusercontent.com/d/199-bgLi-l8CyzuAERadNFVnLIyDaQ9q3','https://lh3.googleusercontent.com/d/1p3DSlJY1xpd5loIZvFb2ZZOUBSsHn93v'] },
+    'ck-vtcl': { brand: 'Calvin Klein', name: 'Calvin Klein Vrtcl', price: 17000, watermark: 'CK', category: 'remeras', images: ['https://lh3.googleusercontent.com/d/1JBz5X9txLknxJmChfqdIxWxHbLINkXuV','https://lh3.googleusercontent.com/d/1cLIu1jo2eysqseOPyHYkKPPmWDQKJTbw','https://lh3.googleusercontent.com/d/1KnD5HT5iUUjHiHqAOw8gQwfFq7CFZ7ak','https://lh3.googleusercontent.com/d/1zqAD8j33jsAG1njpoG3NN9ubEBDhPFTV'] },
     'nike-stussy': { brand: 'Nike x Stüssy', name: 'Nike x Stüssy Tee', price: 19800, watermark: 'NK', category: 'remeras' },
     'lacoste': { brand: 'Lacoste', name: 'Lacoste Classic', price: 15500, watermark: 'LAC', category: 'remeras' },
     'supreme': { brand: 'Supreme', name: 'Supreme Box Logo', price: 21000, watermark: 'SUP', category: 'remeras' },
@@ -832,44 +832,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalQtyMinus = document.querySelector('#modalQtySelector .qty-minus');
   const modalQtyPlus = document.querySelector('#modalQtySelector .qty-plus');
 
-  document.querySelectorAll('.product-card__carousel').forEach(carousel => {
-    const images = carousel.dataset.images.split(',');
-    const dotsContainer = carousel.querySelector('.carousel__dots');
-    let current = 0;
-
-    images.forEach((_, i) => {
-      const dot = document.createElement('button');
-      dot.className = 'carousel__dot' + (i === 0 ? ' active' : '');
-      dot.setAttribute('aria-label', 'Imagen ' + (i + 1));
-      dot.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        carousel.querySelector('img').src = images[i];
-        dotsContainer.querySelectorAll('.carousel__dot').forEach(d => d.classList.remove('active'));
-        dot.classList.add('active');
-        current = i;
-      });
-      dotsContainer.appendChild(dot);
-    });
-
-    let autoPlay = setInterval(() => {
-      current = (current + 1) % images.length;
-      carousel.querySelector('img').src = images[current];
-      dotsContainer.querySelectorAll('.carousel__dot').forEach(d => d.classList.remove('active'));
-      dotsContainer.children[current].classList.add('active');
-    }, 3000);
-
-    carousel.addEventListener('mouseenter', () => clearInterval(autoPlay));
-    carousel.addEventListener('mouseleave', () => {
-      autoPlay = setInterval(() => {
-        current = (current + 1) % images.length;
-        carousel.querySelector('img').src = images[current];
-        dotsContainer.querySelectorAll('.carousel__dot').forEach(d => d.classList.remove('active'));
-        dotsContainer.children[current].classList.add('active');
-      }, 3000);
-    });
-  });
-
   document.querySelectorAll('.product-card__quick-view').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -883,6 +845,46 @@ document.addEventListener('DOMContentLoaded', () => {
       modalBrand.textContent = data.brand;
       modalName.textContent = data.name;
       modalPrice.textContent = '$' + data.price.toLocaleString('es-AR');
+
+      const modalImg = document.getElementById('modalCarouselImg');
+      const modalDotsEl = document.getElementById('modalDots');
+      const arrowL = document.getElementById('modalArrowLeft');
+      const arrowR = document.getElementById('modalArrowRight');
+      const placeholder = document.getElementById('modalPlaceholder');
+
+      if (data.images && data.images.length > 0) {
+        let modalIdx = 0;
+        modalImg.src = data.images[0];
+        modalImg.style.display = 'block';
+        placeholder.style.display = 'none';
+        arrowL.style.display = 'flex';
+        arrowR.style.display = 'flex';
+        modalDotsEl.innerHTML = '';
+        data.images.forEach((_, i) => {
+          const dot = document.createElement('button');
+          dot.className = 'carousel__dot' + (i === 0 ? ' active' : '');
+          dot.addEventListener('click', () => {
+            modalIdx = i;
+            modalImg.src = data.images[i];
+            modalDotsEl.querySelectorAll('.carousel__dot').forEach(d => d.classList.remove('active'));
+            dot.classList.add('active');
+          });
+          modalDotsEl.appendChild(dot);
+        });
+        const updateModalImg = (idx) => {
+          modalIdx = idx;
+          modalImg.src = data.images[idx];
+          modalDotsEl.querySelectorAll('.carousel__dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+        };
+        arrowL.onclick = () => updateModalImg((modalIdx - 1 + data.images.length) % data.images.length);
+        arrowR.onclick = () => updateModalImg((modalIdx + 1) % data.images.length);
+      } else {
+        modalImg.style.display = 'none';
+        placeholder.style.display = 'flex';
+        arrowL.style.display = 'none';
+        arrowR.style.display = 'none';
+        modalDotsEl.innerHTML = '';
+      }
 
       renderSizeButtons(data.category);
 
