@@ -521,9 +521,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (shippingMethod.value === 'retiro') {
       empresaField.style.display = 'none';
       direccionField.style.display = 'none';
+      shippingCompany.removeAttribute('required');
     } else {
       empresaField.style.display = 'block';
       direccionField.style.display = 'block';
+      shippingCompany.setAttribute('required', 'true');
     }
   });
 
@@ -695,7 +697,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!isRetiro) {
       const shippingLabel = isViacargo ? 'Se paga al recibir' : getShippingLabel();
       html += '<div class="finish__line finish__shipping"><span>Envío</span><span>' + shippingLabel + '</span></div>';
-      html += '<div class="finish__line finish__shipping-note"><span class="shipping-note">El envío varía dependiendo de qué tipo de prendas lleves</span></div>';
+      if (!isViacargo) {
+        html += '<div class="finish__line finish__shipping-note"><span class="shipping-note">El envío varía dependiendo de qué tipo de prendas lleves</span></div>';
+      }
     }
     html += '<div class="finish__line finish__total"><span>Total</span><span>$' + total.toLocaleString('es-AR') + '</span></div>';
     return html;
