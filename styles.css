@@ -1891,6 +1891,7 @@ ul, ol {
 
 .cart-sidebar__footer {
   padding: 20px 24px;
+  padding-bottom: 40px;
   border-top: 1px solid var(--border);
   display: flex;
   flex-direction: column;
@@ -2585,6 +2586,7 @@ ul, ol {
    ======================================== */
 .cart-sidebar__checkout {
   padding: 20px;
+  padding-bottom: 40px;
   overflow-y: auto;
   flex: 1;
 }
@@ -2647,6 +2649,7 @@ ul, ol {
 /* Payment options */
 .cart-sidebar__payment {
   padding: 20px;
+  padding-bottom: 40px;
   overflow-y: auto;
   flex: 1;
 }
@@ -2712,6 +2715,7 @@ ul, ol {
 /* Transfer info */
 .cart-sidebar__transfer {
   padding: 20px;
+  padding-bottom: 40px;
   overflow-y: auto;
   flex: 1;
 }
@@ -2749,6 +2753,10 @@ ul, ol {
   font-weight: 600;
   text-align: right;
   word-break: break-word;
+}
+
+.transfer__value--green {
+  color: #4caf50;
 }
 
 .transfer__note {
@@ -2948,6 +2956,7 @@ ul, ol {
    ======================================== */
 .cart-sidebar__finish {
   padding: 20px;
+  padding-bottom: 40px;
   overflow-y: auto;
   flex: 1;
 }

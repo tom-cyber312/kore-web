@@ -345,26 +345,22 @@ document.addEventListener('DOMContentLoaded', () => {
     'DESCUENTO': { type: 'fixed', value: 1000 }
   };
 
-  function openCart() {
+  function openCart(resetSteps = true) {
     cartSidebar.classList.add('active');
     document.body.style.overflow = 'hidden';
-    checkoutForm.style.display = 'none';
-    paymentOptions.style.display = 'none';
-    transferInfo.style.display = 'none';
-    finishOrder.style.display = 'none';
-    cartItemsContainer.style.display = '';
-    if (cart.length > 0) cartFooter.style.display = 'flex';
+    if (resetSteps) {
+      checkoutForm.style.display = 'none';
+      paymentOptions.style.display = 'none';
+      transferInfo.style.display = 'none';
+      finishOrder.style.display = 'none';
+      cartItemsContainer.style.display = '';
+      if (cart.length > 0) cartFooter.style.display = 'flex';
+    }
   }
 
   function closeCart() {
     cartSidebar.classList.remove('active');
     document.body.style.overflow = '';
-    checkoutForm.style.display = 'none';
-    paymentOptions.style.display = 'none';
-    transferInfo.style.display = 'none';
-    finishOrder.style.display = 'none';
-    cartItemsContainer.style.display = '';
-    if (cart.length > 0) cartFooter.style.display = 'flex';
   }
 
   function updateCartUI() {
@@ -573,6 +569,12 @@ document.addEventListener('DOMContentLoaded', () => {
   payTransferBtn.addEventListener('click', () => {
     paymentOptions.style.display = 'none';
     transferSummaryEl.innerHTML = buildOrderSummary();
+    const transferShippingRow = document.getElementById('transferShippingRow');
+    if (shippingData.metodoValue === 'retiro') {
+      transferShippingRow.style.display = 'flex';
+    } else {
+      transferShippingRow.style.display = 'none';
+    }
     transferInfo.style.display = 'block';
   });
 
@@ -628,7 +630,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  cartBtn.addEventListener('click', openCart);
+  cartBtn.addEventListener('click', () => {
+    openCart();
+  });
   cartOverlay.addEventListener('click', closeCart);
   cartClose.addEventListener('click', closeCart);
 
