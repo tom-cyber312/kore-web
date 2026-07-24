@@ -782,7 +782,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'lacoste-since': { brand: 'Lacoste', name: 'Lacoste Since 1727', price: 17700, watermark: 'LAC', category: 'remeras', images: ['img/lac-since-1.jpg','img/lac-since-2.jpg','img/lac-since-3.jpg'] },
     'supreme-dolar': { brand: 'Supreme', name: 'Supreme Dolar', price: 17700, watermark: 'SUP', category: 'remeras', images: ['img/sup-dol-1.jpg','img/sup-dol-2.jpg','img/sup-dol-3.jpg','img/sup-dol-4.jpg'] },
     'supreme-camufrado': { brand: 'Supreme', name: 'Supreme Camufrado', price: 17700, watermark: 'SUP', category: 'remeras', images: ['img/sup-cam-1.jpg','img/sup-cam-2.jpg','img/sup-cam-3.jpg','img/sup-cam-4.jpg'] },
-    'supreme-corona': { brand: 'Supreme', name: 'Supreme Corona', price: 17700, watermark: 'SUP', category: 'remeras', images: ['img/sup-cor-1.jpg','img/sup-cor-2.jpg','img/sup-cor-3.jpg'] },
+    'supreme-corona': { brand: 'Supreme', name: 'Supreme Corona', price: 17700, watermark: 'SUP', category: 'remeras', images: ['img/sup-cor-1.jpg','img/sup-cor-2.jpg','img/sup-cor-3.jpg','img/sup-cor-4.jpg'] },
     'adidas': { brand: 'Adidas', name: 'Adidas OG Tee', price: 14200, watermark: 'ADI', category: 'remeras' },
     'bape-shark': { brand: 'Bape', name: 'Bape Shark Tee', price: 18900, watermark: 'BPE', category: 'remeras' },
     'bape-camo': { brand: 'Bape', name: 'Bape Camo Tee', price: 19500, watermark: 'BPE', category: 'remeras' },
