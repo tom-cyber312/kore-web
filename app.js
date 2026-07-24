@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   dropsCartBtn.addEventListener('click', () => {
-    dropsSection.classList.remove('visible');
     openCart();
   });
 
