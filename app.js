@@ -472,16 +472,19 @@ document.addEventListener('DOMContentLoaded', () => {
         discount = Math.min(appliedCoupon.value, subtotal);
       }
     }
+    const isRetiro = shippingData.metodoValue === 'retiro';
     const isViacargo = shippingData.empresa && shippingData.empresa.toLowerCase().includes('cargo');
-    const shippingCost = isViacargo ? 0 : getShippingCost();
-    const shippingLabel = isViacargo ? 'Se paga al recibir' : getShippingLabel();
+    const shippingCost = isRetiro ? 0 : (isViacargo ? 0 : getShippingCost());
     const total = subtotal - discount + shippingCost;
     msg += '\nSubtotal: $' + subtotal.toLocaleString('es-AR');
     if (discount > 0) {
       msg += '\nDescuento (' + appliedCoupon.code + '): -$' + discount.toLocaleString('es-AR');
     }
-    msg += '\nEnvío: ' + shippingLabel;
-    msg += '\n(El envío varía dependiendo de qué tipo de prendas lleves)';
+    if (!isRetiro) {
+      const shippingLabel = isViacargo ? 'Se paga al recibir' : getShippingLabel();
+      msg += '\nEnvío: ' + shippingLabel;
+      msg += '\n(El envío varía dependiendo de qué tipo de prendas lleves)';
+    }
     msg += '\nTotal: $' + total.toLocaleString('es-AR');
     msg += '\n\n--- Datos de envío ---';
     msg += '\nMétodo: ' + shippingData.metodo;
@@ -675,9 +678,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     const afterDiscount = subtotal - discount;
+    const isRetiro = shippingData.metodoValue === 'retiro';
     const isViacargo = shippingData.empresa && shippingData.empresa.toLowerCase().includes('cargo');
-    const shippingCost = isViacargo ? 0 : getShippingCost();
-    const shippingLabel = isViacargo ? 'Se paga al recibir' : getShippingLabel();
+    const shippingCost = isRetiro ? 0 : (isViacargo ? 0 : getShippingCost());
     const total = afterDiscount + shippingCost;
 
     let html = '<div class="finish__items">';
@@ -689,8 +692,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (discount > 0) {
       html += '<div class="finish__line finish__discount"><span>Descuento (' + appliedCoupon.code + ')</span><span>-$' + discount.toLocaleString('es-AR') + '</span></div>';
     }
-    html += '<div class="finish__line finish__shipping"><span>Envío</span><span>' + shippingLabel + '</span></div>';
-    html += '<div class="finish__line finish__shipping-note"><span class="shipping-note">El envío varía dependiendo de qué tipo de prendas lleves</span></div>';
+    if (!isRetiro) {
+      const shippingLabel = isViacargo ? 'Se paga al recibir' : getShippingLabel();
+      html += '<div class="finish__line finish__shipping"><span>Envío</span><span>' + shippingLabel + '</span></div>';
+      html += '<div class="finish__line finish__shipping-note"><span class="shipping-note">El envío varía dependiendo de qué tipo de prendas lleves</span></div>';
+    }
     html += '<div class="finish__line finish__total"><span>Total</span><span>$' + total.toLocaleString('es-AR') + '</span></div>';
     return html;
   }
