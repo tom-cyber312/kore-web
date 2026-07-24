@@ -993,6 +993,26 @@ ul, ol {
   overflow: hidden;
 }
 
+.product-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.product-card__image::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: url('https://drive.google.com/uc?export=view&id=10t1InzNI4IXYhFNK0gwu5Fz4aMOzfdcZ') no-repeat center bottom;
+  background-size: contain;
+  pointer-events: none;
+  z-index: 2;
+}
+
 .product-card__placeholder {
   width: 100%;
   height: 100%;
@@ -1018,6 +1038,45 @@ ul, ol {
   top: 12px;
   left: 12px;
   z-index: 2;
+}
+
+.product-card__carousel {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.product-card__carousel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.4s ease;
+}
+
+.carousel__dots {
+  position: absolute;
+  bottom: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 3;
+}
+
+.carousel__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s;
+}
+
+.carousel__dot.active {
+  background: var(--white);
 }
 
 .product-card__quick-view {

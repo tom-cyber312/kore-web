@@ -772,8 +772,9 @@ document.addEventListener('DOMContentLoaded', () => {
     'corteiz-world': { brand: 'Corteiz', name: 'Corteiz World', price: 18500, watermark: 'CTZ', category: 'remeras' },
     'air-jordan': { brand: 'Air Jordan', name: 'Air Jordan Tee', price: 15900, watermark: 'JRD', category: 'remeras' },
     'jordan-pink': { brand: 'Jordan', name: 'Jordan Pink', price: 16200, watermark: 'JRD', category: 'remeras' },
-    'ck-vrtc': { brand: 'Calvin Klein', name: 'Calvin Klein Vrtc', price: 14900, watermark: 'CK', category: 'remeras' },
-    'ck-classic': { brand: 'Calvin Klein', name: 'Calvin Klein Clásic', price: 14500, watermark: 'CK', category: 'remeras' },
+    'ck-vrtc': { brand: 'Calvin Klein', name: 'Calvin Klein', price: 14900, watermark: 'CK', category: 'remeras' },
+    'ck-classic': { brand: 'Calvin Klein', name: 'Calvin Klein Clasic', price: 14500, watermark: 'CK', category: 'remeras' },
+    'ck-vtcl': { brand: 'Calvin Klein', name: 'Calvin Klein Vtcl', price: 14900, watermark: 'CK', category: 'remeras' },
     'nike-stussy': { brand: 'Nike x Stüssy', name: 'Nike x Stüssy Tee', price: 19800, watermark: 'NK', category: 'remeras' },
     'lacoste': { brand: 'Lacoste', name: 'Lacoste Classic', price: 15500, watermark: 'LAC', category: 'remeras' },
     'supreme': { brand: 'Supreme', name: 'Supreme Box Logo', price: 21000, watermark: 'SUP', category: 'remeras' },
@@ -830,6 +831,44 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalQtyValue = document.getElementById('modalQtyValue');
   const modalQtyMinus = document.querySelector('#modalQtySelector .qty-minus');
   const modalQtyPlus = document.querySelector('#modalQtySelector .qty-plus');
+
+  document.querySelectorAll('.product-card__carousel').forEach(carousel => {
+    const images = carousel.dataset.images.split(',');
+    const dotsContainer = carousel.querySelector('.carousel__dots');
+    let current = 0;
+
+    images.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'carousel__dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Imagen ' + (i + 1));
+      dot.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        carousel.querySelector('img').src = images[i];
+        dotsContainer.querySelectorAll('.carousel__dot').forEach(d => d.classList.remove('active'));
+        dot.classList.add('active');
+        current = i;
+      });
+      dotsContainer.appendChild(dot);
+    });
+
+    let autoPlay = setInterval(() => {
+      current = (current + 1) % images.length;
+      carousel.querySelector('img').src = images[current];
+      dotsContainer.querySelectorAll('.carousel__dot').forEach(d => d.classList.remove('active'));
+      dotsContainer.children[current].classList.add('active');
+    }, 3000);
+
+    carousel.addEventListener('mouseenter', () => clearInterval(autoPlay));
+    carousel.addEventListener('mouseleave', () => {
+      autoPlay = setInterval(() => {
+        current = (current + 1) % images.length;
+        carousel.querySelector('img').src = images[current];
+        dotsContainer.querySelectorAll('.carousel__dot').forEach(d => d.classList.remove('active'));
+        dotsContainer.children[current].classList.add('active');
+      }, 3000);
+    });
+  });
 
   document.querySelectorAll('.product-card__quick-view').forEach(btn => {
     btn.addEventListener('click', (e) => {
