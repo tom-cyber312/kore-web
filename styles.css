@@ -2004,7 +2004,8 @@ ul, ol {
 .modal-carousel img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  background: #1a1a1a;
   display: block;
 }
 
