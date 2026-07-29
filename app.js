@@ -866,14 +866,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const placeholder = document.getElementById('modalPlaceholder');
 
       function applyImageStyles(pid, idx) {
-        modalImg.style.transform = 'none';
         modalImg.style.objectPosition = 'center';
-        modalImg.style.maxWidth = '';
-        modalImg.style.maxHeight = '';
         if (pid === 'corteiz-pant' && idx === 2) {
           modalImg.style.objectPosition = 'center 18%';
-        } else if (pid === 'corteiz-chico-pant' && idx === 2) {
-          modalImg.style.transform = 'scale(0.8)';
         } else if (pid === 'corteiz-chico-pant' && idx === 4) {
           modalImg.style.objectPosition = '32% 30%';
         }
