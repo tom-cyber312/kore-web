@@ -801,14 +801,14 @@ document.addEventListener('DOMContentLoaded', () => {
     'adidas-clasic': { brand: 'Adidas', name: 'Adidas Clasic', price: 16900, watermark: 'ADI', category: 'remeras', images: ['img/adi-cla-1.jpg','img/adi-cla-2.jpg','img/adi-cla-3.jpg','img/adi-cla-4.jpg'] },
     'bape-shark': { brand: 'Bape', name: 'Bape Shark', price: 17400, watermark: 'BPE', category: 'remeras', images: ['img/bap-shk-1.jpg','img/bap-shk-2.jpg','img/bap-shk-3.jpg'] },
     'bape-bathing': { brand: 'Bape', name: 'A Bathing Ape', price: 17400, watermark: 'BPE', category: 'remeras', images: ['img/bap-bath-1.jpg','img/bap-bath-2.jpg','img/bap-bath-3.jpg','img/bap-bath-4.jpg'] },
-    'corteiz-chico-pant': { brand: 'Corteiz', name: 'Corteiz Chico', price: 34500, watermark: 'CTZ', category: 'pantalones', images: ['img/ctz-pant-chi-1.jpg','img/ctz-pant-chi-2.jpg','img/ctz-pant-chi-3.jpg','img/ctz-pant-chi-4.jpg','img/ctz-pant-chi-5.jpg','img/ctz-pant-chi-6.jpg','img/ctz-pant-chi-7.jpg','img/ctz-pant-chi-8.jpg'], hasDiseno: true },
+    'corteiz-chico-pant': { brand: 'Corteiz', name: 'Corteiz Chico', price: 34500, watermark: 'CTZ', category: 'pantalones', images: ['img/ctz-pant-chi-1.jpg','img/ctz-pant-chi-2.jpg','img/ctz-pant-chi-3.jpg','img/ctz-pant-chi-4.jpg','img/ctz-pant-chi-5.jpg','img/ctz-pant-chi-6.jpg','img/ctz-pant-chi-7.jpg','img/ctz-pant-chi-8.jpg'], hasDiseno: true, disenos: [{ name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Celeste', bg: '#64b5f6', border: 'none' }] },
     'corteiz-pant': { brand: 'Corteiz', name: 'Corteiz', price: 35250, watermark: 'CTZ', category: 'pantalones', images: ['img/ctz-pant-1.jpg','img/ctz-pant-2.jpg','img/ctz-pant-3.jpg','img/ctz-pant-4.jpg'] },
     'corteiz-crtz-pant': { brand: 'Corteiz', name: 'Corteiz CRTZ', price: 35000, watermark: 'CTZ', category: 'pantalones', images: ['img/ctz-pant-crtz-1.jpg','img/ctz-pant-crtz-2.jpg','img/ctz-pant-crtz-3.jpg','img/ctz-pant-crtz-4.jpg'] },
     'nocta-pant': { brand: 'Nocta', name: 'Nocta', price: 34700, watermark: 'NCT', category: 'pantalones', images: ['img/nct-pant-1.jpg','img/nct-pant-2.jpg','img/nct-pant-3.jpg','img/nct-pant-4.jpg'] },
     'nocta-nike-pant': { brand: 'Nocta', name: 'Nocta x Nike', price: 34700, watermark: 'NCT', category: 'pantalones', images: ['img/nct-nike-1.jpg','img/nct-nike-2.jpg','img/nct-nike-3.jpg','img/nct-nike-4.jpg'] },
-    'hellstar-large-pant': { brand: 'Hellstar', name: 'Hellstar large', price: 35100, watermark: 'HLS', category: 'pantalones', images: ['img/hst-large-1.jpg','img/hst-large-2.jpg','img/hst-large-3.jpg','img/hst-large-4.jpg','img/hst-large-5.jpg','img/hst-large-6.jpg','img/hst-large-7.jpg','img/hst-large-8.jpg'], hasDiseno: true },
-    'hellstar-logo-pant': { brand: 'Hellstar', name: 'Hellstar logo', price: 35500, watermark: 'HLS', category: 'pantalones', images: ['img/hst-logo-1.jpg','img/hst-logo-2.jpg','img/hst-logo-3.jpg','img/hst-logo-4.jpg','img/hst-logo-5.jpg','img/hst-logo-6.jpg','img/hst-logo-7.jpg','img/hst-logo-8.jpg'], hasDiseno: true },
-    'hellstar-chico-pant': { brand: 'Hellstar', name: 'Hellstar chico', price: 34300, watermark: 'HLS', category: 'pantalones', images: ['img/hst-chico-1.jpg','img/hst-chico-2.jpg','img/hst-chico-3.jpg','img/hst-chico-4.jpg','img/hst-chico-5.jpg','img/hst-chico-6.jpg','img/hst-chico-7.jpg','img/hst-chico-8.jpg'], hasDiseno: true },
+    'hellstar-large-pant': { brand: 'Hellstar', name: 'Hellstar large', price: 35100, watermark: 'HLS', category: 'pantalones', images: ['img/hst-large-1.jpg','img/hst-large-2.jpg','img/hst-large-3.jpg','img/hst-large-4.jpg','img/hst-large-5.jpg','img/hst-large-6.jpg','img/hst-large-7.jpg','img/hst-large-8.jpg'], hasDiseno: true, disenos: [{ name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Blanco', bg: '#ffffff', border: '#ccc' }] },
+    'hellstar-logo-pant': { brand: 'Hellstar', name: 'Hellstar logo', price: 35500, watermark: 'HLS', category: 'pantalones', images: ['img/hst-logo-1.jpg','img/hst-logo-2.jpg','img/hst-logo-3.jpg','img/hst-logo-4.jpg','img/hst-logo-5.jpg','img/hst-logo-6.jpg','img/hst-logo-7.jpg','img/hst-logo-8.jpg'], hasDiseno: true, disenos: [{ name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Blanco', bg: '#ffffff', border: '#ccc' }] },
+    'hellstar-chico-pant': { brand: 'Hellstar', name: 'Hellstar chico', price: 34300, watermark: 'HLS', category: 'pantalones', images: ['img/hst-chico-1.jpg','img/hst-chico-2.jpg','img/hst-chico-3.jpg','img/hst-chico-4.jpg','img/hst-chico-5.jpg','img/hst-chico-6.jpg','img/hst-chico-7.jpg','img/hst-chico-8.jpg'], hasDiseno: true, disenos: [{ name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Blanco', bg: '#ffffff', border: '#ccc' }] },
     'corteiz-shell': { brand: 'Corteiz', name: 'Corteiz Shell Jacket', price: 48000, watermark: 'CTZ', category: 'camperas' },
     'corteiz-puffer': { brand: 'Corteiz', name: 'Corteiz Puffer', price: 52000, watermark: 'CTZ', category: 'camperas' },
     'chrome-denim': { brand: 'Chrome Heart', name: 'Chrome Heart Denim Jacket', price: 65000, watermark: 'CH', category: 'camperas' },
@@ -949,7 +949,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (data.hasDiseno && disenoSelector && disenoContainer) {
         disenoSelector.style.display = 'block';
         disenoContainer.innerHTML = '';
-        const disenos = [
+        const disenos = data.disenos || [
           { name: 'Negro', bg: '#1a1a1a', border: 'none' },
           { name: 'Celeste', bg: '#64b5f6', border: 'none' }
         ];
