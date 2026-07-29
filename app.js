@@ -804,6 +804,8 @@ document.addEventListener('DOMContentLoaded', () => {
     'corteiz-chico-pant': { brand: 'Corteiz', name: 'Corteiz Chico', price: 34500, watermark: 'CTZ', category: 'pantalones', images: ['img/ctz-pant-chi-1.jpg','img/ctz-pant-chi-2.jpg','img/ctz-pant-chi-3.jpg','img/ctz-pant-chi-4.jpg','img/ctz-pant-chi-5.jpg','img/ctz-pant-chi-6.jpg','img/ctz-pant-chi-7.jpg','img/ctz-pant-chi-8.jpg'], hasDiseno: true },
     'corteiz-pant': { brand: 'Corteiz', name: 'Corteiz', price: 35250, watermark: 'CTZ', category: 'pantalones', images: ['img/ctz-pant-1.jpg','img/ctz-pant-2.jpg','img/ctz-pant-3.jpg','img/ctz-pant-4.jpg'] },
     'corteiz-crtz-pant': { brand: 'Corteiz', name: 'Corteiz CRTZ', price: 35000, watermark: 'CTZ', category: 'pantalones', images: ['img/ctz-pant-crtz-1.jpg','img/ctz-pant-crtz-2.jpg','img/ctz-pant-crtz-3.jpg','img/ctz-pant-crtz-4.jpg'] },
+    'nocta-pant': { brand: 'Nocta', name: 'Nocta', price: 34700, watermark: 'NCT', category: 'pantalones', images: ['img/nct-pant-1.jpg','img/nct-pant-2.jpg','img/nct-pant-3.jpg','img/nct-pant-4.jpg'] },
+    'nocta-nike-pant': { brand: 'Nocta', name: 'Nocta x Nike', price: 34700, watermark: 'NCT', category: 'pantalones', images: ['img/nct-nike-1.jpg','img/nct-nike-2.jpg','img/nct-nike-3.jpg','img/nct-nike-4.jpg'] },
     'corteiz-shell': { brand: 'Corteiz', name: 'Corteiz Shell Jacket', price: 48000, watermark: 'CTZ', category: 'camperas' },
     'corteiz-puffer': { brand: 'Corteiz', name: 'Corteiz Puffer', price: 52000, watermark: 'CTZ', category: 'camperas' },
     'chrome-denim': { brand: 'Chrome Heart', name: 'Chrome Heart Denim Jacket', price: 65000, watermark: 'CH', category: 'camperas' },
