@@ -1993,7 +1993,7 @@ ul, ol {
 }
 
 .product-modal__image {
-  height: 520px;
+  height: 600px;
 }
 
 .modal-carousel {
@@ -2397,7 +2397,7 @@ ul, ol {
   }
 
   .product-modal__image {
-    height: 450px;
+    height: 520px;
   }
 }
 
