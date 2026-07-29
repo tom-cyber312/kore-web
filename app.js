@@ -875,11 +875,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       function applyImageStyles(pid, idx) {
         modalImg.style.objectPosition = 'center';
-        if (pid === 'corteiz-pant' && idx === 2) {
-          modalImg.style.objectPosition = 'center 18%';
-        } else if (pid === 'corteiz-chico-pant' && idx === 4) {
-          modalImg.style.objectPosition = '32% 30%';
-        }
       }
 
       if (data.images && data.images.length > 0) {
