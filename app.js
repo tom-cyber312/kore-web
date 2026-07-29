@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const subcategories = {
     remeras: ['jordan', 'nike', 'corteiz', 'supreme', 'adidas', 'lacoste', 'calvin-klein', 'bape'],
-    pantalones: ['corteiz'],
+    pantalones: ['chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz'],
     camperas: ['chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz']
   };
 
@@ -865,6 +865,20 @@ document.addEventListener('DOMContentLoaded', () => {
       const arrowR = document.getElementById('modalArrowRight');
       const placeholder = document.getElementById('modalPlaceholder');
 
+      function applyImageStyles(pid, idx) {
+        modalImg.style.transform = 'none';
+        modalImg.style.objectPosition = 'center';
+        modalImg.style.maxWidth = '';
+        modalImg.style.maxHeight = '';
+        if (pid === 'corteiz-pant' && idx === 2) {
+          modalImg.style.objectPosition = 'center 18%';
+        } else if (pid === 'corteiz-chico-pant' && idx === 2) {
+          modalImg.style.transform = 'scale(0.8)';
+        } else if (pid === 'corteiz-chico-pant' && idx === 4) {
+          modalImg.style.objectPosition = '32% 30%';
+        }
+      }
+
       if (data.images && data.images.length > 0) {
         let modalIdx = 0;
         modalImg.src = data.images[0];
@@ -873,6 +887,7 @@ document.addEventListener('DOMContentLoaded', () => {
         arrowL.style.display = 'flex';
         arrowR.style.display = 'flex';
         modalDotsEl.innerHTML = '';
+        applyImageStyles(productId, 0);
         data.images.forEach((_, i) => {
           const dot = document.createElement('button');
           dot.className = 'carousel__dot' + (i === 0 ? ' active' : '');
@@ -881,6 +896,7 @@ document.addEventListener('DOMContentLoaded', () => {
             modalImg.src = data.images[i];
             modalDotsEl.querySelectorAll('.carousel__dot').forEach(d => d.classList.remove('active'));
             dot.classList.add('active');
+            applyImageStyles(productId, i);
           });
           modalDotsEl.appendChild(dot);
         });
@@ -895,6 +911,7 @@ document.addEventListener('DOMContentLoaded', () => {
           modalIdx = idx;
           modalImg.src = data.images[idx];
           modalDotsEl.querySelectorAll('.carousel__dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+          applyImageStyles(productId, idx);
         };
         arrowL.onclick = () => updateModalImg((modalIdx - 1 + data.images.length) % data.images.length);
         arrowR.onclick = () => updateModalImg((modalIdx + 1) % data.images.length);
@@ -1018,7 +1035,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const talle = activeSize ? activeSize.dataset.size : defaultSizes[0];
       let color = activeColor ? activeColor.dataset.color : 'Negro';
       if (activeDiseno) {
-        color = activeDiseno.dataset.diseno;
+        color = color + ' / ' + activeDiseno.dataset.diseno;
       }
       addToCart(currentModalProduct.name, currentModalProduct.price, talle, color, modalQty, false);
       modalQty = 1;
