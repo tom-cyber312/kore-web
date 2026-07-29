@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const subcategories = {
     remeras: ['jordan', 'nike', 'corteiz', 'supreme', 'adidas', 'lacoste', 'calvin-klein', 'bape'],
-    pantalones: ['chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz'],
+    pantalones: ['corteiz'],
     camperas: ['chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz']
   };
 
@@ -801,19 +801,9 @@ document.addEventListener('DOMContentLoaded', () => {
     'adidas-clasic': { brand: 'Adidas', name: 'Adidas Clasic', price: 16900, watermark: 'ADI', category: 'remeras', images: ['img/adi-cla-1.jpg','img/adi-cla-2.jpg','img/adi-cla-3.jpg','img/adi-cla-4.jpg'] },
     'bape-shark': { brand: 'Bape', name: 'Bape Shark', price: 17400, watermark: 'BPE', category: 'remeras', images: ['img/bap-shk-1.jpg','img/bap-shk-2.jpg','img/bap-shk-3.jpg'] },
     'bape-bathing': { brand: 'Bape', name: 'A Bathing Ape', price: 17400, watermark: 'BPE', category: 'remeras', images: ['img/bap-bath-1.jpg','img/bap-bath-2.jpg','img/bap-bath-3.jpg','img/bap-bath-4.jpg'] },
-    'corteiz-cargo': { brand: 'Corteiz', name: 'Corteiz Cargo Pant', price: 28500, watermark: 'CTZ', category: 'pantalones' },
-    'corteiz-track': { brand: 'Corteiz', name: 'Corteiz Track Pant', price: 26800, watermark: 'CTZ', category: 'pantalones' },
     'corteiz-chico-pant': { brand: 'Corteiz', name: 'Corteiz Chico', price: 34500, watermark: 'CTZ', category: 'pantalones', images: ['img/ctz-pant-chi-1.jpg','img/ctz-pant-chi-2.jpg','img/ctz-pant-chi-3.jpg','img/ctz-pant-chi-4.jpg','img/ctz-pant-chi-5.jpg','img/ctz-pant-chi-6.jpg','img/ctz-pant-chi-7.jpg','img/ctz-pant-chi-8.jpg'], hasDiseno: true },
     'corteiz-pant': { brand: 'Corteiz', name: 'Corteiz', price: 35250, watermark: 'CTZ', category: 'pantalones', images: ['img/ctz-pant-1.jpg','img/ctz-pant-2.jpg','img/ctz-pant-3.jpg','img/ctz-pant-4.jpg'] },
     'corteiz-crtz-pant': { brand: 'Corteiz', name: 'Corteiz CRTZ', price: 35000, watermark: 'CTZ', category: 'pantalones', images: ['img/ctz-pant-crtz-1.jpg','img/ctz-pant-crtz-2.jpg','img/ctz-pant-crtz-3.jpg','img/ctz-pant-crtz-4.jpg'] },
-    'chrome-jeans': { brand: 'Chrome Heart', name: 'Chrome Heart Jeans', price: 35000, watermark: 'CH', category: 'pantalones' },
-    'chrome-cargo': { brand: 'Chrome Heart', name: 'Chrome Heart Cargo', price: 38500, watermark: 'CH', category: 'pantalones' },
-    'hellstar-sweat': { brand: 'Hellstar', name: 'Hellstar Sweatpant', price: 29900, watermark: 'HLS', category: 'pantalones' },
-    'hellstar-track': { brand: 'Hellstar', name: 'Hellstar Track Pant', price: 31200, watermark: 'HLS', category: 'pantalones' },
-    'trapstar-chaleco': { brand: 'Trapstar', name: 'Trapstar Chaleco Pant', price: 27500, watermark: 'TSP', category: 'pantalones' },
-    'trapstar-ice': { brand: 'Trapstar', name: 'Trapstar Ice Pant', price: 30800, watermark: 'TSP', category: 'pantalones' },
-    'nocta-track': { brand: 'Nocta', name: 'Nocta Track Pant', price: 33500, watermark: 'NCT', category: 'pantalones' },
-    'nocta-fleece': { brand: 'Nocta', name: 'Nocta Fleece Pant', price: 35200, watermark: 'NCT', category: 'pantalones' },
     'corteiz-shell': { brand: 'Corteiz', name: 'Corteiz Shell Jacket', price: 48000, watermark: 'CTZ', category: 'camperas' },
     'corteiz-puffer': { brand: 'Corteiz', name: 'Corteiz Puffer', price: 52000, watermark: 'CTZ', category: 'camperas' },
     'chrome-denim': { brand: 'Chrome Heart', name: 'Chrome Heart Denim Jacket', price: 65000, watermark: 'CH', category: 'camperas' },
