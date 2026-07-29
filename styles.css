@@ -2158,6 +2158,45 @@ ul, ol {
   box-shadow: 0 0 0 3px rgba(244, 143, 177, 0.2);
 }
 
+.diseno-selector {
+  display: flex;
+  gap: 8px;
+}
+
+.diseno-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--gray-light);
+  color: var(--white-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.diseno-btn:hover {
+  border-color: var(--border-hover);
+  color: var(--white);
+}
+
+.diseno-btn.active {
+  border-color: var(--red);
+  color: var(--white);
+  background: rgba(244, 143, 177, 0.1);
+}
+
+.diseno-btn__swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
 /* ========================================
    SCROLL ANIMATIONS
    ======================================== */

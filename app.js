@@ -803,6 +803,9 @@ document.addEventListener('DOMContentLoaded', () => {
     'bape-bathing': { brand: 'Bape', name: 'A Bathing Ape', price: 17400, watermark: 'BPE', category: 'remeras', images: ['img/bap-bath-1.jpg','img/bap-bath-2.jpg','img/bap-bath-3.jpg','img/bap-bath-4.jpg'] },
     'corteiz-cargo': { brand: 'Corteiz', name: 'Corteiz Cargo Pant', price: 28500, watermark: 'CTZ', category: 'pantalones' },
     'corteiz-track': { brand: 'Corteiz', name: 'Corteiz Track Pant', price: 26800, watermark: 'CTZ', category: 'pantalones' },
+    'corteiz-chico-pant': { brand: 'Corteiz', name: 'Corteiz Chico', price: 34500, watermark: 'CTZ', category: 'pantalones', images: ['img/ctz-pant-chi-1.jpg','img/ctz-pant-chi-2.jpg','img/ctz-pant-chi-3.jpg','img/ctz-pant-chi-4.jpg','img/ctz-pant-chi-5.jpg','img/ctz-pant-chi-6.jpg','img/ctz-pant-chi-7.jpg','img/ctz-pant-chi-8.jpg'], hasDiseno: true },
+    'corteiz-pant': { brand: 'Corteiz', name: 'Corteiz', price: 35250, watermark: 'CTZ', category: 'pantalones', images: ['img/ctz-pant-1.jpg','img/ctz-pant-2.jpg','img/ctz-pant-3.jpg','img/ctz-pant-4.jpg'] },
+    'corteiz-crtz-pant': { brand: 'Corteiz', name: 'Corteiz CRTZ', price: 35000, watermark: 'CTZ', category: 'pantalones', images: ['img/ctz-pant-crtz-1.jpg','img/ctz-pant-crtz-2.jpg','img/ctz-pant-crtz-3.jpg','img/ctz-pant-crtz-4.jpg'] },
     'chrome-jeans': { brand: 'Chrome Heart', name: 'Chrome Heart Jeans', price: 35000, watermark: 'CH', category: 'pantalones' },
     'chrome-cargo': { brand: 'Chrome Heart', name: 'Chrome Heart Cargo', price: 38500, watermark: 'CH', category: 'pantalones' },
     'hellstar-sweat': { brand: 'Hellstar', name: 'Hellstar Sweatpant', price: 29900, watermark: 'HLS', category: 'pantalones' },
@@ -934,6 +937,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
 
+      const disenoSelector = document.getElementById('disenoSelector');
+      const disenoContainer = document.querySelector('.diseno-selector');
+      if (data.hasDiseno && disenoSelector && disenoContainer) {
+        disenoSelector.style.display = 'block';
+        disenoContainer.innerHTML = '';
+        const disenos = [
+          { name: 'Negro', bg: '#1a1a1a', border: 'none' },
+          { name: 'Celeste', bg: '#64b5f6', border: 'none' }
+        ];
+        disenos.forEach((d, i) => {
+          const dbtn = document.createElement('button');
+          dbtn.className = 'diseno-btn' + (i === 0 ? ' active' : '');
+          dbtn.dataset.diseno = d.name;
+          dbtn.innerHTML = '<span class="diseno-btn__swatch" style="background:' + d.bg + '"></span>' + d.name;
+          dbtn.setAttribute('aria-label', d.name);
+          disenoContainer.appendChild(dbtn);
+        });
+        disenoContainer.querySelectorAll('.diseno-btn').forEach(dbtn => {
+          dbtn.addEventListener('click', () => {
+            disenoContainer.querySelectorAll('.diseno-btn').forEach(b => b.classList.remove('active'));
+            dbtn.classList.add('active');
+          });
+        });
+      } else if (disenoSelector) {
+        disenoSelector.style.display = 'none';
+      }
+
       modalQty = 1;
       if (modalQtyValue) modalQtyValue.textContent = '1';
 
@@ -993,9 +1023,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentModalProduct) {
       const activeSize = document.querySelector('.size-btn.active');
       const activeColor = document.querySelector('.color-btn.active');
+      const activeDiseno = document.querySelector('.diseno-btn.active');
       const defaultSizes = sizeSets[currentModalProduct.category] || sizeSets.remeras;
       const talle = activeSize ? activeSize.dataset.size : defaultSizes[0];
-      const color = activeColor ? activeColor.dataset.color : 'Negro';
+      let color = activeColor ? activeColor.dataset.color : 'Negro';
+      if (activeDiseno) {
+        color = activeDiseno.dataset.diseno;
+      }
       addToCart(currentModalProduct.name, currentModalProduct.price, talle, color, modalQty, false);
       modalQty = 1;
       if (modalQtyValue) modalQtyValue.textContent = '1';
