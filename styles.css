@@ -989,7 +989,7 @@ ul, ol {
 
 .product-card__image {
   position: relative;
-  height: 400px;
+  height: 520px;
   overflow: hidden;
 }
 
@@ -2539,7 +2539,7 @@ ul, ol {
   }
 
   .product-card__image {
-    height: 320px;
+    height: 420px;
   }
 
   .product-card__quick-view {
@@ -2659,7 +2659,7 @@ ul, ol {
   }
 
   .product-card__image {
-    height: 280px;
+    height: 380px;
   }
 
   .product-card__info {
