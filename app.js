@@ -827,19 +827,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const colorSets = {
     remeras: [
-      { name: 'Negro', bg: '#1a1a1a', border: 'none' },
+      { name: 'Negro', bg: '#1a1a1a', border: '1px solid #555' },
       { name: 'Blanco', bg: '#f5f5f5', border: '1px solid #333' },
       { name: 'Rojo', bg: '#e53935', border: 'none' },
       { name: 'Azul', bg: '#1e88e5', border: 'none' }
     ],
     pantalones: [
-      { name: 'Negro', bg: '#1a1a1a', border: 'none' },
+      { name: 'Negro', bg: '#1a1a1a', border: '1px solid #555' },
       { name: 'Blanco', bg: '#f5f5f5', border: '1px solid #333' },
       { name: 'Gris', bg: '#888', border: 'none' },
       { name: 'Rosa Bebé', bg: '#f8bbd0', border: 'none' }
     ],
     camperas: [
-      { name: 'Negro', bg: '#1a1a1a', border: 'none' },
+      { name: 'Negro', bg: '#1a1a1a', border: '1px solid #555' },
       { name: 'Blanco', bg: '#f5f5f5', border: '1px solid #333' },
       { name: 'Gris', bg: '#888', border: 'none' },
       { name: 'Rosa Bebé', bg: '#f8bbd0', border: 'none' }
