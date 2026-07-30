@@ -937,15 +937,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const colors = colorSets[data.category] || colorSets.remeras;
       colorSelectorContainer.innerHTML = '';
-      colors.forEach((c, i) => {
-        const cbtn = document.createElement('button');
-        cbtn.className = 'color-btn' + (i === 0 ? ' active' : '');
-        cbtn.dataset.color = c.name;
-        cbtn.style.background = c.bg;
-        if (c.border !== 'none') cbtn.style.border = c.border;
-        cbtn.setAttribute('aria-label', c.name);
-        colorSelectorContainer.appendChild(cbtn);
-      });
+        colors.forEach((c, i) => {
+          const cbtn = document.createElement('button');
+          cbtn.className = 'color-btn' + (i === 0 ? ' active' : '');
+          cbtn.dataset.color = c.name;
+          cbtn.style.background = c.bg;
+          if (c.border !== 'none') cbtn.style.border = c.border;
+          cbtn.setAttribute('aria-label', c.name);
+          if (data.category === 'pantalones' && c.name === 'Blanco') {
+            cbtn.classList.add('color-btn--disabled');
+            cbtn.classList.remove('active');
+          }
+          colorSelectorContainer.appendChild(cbtn);
+        });
 
       colorSelectorContainer.querySelectorAll('.color-btn').forEach(cbtn => {
         cbtn.addEventListener('click', () => {
@@ -969,10 +973,6 @@ document.addEventListener('DOMContentLoaded', () => {
           dbtn.dataset.diseno = d.name;
           dbtn.innerHTML = '<span class="diseno-btn__swatch" style="background:' + d.bg + '"></span>' + d.name;
           dbtn.setAttribute('aria-label', d.name);
-          if (data.category === 'pantalones' && d.name === 'Blanco') {
-            dbtn.classList.add('diseno-btn--disabled');
-            dbtn.classList.remove('active');
-          }
           disenoContainer.appendChild(dbtn);
         });
         disenoContainer.querySelectorAll('.diseno-btn').forEach(dbtn => {

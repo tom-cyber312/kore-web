@@ -2220,13 +2220,15 @@ ul, ol {
   flex-shrink: 0;
 }
 
-.diseno-btn--disabled {
+.diseno-btn--disabled,
+.color-btn--disabled {
   opacity: 0.35;
   pointer-events: none;
   position: relative;
 }
 
-.diseno-btn--disabled::after {
+.diseno-btn--disabled::after,
+.color-btn--disabled::after {
   content: '';
   position: absolute;
   top: 50%;
