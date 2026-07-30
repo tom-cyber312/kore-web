@@ -877,12 +877,12 @@ document.addEventListener('DOMContentLoaded', () => {
       function applyImageStyles(pid, idx) {
         const d = productData[pid];
         modalImg.style.objectPosition = 'center';
-        if (d && (d.category === 'pantalones' || d.brand === 'Hellstar')) {
+        if (d && d.category === 'pantalones') {
           modalImg.style.objectFit = 'cover';
           modalImg.style.background = 'none';
         } else {
           modalImg.style.objectFit = 'contain';
-          modalImg.style.background = '#1a1a1a';
+          modalImg.style.background = 'transparent';
         }
       }
 
