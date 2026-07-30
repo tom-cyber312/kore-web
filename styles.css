@@ -1949,7 +1949,7 @@ ul, ol {
   width: 700px;
   max-width: 92vw;
   max-height: 90vh;
-  background: var(--black-card);
+  background: #1a1a1a;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   z-index: 3001;
