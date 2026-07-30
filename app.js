@@ -822,6 +822,8 @@ document.addEventListener('DOMContentLoaded', () => {
     'hellstar-puffer': { brand: 'Hellstar', name: 'Hellstar Puffer Jacket', price: 62000, watermark: 'HLS', category: 'camperas' },
     'trapstar-chaleco-jkt': { brand: 'Trapstar', name: 'Trapstar Chaleco Jacket', price: 45000, watermark: 'TSP', category: 'camperas' },
     'trapstar-ice-jkt': { brand: 'Trapstar', name: 'Trapstar Ice Jacket', price: 50000, watermark: 'TSP', category: 'camperas' },
+    'trapstar-large-jkt': { brand: 'Trapstar', name: 'Trapstar large', price: 35400, watermark: 'TSP', category: 'camperas', images: ['img/tst-jkt-large-1.jpg','img/tst-jkt-large-2.jpg','img/tst-jkt-large-3.jpg','img/tst-jkt-large-4.jpg','img/tst-jkt-large-5.jpg','img/tst-jkt-large-6.jpg','img/tst-jkt-large-7.jpg','img/tst-jkt-large-8.jpg','img/tst-jkt-large-9.jpg','img/tst-jkt-large-10.jpg'], hasDiseno: true, disenos: [{ name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Blanco', bg: '#ffffff', border: '#ccc' }, { name: 'Rojo', bg: '#d32f2f', border: 'none' }] },
+    'trapstar-chico-jkt': { brand: 'Trapstar', name: 'Trapstar chico', price: 35000, watermark: 'TSP', category: 'camperas', images: ['img/tst-jkt-chico-1.jpg','img/tst-jkt-chico-2.jpg','img/tst-jkt-chico-3.jpg'] },
     'nocta-jkt': { brand: 'Nocta', name: 'Nocta', price: 35150, watermark: 'NCT', category: 'camperas', images: ['img/nct-jkt-1.jpg','img/nct-jkt-2.jpg','img/nct-jkt-3.jpg'] },
     'nocta-nike-jkt': { brand: 'Nocta', name: 'Nocta x Nike', price: 34950, watermark: 'NCT', category: 'camperas', images: ['img/nct-nike-jkt-1.jpg','img/nct-nike-jkt-2.jpg','img/nct-nike-jkt-3.jpg'] }
   };
