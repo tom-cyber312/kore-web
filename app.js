@@ -875,7 +875,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const placeholder = document.getElementById('modalPlaceholder');
 
       function applyImageStyles(pid, idx) {
+        const d = productData[pid];
         modalImg.style.objectPosition = 'center';
+        if (d && (d.category === 'pantalones' || d.brand === 'Hellstar')) {
+          modalImg.style.objectFit = 'cover';
+          modalImg.style.background = 'none';
+        } else {
+          modalImg.style.objectFit = 'contain';
+          modalImg.style.background = '#1a1a1a';
+        }
       }
 
       if (data.images && data.images.length > 0) {
