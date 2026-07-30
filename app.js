@@ -812,8 +812,6 @@ document.addEventListener('DOMContentLoaded', () => {
     'trapstar-large-pant': { brand: 'Trapstar', name: 'Trapstar large', price: 35300, watermark: 'TSP', category: 'pantalones', images: ['img/tst-large-1.jpg','img/tst-large-2.jpg','img/tst-large-3.jpg','img/tst-large-4.jpg','img/tst-large-5.jpg','img/tst-large-6.jpg','img/tst-large-7.jpg','img/tst-large-8.jpg','img/tst-large-9.jpg','img/tst-large-10.jpg','img/tst-large-11.jpg','img/tst-large-12.jpg'], hasDiseno: true, disenos: [{ name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Blanco', bg: '#ffffff', border: '#ccc' }, { name: 'Rojo', bg: '#d32f2f', border: 'none' }] },
     'trapstar-chico-pant': { brand: 'Trapstar', name: 'Trapstar chico', price: 34700, watermark: 'TSP', category: 'pantalones', images: ['img/tst-chico-1.jpg','img/tst-chico-2.jpg','img/tst-chico-3.jpg','img/tst-chico-4.jpg'] },
     'chrome-pant': { brand: 'Chrome Heart', name: 'Chrome Heart', price: 34500, watermark: 'CH', category: 'pantalones', images: ['img/chr-pant-1.jpg','img/chr-pant-2.jpg','img/chr-pant-3.jpg','img/chr-pant-4.jpg'] },
-    'corteiz-shell': { brand: 'Corteiz', name: 'Corteiz Shell Jacket', price: 48000, watermark: 'CTZ', category: 'camperas' },
-    'corteiz-puffer': { brand: 'Corteiz', name: 'Corteiz Puffer', price: 52000, watermark: 'CTZ', category: 'camperas' },
     'corteiz-chico-jkt': { brand: 'Corteiz', name: 'Corteiz chico', price: 34700, watermark: 'CTZ', category: 'camperas', images: ['img/ctz-jkt-chi-1.jpg','img/ctz-jkt-chi-2.jpg','img/ctz-jkt-chi-3.jpg','img/ctz-jkt-chi-4.jpg','img/ctz-jkt-chi-5.jpg','img/ctz-jkt-chi-6.jpg','img/ctz-jkt-chi-7.jpg'], hasDiseno: true, disenos: [{ name: 'Celeste', bg: '#64b5f6', border: 'none' }, { name: 'Negro', bg: '#1a1a1a', border: 'none' }] },
     'corteiz-jkt': { brand: 'Corteiz', name: 'Corteiz', price: 35400, watermark: 'CTZ', category: 'camperas', images: ['img/ctz-jkt-1.jpg','img/ctz-jkt-2.jpg','img/ctz-jkt-3.jpg','img/ctz-jkt-4.jpg'] },
     'corteiz-oval-jkt': { brand: 'Corteiz', name: 'Corteiz oval', price: 35400, watermark: 'CTZ', category: 'camperas', images: ['img/ctz-oval-1.jpg','img/ctz-oval-2.jpg','img/ctz-oval-3.jpg','img/ctz-oval-4.jpg'] },
@@ -824,8 +822,8 @@ document.addEventListener('DOMContentLoaded', () => {
     'hellstar-puffer': { brand: 'Hellstar', name: 'Hellstar Puffer Jacket', price: 62000, watermark: 'HLS', category: 'camperas' },
     'trapstar-chaleco-jkt': { brand: 'Trapstar', name: 'Trapstar Chaleco Jacket', price: 45000, watermark: 'TSP', category: 'camperas' },
     'trapstar-ice-jkt': { brand: 'Trapstar', name: 'Trapstar Ice Jacket', price: 50000, watermark: 'TSP', category: 'camperas' },
-    'nocta-puffer': { brand: 'Nocta', name: 'Nocta Puffer Jacket', price: 60000, watermark: 'NCT', category: 'camperas' },
-    'nocta-track-jkt': { brand: 'Nocta', name: 'Nocta Track Jacket', price: 42000, watermark: 'NCT', category: 'camperas' }
+    'nocta-jkt': { brand: 'Nocta', name: 'Nocta', price: 35150, watermark: 'NCT', category: 'camperas', images: ['img/nct-jkt-1.jpg','img/nct-jkt-2.jpg','img/nct-jkt-3.jpg'] },
+    'nocta-nike-jkt': { brand: 'Nocta', name: 'Nocta x Nike', price: 34950, watermark: 'NCT', category: 'camperas', images: ['img/nct-nike-jkt-1.jpg','img/nct-nike-jkt-2.jpg','img/nct-nike-jkt-3.jpg'] }
   };
 
   const colorSets = {
