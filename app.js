@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const subcategories = {
     remeras: ['jordan', 'nike', 'corteiz', 'supreme', 'adidas', 'lacoste', 'calvin-klein', 'bape'],
     pantalones: ['chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz'],
-    camperas: ['chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz']
+    camperas: ['hellstar', 'trapstar', 'nocta', 'corteiz']
   };
 
   const subcategoryLabels = {
@@ -385,7 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="cart-item__image"><span>${brandShort}</span></div>
             <div class="cart-item__info">
               <div class="cart-item__name">${item.name}</div>
-              <div class="cart-item__detail">${item.talle} / ${item.color}</div>
+              <div class="cart-item__detail">${item.talle} / ${item.color}${item.espalda ? ' / Espalda: ' + item.espalda : ''}</div>
               <div class="cart-item__price">$${(item.price * item.qty).toLocaleString('es-AR')}</div>
             </div>
             <div class="cart-item__qty">
@@ -456,7 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function buildWhatsAppMessage(shippingData, paymentMethod) {
     let msg = 'Hola! Quiero hacer un pedido desde KØRE:\n\n';
     cart.forEach(item => {
-      msg += '- ' + item.name + ' (Talle: ' + item.talle + ', Color: ' + item.color + ') x' + item.qty + ' — $' + (item.price * item.qty).toLocaleString('es-AR') + '\n';
+      msg += '- ' + item.name + ' (Talle: ' + item.talle + ', Color: ' + item.color + (item.espalda ? ', Espalda: ' + item.espalda : '') + ') x' + item.qty + ' — $' + (item.price * item.qty).toLocaleString('es-AR') + '\n';
     });
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
     let discount = 0;
@@ -580,13 +580,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function addToCart(name, price, talle, color, qty = 1, openAfter = true) {
-    const key = `${name}-${talle}-${color}`;
-    const existing = cart.find(item => `${item.name}-${item.talle}-${item.color}` === key);
+  function addToCart(name, price, talle, color, qty = 1, openAfter = true, espalda = '') {
+    const key = `${name}-${talle}-${color}-${espalda}`;
+    const existing = cart.find(item => `${item.name}-${item.talle}-${item.color}-${(item.espalda||'')}` === key);
     if (existing) {
       existing.qty += qty;
     } else {
-      cart.push({ name, price, talle, color, qty: qty });
+      cart.push({ name, price, talle, color, qty: qty, espalda: espalda });
     }
     updateCartUI();
     if (openAfter) {
@@ -816,14 +816,11 @@ document.addEventListener('DOMContentLoaded', () => {
     'corteiz-jkt': { brand: 'Corteiz', name: 'Corteiz', price: 35400, watermark: 'CTZ', category: 'camperas', images: ['img/ctz-jkt-1.jpg','img/ctz-jkt-2.jpg','img/ctz-jkt-3.jpg','img/ctz-jkt-4.jpg'] },
     'corteiz-oval-jkt': { brand: 'Corteiz', name: 'Corteiz oval', price: 35400, watermark: 'CTZ', category: 'camperas', images: ['img/ctz-oval-1.jpg','img/ctz-oval-2.jpg','img/ctz-oval-3.jpg','img/ctz-oval-4.jpg'] },
     'corteiz-crtz-jkt': { brand: 'Corteiz', name: 'Corteiz CRTZ', price: 35100, watermark: 'CTZ', category: 'camperas', images: ['img/ctz-crtz-jkt-1.jpg','img/ctz-crtz-jkt-2.jpg','img/ctz-crtz-jkt-3.jpg','img/ctz-crtz-jkt-4.jpg'] },
-    'chrome-denim': { brand: 'Chrome Heart', name: 'Chrome Heart Denim Jacket', price: 65000, watermark: 'CH', category: 'camperas' },
-    'chrome-hoodie': { brand: 'Chrome Heart', name: 'Chrome Heart Hoodie Jacket', price: 58000, watermark: 'CH', category: 'camperas' },
-    'hellstar-varsity': { brand: 'Hellstar', name: 'Hellstar Varsity Jacket', price: 55000, watermark: 'HLS', category: 'camperas' },
-    'hellstar-puffer': { brand: 'Hellstar', name: 'Hellstar Puffer Jacket', price: 62000, watermark: 'HLS', category: 'camperas' },
-    'trapstar-chaleco-jkt': { brand: 'Trapstar', name: 'Trapstar Chaleco Jacket', price: 45000, watermark: 'TSP', category: 'camperas' },
-    'trapstar-ice-jkt': { brand: 'Trapstar', name: 'Trapstar Ice Jacket', price: 50000, watermark: 'TSP', category: 'camperas' },
     'trapstar-large-jkt': { brand: 'Trapstar', name: 'Trapstar large', price: 35400, watermark: 'TSP', category: 'camperas', images: ['img/tst-jkt-large-1.jpg','img/tst-jkt-large-2.jpg','img/tst-jkt-large-3.jpg','img/tst-jkt-large-4.jpg','img/tst-jkt-large-5.jpg','img/tst-jkt-large-6.jpg','img/tst-jkt-large-7.jpg','img/tst-jkt-large-8.jpg','img/tst-jkt-large-9.jpg','img/tst-jkt-large-10.jpg'], hasDiseno: true, disenos: [{ name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Blanco', bg: '#ffffff', border: '#ccc' }, { name: 'Rojo', bg: '#d32f2f', border: 'none' }] },
     'trapstar-chico-jkt': { brand: 'Trapstar', name: 'Trapstar chico', price: 35000, watermark: 'TSP', category: 'camperas', images: ['img/tst-jkt-chico-1.jpg','img/tst-jkt-chico-2.jpg','img/tst-jkt-chico-3.jpg'] },
+    'hellstar-large-jkt': { brand: 'Hellstar', name: 'Hellstar large', price: 35200, watermark: 'HLS', category: 'camperas', images: ['img/hst-jkt-large-1.jpg','img/hst-jkt-large-2.jpg','img/hst-jkt-large-3.jpg','img/hst-jkt-large-4.jpg','img/hst-jkt-large-5.jpg','img/hst-jkt-large-6.jpg','img/hst-jkt-large-7.jpg','img/hst-jkt-large-8.jpg','img/hst-jkt-large-9.jpg','img/hst-jkt-large-10.jpg','img/hst-jkt-large-11.jpg','img/hst-jkt-large-12.jpg','img/hst-jkt-large-13.jpg','img/hst-jkt-large-14.jpg'], hasDiseno: true, disenos: [{ name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Blanco', bg: '#ffffff', border: '#ccc' }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Negro', add: 2000 }, { name: 'Cremita', add: 2000 }] },
+    'hellstar-chico-jkt': { brand: 'Hellstar', name: 'Hellstar chico', price: 34600, watermark: 'HLS', category: 'camperas', images: ['img/hst-jkt-chico-1.jpg','img/hst-jkt-chico-2.jpg','img/hst-jkt-chico-3.jpg','img/hst-jkt-chico-4.jpg','img/hst-jkt-chico-5.jpg','img/hst-jkt-chico-6.jpg','img/hst-jkt-chico-7.jpg','img/hst-jkt-chico-8.jpg','img/hst-jkt-chico-9.jpg','img/hst-jkt-chico-10.jpg','img/hst-jkt-chico-11.jpg'], hasDiseno: true, disenos: [{ name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Blanco', bg: '#ffffff', border: '#ccc' }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Negro', add: 2000 }, { name: 'Cremita', add: 2000 }] },
+    'hellstar-jkt': { brand: 'Hellstar', name: 'Hellstar', price: 35500, watermark: 'HLS', category: 'camperas', images: ['img/hst-jkt-1.jpg','img/hst-jkt-2.jpg','img/hst-jkt-3.jpg','img/hst-jkt-4.jpg','img/hst-jkt-5.jpg','img/hst-jkt-6.jpg','img/hst-jkt-7.jpg','img/hst-jkt-8.jpg'], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Negro', add: 2000 }, { name: 'Cremita', add: 2000 }] },
     'nocta-jkt': { brand: 'Nocta', name: 'Nocta', price: 35150, watermark: 'NCT', category: 'camperas', images: ['img/nct-jkt-1.jpg','img/nct-jkt-2.jpg','img/nct-jkt-3.jpg'] },
     'nocta-nike-jkt': { brand: 'Nocta', name: 'Nocta x Nike', price: 34950, watermark: 'NCT', category: 'camperas', images: ['img/nct-nike-jkt-1.jpg','img/nct-nike-jkt-2.jpg','img/nct-nike-jkt-3.jpg'] }
   };
@@ -905,13 +902,16 @@ document.addEventListener('DOMContentLoaded', () => {
         modalImg.onerror = function() {
           modalImg.style.display = 'none';
           placeholder.style.display = 'flex';
-          arrowL.style.display = 'none';
-          arrowR.style.display = 'none';
-          modalDotsEl.innerHTML = '';
+        };
+        modalImg.onload = function() {
+          modalImg.style.display = 'block';
+          placeholder.style.display = 'none';
         };
         const updateModalImg = (idx) => {
           modalIdx = idx;
           modalImg.src = data.images[idx];
+          modalImg.style.display = 'block';
+          placeholder.style.display = 'none';
           modalDotsEl.querySelectorAll('.carousel__dot').forEach((d, i) => d.classList.toggle('active', i === idx));
           applyImageStyles(productId, idx);
         };
@@ -971,6 +971,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       } else if (disenoSelector) {
         disenoSelector.style.display = 'none';
+      }
+
+      const espaldaSelector = document.getElementById('espaldaSelector');
+      const espaldaContainer = document.querySelector('.espalda-selector');
+      if (data.hasEspalda && espaldaSelector && espaldaContainer) {
+        espaldaSelector.style.display = 'block';
+        espaldaContainer.innerHTML = '';
+        const espaldas = data.espaldas || [{ name: 'Sin', add: 0 }];
+        espaldas.forEach((e, i) => {
+          const ebtn = document.createElement('button');
+          ebtn.className = 'diseno-btn' + (i === 0 ? ' active' : '');
+          ebtn.dataset.espalda = e.name;
+          ebtn.dataset.add = e.add;
+          ebtn.textContent = e.name;
+          espaldaContainer.appendChild(ebtn);
+        });
+        espaldaContainer.querySelectorAll('.diseno-btn').forEach(ebtn => {
+          ebtn.addEventListener('click', () => {
+            espaldaContainer.querySelectorAll('.diseno-btn').forEach(b => b.classList.remove('active'));
+            ebtn.classList.add('active');
+          });
+        });
+      } else if (espaldaSelector) {
+        espaldaSelector.style.display = 'none';
       }
 
       modalQty = 1;
@@ -1033,13 +1057,20 @@ document.addEventListener('DOMContentLoaded', () => {
       const activeSize = document.querySelector('.size-btn.active');
       const activeColor = document.querySelector('.color-btn.active');
       const activeDiseno = document.querySelector('.diseno-btn.active');
+      const activeEspalda = document.querySelector('.espalda-selector .diseno-btn.active');
       const defaultSizes = sizeSets[currentModalProduct.category] || sizeSets.remeras;
       const talle = activeSize ? activeSize.dataset.size : defaultSizes[0];
       let color = activeColor ? activeColor.dataset.color : 'Negro';
       if (activeDiseno) {
         color = color + ' / ' + activeDiseno.dataset.diseno;
       }
-      addToCart(currentModalProduct.name, currentModalProduct.price, talle, color, modalQty, false);
+      let espalda = '';
+      let price = currentModalProduct.price;
+      if (activeEspalda) {
+        espalda = activeEspalda.dataset.espalda;
+        price = price + parseInt(activeEspalda.dataset.add || 0);
+      }
+      addToCart(currentModalProduct.name, price, talle, color, modalQty, false, espalda);
       modalQty = 1;
       if (modalQtyValue) modalQtyValue.textContent = '1';
     }
