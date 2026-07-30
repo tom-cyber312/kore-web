@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const subcategories = {
     remeras: ['jordan', 'nike', 'corteiz', 'supreme', 'adidas', 'lacoste', 'calvin-klein', 'bape'],
     pantalones: ['chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz'],
-    camperas: ['hellstar', 'trapstar', 'nocta', 'corteiz']
+    camperas: ['chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz', 'jordan', 'nike', 'adidas']
   };
 
   const subcategoryLabels = {
@@ -991,6 +991,10 @@ document.addEventListener('DOMContentLoaded', () => {
           ebtn.addEventListener('click', () => {
             espaldaContainer.querySelectorAll('.diseno-btn').forEach(b => b.classList.remove('active'));
             ebtn.classList.add('active');
+            const notice = document.getElementById('espaldaNotice');
+            if (notice) {
+              notice.classList.toggle('visible', parseInt(ebtn.dataset.add || 0) > 0);
+            }
           });
         });
       } else if (espaldaSelector) {

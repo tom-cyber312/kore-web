@@ -2164,6 +2164,27 @@ ul, ol {
   gap: 8px;
 }
 
+.espalda-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.espalda-notice {
+  display: none;
+  margin-top: 8px;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  background: rgba(244, 143, 177, 0.15);
+  color: var(--red);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.espalda-notice.visible {
+  display: block;
+}
+
 .diseno-btn {
   display: flex;
   align-items: center;
