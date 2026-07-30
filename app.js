@@ -969,6 +969,10 @@ document.addEventListener('DOMContentLoaded', () => {
           dbtn.dataset.diseno = d.name;
           dbtn.innerHTML = '<span class="diseno-btn__swatch" style="background:' + d.bg + '"></span>' + d.name;
           dbtn.setAttribute('aria-label', d.name);
+          if (data.category === 'pantalones' && d.name === 'Blanco') {
+            dbtn.classList.add('diseno-btn--disabled');
+            dbtn.classList.remove('active');
+          }
           disenoContainer.appendChild(dbtn);
         });
         disenoContainer.querySelectorAll('.diseno-btn').forEach(dbtn => {
