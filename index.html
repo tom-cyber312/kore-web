@@ -103,8 +103,8 @@
 
       <!-- CATEGORY FILTER -->
       <div class="drops__filters reveal">
-        <button class="filter-btn active" data-filter="all">Todo</button>
-        <button class="filter-btn" data-filter="remeras">Remeras</button>
+        <button class="filter-btn" data-filter="basicos">Básicos</button>
+        <button class="filter-btn active" data-filter="remeras">Remeras</button>
         <button class="filter-btn" data-filter="pantalones">Pantalones</button>
         <button class="filter-btn" data-filter="camperas">Camperas</button>
       </div>
@@ -113,6 +113,48 @@
       <div class="drops__subfilters" id="subfilters"></div>
 
       <div class="drops__grid" id="productsGrid">
+        <!-- BASICOS -->
+        <div class="product-card reveal" data-brand="basicos" data-subcategory="remeras" data-delay="0">
+          <div class="product-card__image">
+            <img src="img/bsc-rem-1.jpg" alt="Remeras">
+          </div>
+          <div class="product-card__info">
+            <span class="product-card__brand">Basicos</span>
+            <h3 class="product-card__name">Remeras</h3>
+            <div class="product-card__pricing">
+              <span class="product-card__price">$14.500</span>
+            </div>
+            <button class="btn btn--primary btn--sm btn--full product-card__quick-view" data-product="basicos-rem">Ver más</button>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-brand="basicos" data-subcategory="pantalones" data-delay="100">
+          <div class="product-card__image">
+            <img src="img/bsc-pant-1.jpg" alt="Pantalones">
+          </div>
+          <div class="product-card__info">
+            <span class="product-card__brand">Basicos</span>
+            <h3 class="product-card__name">Pantalones</h3>
+            <div class="product-card__pricing">
+              <span class="product-card__price">$25.000</span>
+            </div>
+            <button class="btn btn--primary btn--sm btn--full product-card__quick-view" data-product="basicos-pant">Ver más</button>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-brand="basicos" data-subcategory="camperas" data-delay="200">
+          <div class="product-card__image">
+            <img src="img/bsc-jkt-1.jpg" alt="Camperas">
+          </div>
+          <div class="product-card__info">
+            <span class="product-card__brand">Basicos</span>
+            <h3 class="product-card__name">Camperas</h3>
+            <div class="product-card__pricing">
+              <span class="product-card__price">$30.000</span>
+            </div>
+            <button class="btn btn--primary btn--sm btn--full product-card__quick-view" data-product="basicos-jkt">Ver más</button>
+          </div>
+        </div>
         <!-- REMERAS -->
         <div class="product-card reveal" data-brand="remeras" data-subcategory="corteiz" data-delay="0">
           <div class="product-card__image">
@@ -1427,7 +1469,7 @@
           <div class="product-modal__selector" id="mangasSelector" style="display:none;">
             <label>Mangas</label>
             <div class="mangas-selector"></div>
-            <div class="espalda-notice" id="mangasNotice">Seleccionar esta opción suma $2.500 al precio</div>
+            <div class="espalda-notice" id="mangasNotice">Esta opción cuesta $2.500</div>
           </div>
           <div class="product-modal__selector">
             <label>Cantidad</label>

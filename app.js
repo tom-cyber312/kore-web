@@ -157,13 +157,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const filterBtns = document.querySelectorAll('.filter-btn');
   const productCards = document.querySelectorAll('.product-card');
   const subfiltersContainer = document.getElementById('subfilters');
-  let currentFilter = 'all';
+  let currentFilter = 'remeras';
   let currentSubfilter = null;
 
   const subcategories = {
     remeras: ['jordan', 'nike', 'corteiz', 'supreme', 'adidas', 'lacoste', 'calvin-klein', 'bape'],
     pantalones: ['chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz'],
-    camperas: ['chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz', 'jordan', 'nike', 'adidas']
+    camperas: ['chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz', 'jordan', 'nike', 'adidas'],
+    basicos: ['remeras', 'pantalones', 'camperas']
   };
 
   const subcategoryLabels = {
@@ -178,7 +179,10 @@ document.addEventListener('DOMContentLoaded', () => {
     'chrome-heart': 'Chrome Heart',
     'hellstar': 'Hellstar',
     'trapstar': 'Trapstar',
-    'nocta': 'Nocta'
+    'nocta': 'Nocta',
+    'remeras': 'Remeras',
+    'pantalones': 'Pantalones',
+    'camperas': 'Camperas'
   };
 
   function buildSubfilters(category) {
@@ -241,6 +245,9 @@ document.addEventListener('DOMContentLoaded', () => {
       applyFilters();
     });
   });
+
+  buildSubfilters('remeras');
+  applyFilters();
 
   // ========================================
   // COUNTER ANIMATION (Social Proof)
@@ -827,7 +834,10 @@ document.addEventListener('DOMContentLoaded', () => {
     'chrome-blanco-jkt': { brand: 'Chrome Heart', name: 'Chrome Hearts blanco', price: 34000, watermark: 'CH', category: 'camperas', images: ['img/chr-blan-jkt-1.jpg','img/chr-blan-jkt-2.jpg','img/chr-blan-jkt-3.jpg','img/chr-blan-jkt-4.jpg','img/chr-blan-jkt-5.jpg'], hasPecho: true, pechos: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 0 }], hasMangas: true, mangas: [{ name: 'Sin', add: 0 }, { name: 'Negro', add: 2500 }, { name: 'Gris', add: 2500 }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2000 }] },
     'chrome-gris-jkt': { brand: 'Chrome Heart', name: 'Chrome Hearts gris', price: 34000, watermark: 'CH', category: 'camperas', images: ['img/chr-gris-jkt-2.jpg','img/chr-gris-jkt-1.jpg','img/chr-gris-jkt-3.jpg','img/chr-gris-jkt-4.jpg','img/chr-gris-jkt-5.jpg'], hasPecho: true, pechos: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 0 }], hasMangas: true, mangas: [{ name: 'Sin', add: 0 }, { name: 'Negro', add: 2500 }, { name: 'Gris', add: 2500 }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2000 }] },
     'chrome-rosado-jkt': { brand: 'Chrome Heart', name: 'Chrome Hearts rosado', price: 34000, watermark: 'CH', category: 'camperas', images: ['img/chr-ros-jkt-1.jpg','img/chr-ros-jkt-2.jpg','img/chr-ros-jkt-3.jpg','img/chr-ros-jkt-4.jpg','img/chr-ros-jkt-5.jpg'], hasPecho: true, pechos: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 0 }], hasMangas: true, mangas: [{ name: 'Sin', add: 0 }, { name: 'Negro', add: 2500 }, { name: 'Gris', add: 2500 }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2000 }] },
-    'chrome-jkt': { brand: 'Chrome Heart', name: 'Chrome Hearts', price: 34000, watermark: 'CH', category: 'camperas', images: ['img/chr-jkt-1.jpg','img/chr-jkt-2.jpg','img/chr-jkt-3.jpg','img/chr-jkt-4.jpg','img/chr-jkt-5.jpg','img/chr-jkt-6.jpg','img/chr-jkt-7.jpg','img/chr-jkt-8.jpg'], hasPecho: true, pechos: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 0 }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2000 }] }
+    'chrome-jkt': { brand: 'Chrome Heart', name: 'Chrome Hearts', price: 34000, watermark: 'CH', category: 'camperas', images: ['img/chr-jkt-1.jpg','img/chr-jkt-2.jpg','img/chr-jkt-3.jpg','img/chr-jkt-4.jpg','img/chr-jkt-5.jpg','img/chr-jkt-6.jpg','img/chr-jkt-7.jpg','img/chr-jkt-8.jpg'], hasPecho: true, pechos: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 0 }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2000 }] },
+    'basicos-rem': { brand: 'Basicos', name: 'Remeras', price: 14500, watermark: 'BSC', category: 'basicos', images: ['img/bsc-rem-1.jpg','img/bsc-rem-2.jpg','img/bsc-rem-3.jpg','img/bsc-rem-4.jpg'] },
+    'basicos-jkt': { brand: 'Basicos', name: 'Camperas', price: 30000, watermark: 'BSC', category: 'basicos', images: ['img/bsc-jkt-1.jpg','img/bsc-jkt-2.jpg','img/bsc-jkt-3.jpg','img/bsc-jkt-4.jpg'] },
+    'basicos-pant': { brand: 'Basicos', name: 'Pantalones', price: 25000, watermark: 'BSC', category: 'basicos', images: ['img/bsc-pant-1.jpg','img/bsc-pant-2.jpg','img/bsc-pant-3.jpg','img/bsc-pant-4.jpg'] }
   };
 
   const colorSets = {
