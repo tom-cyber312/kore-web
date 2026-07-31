@@ -837,7 +837,11 @@ document.addEventListener('DOMContentLoaded', () => {
     'chrome-jkt': { brand: 'Chrome Heart', name: 'Chrome Hearts', price: 34000, watermark: 'CH', category: 'camperas', images: ['img/chr-jkt-1.jpg','img/chr-jkt-2.jpg','img/chr-jkt-3.jpg','img/chr-jkt-4.jpg','img/chr-jkt-5.jpg','img/chr-jkt-6.jpg','img/chr-jkt-7.jpg','img/chr-jkt-8.jpg'], hasPecho: true, pechos: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 0 }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2000 }] },
     'basicos-rem': { brand: 'Basicos', name: 'Remeras', price: 14500, watermark: 'BSC', category: 'basicos', images: ['img/bsc-rem-1.jpg','img/bsc-rem-2.jpg','img/bsc-rem-3.jpg','img/bsc-rem-4.jpg'] },
     'basicos-jkt': { brand: 'Basicos', name: 'Camperas', price: 30000, watermark: 'BSC', category: 'basicos', images: ['img/bsc-jkt-1.jpg','img/bsc-jkt-2.jpg','img/bsc-jkt-3.jpg','img/bsc-jkt-4.jpg'] },
-    'basicos-pant': { brand: 'Basicos', name: 'Pantalones', price: 25000, watermark: 'BSC', category: 'basicos', images: ['img/bsc-pant-1.jpg','img/bsc-pant-2.jpg','img/bsc-pant-3.jpg','img/bsc-pant-4.jpg'] }
+    'basicos-pant': { brand: 'Basicos', name: 'Pantalones', price: 25000, watermark: 'BSC', category: 'basicos', images: ['img/bsc-pant-1.jpg','img/bsc-pant-2.jpg','img/bsc-pant-3.jpg','img/bsc-pant-4.jpg'] },
+    'jordan-retro-jkt': { brand: 'Jordan', name: 'Jordan retro', price: 34700, watermark: 'JRD', category: 'camperas', images: ['img/jrd-retro-jkt-1.jpg','img/jrd-retro-jkt-2.jpg','img/jrd-retro-jkt-3.jpg','img/jrd-retro-jkt-4.jpg'] },
+    'jordan-glitch-jkt': { brand: 'Jordan', name: 'Jordan glich', price: 34900, watermark: 'JRD', category: 'camperas', images: ['img/jrd-glitch-jkt-1.jpg','img/jrd-glitch-jkt-2.jpg','img/jrd-glitch-jkt-3.jpg','img/jrd-glitch-jkt-4.jpg'] },
+    'jordan-jkt': { brand: 'Jordan', name: 'Jordan', price: 35100, watermark: 'JRD', category: 'camperas', images: ['img/jrd-jkt-1.jpg','img/jrd-jkt-2.jpg','img/jrd-jkt-3.jpg','img/jrd-jkt-4.jpg'] },
+    'jordan-air-jkt': { brand: 'Jordan', name: 'AIR Jordan', price: 35340, watermark: 'JRD', category: 'camperas', images: ['img/jrd-air-jkt-1.jpg','img/jrd-air-jkt-2.jpg','img/jrd-air-jkt-3.jpg','img/jrd-air-jkt-4.jpg'] }
   };
 
   const colorSets = {
