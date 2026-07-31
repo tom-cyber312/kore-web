@@ -841,7 +841,9 @@ document.addEventListener('DOMContentLoaded', () => {
     'jordan-retro-jkt': { brand: 'Jordan', name: 'Jordan retro', price: 34700, watermark: 'JRD', category: 'camperas', images: ['img/jrd-retro-jkt-1.jpg','img/jrd-retro-jkt-2.jpg','img/jrd-retro-jkt-3.jpg','img/jrd-retro-jkt-4.jpg'] },
     'jordan-glitch-jkt': { brand: 'Jordan', name: 'Jordan glich', price: 34900, watermark: 'JRD', category: 'camperas', images: ['img/jrd-glitch-jkt-1.jpg','img/jrd-glitch-jkt-2.jpg','img/jrd-glitch-jkt-3.jpg','img/jrd-glitch-jkt-4.jpg'] },
     'jordan-jkt': { brand: 'Jordan', name: 'Jordan', price: 35100, watermark: 'JRD', category: 'camperas', images: ['img/jrd-jkt-1.jpg','img/jrd-jkt-2.jpg','img/jrd-jkt-3.jpg','img/jrd-jkt-4.jpg'] },
-    'jordan-air-jkt': { brand: 'Jordan', name: 'AIR Jordan', price: 35340, watermark: 'JRD', category: 'camperas', images: ['img/jrd-air-jkt-1.jpg','img/jrd-air-jkt-2.jpg','img/jrd-air-jkt-3.jpg','img/jrd-air-jkt-4.jpg'] }
+    'jordan-air-jkt': { brand: 'Jordan', name: 'AIR Jordan', price: 35340, watermark: 'JRD', category: 'camperas', images: ['img/jrd-air-jkt-1.jpg','img/jrd-air-jkt-2.jpg','img/jrd-air-jkt-3.jpg','img/jrd-air-jkt-4.jpg'] },
+    'nike-stussy-jkt': { brand: 'Nike', name: 'Nike x Stussy', price: 35100, watermark: 'NK', category: 'camperas', images: ['img/nk-stussy-jkt-1.jpg','img/nk-stussy-jkt-2.jpg','img/nk-stussy-jkt-3.jpg','img/nk-stussy-jkt-4.jpg'] },
+    'nike-glitch-jkt': { brand: 'Nike', name: 'Nike glich', price: 34900, watermark: 'NK', category: 'camperas', images: ['img/nk-glitch-jkt-1.jpg','img/nk-glitch-jkt-2.jpg','img/nk-glitch-jkt-3.jpg','img/nk-glitch-jkt-4.jpg'] }
   };
 
   const colorSets = {
