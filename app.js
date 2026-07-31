@@ -843,7 +843,9 @@ document.addEventListener('DOMContentLoaded', () => {
     'jordan-jkt': { brand: 'Jordan', name: 'Jordan', price: 35100, watermark: 'JRD', category: 'camperas', images: ['img/jrd-jkt-1.jpg','img/jrd-jkt-2.jpg','img/jrd-jkt-3.jpg','img/jrd-jkt-4.jpg'] },
     'jordan-air-jkt': { brand: 'Jordan', name: 'AIR Jordan', price: 35340, watermark: 'JRD', category: 'camperas', images: ['img/jrd-air-jkt-1.jpg','img/jrd-air-jkt-2.jpg','img/jrd-air-jkt-3.jpg','img/jrd-air-jkt-4.jpg'] },
     'nike-stussy-jkt': { brand: 'Nike', name: 'Nike x Stussy', price: 35100, watermark: 'NK', category: 'camperas', images: ['img/nk-stussy-jkt-1.jpg','img/nk-stussy-jkt-2.jpg','img/nk-stussy-jkt-3.jpg','img/nk-stussy-jkt-4.jpg'] },
-    'nike-glitch-jkt': { brand: 'Nike', name: 'Nike glich', price: 34900, watermark: 'NK', category: 'camperas', images: ['img/nk-glitch-jkt-1.jpg','img/nk-glitch-jkt-2.jpg','img/nk-glitch-jkt-3.jpg','img/nk-glitch-jkt-4.jpg'] }
+    'nike-glitch-jkt': { brand: 'Nike', name: 'Nike glich', price: 34900, watermark: 'NK', category: 'camperas', images: ['img/nk-glitch-jkt-1.jpg','img/nk-glitch-jkt-2.jpg','img/nk-glitch-jkt-3.jpg','img/nk-glitch-jkt-4.jpg'] },
+    'adidas-ice-jkt': { brand: 'Adidas', name: 'Adidas ice', price: 34500, watermark: 'ADI', category: 'camperas', images: ['img/adi-ice-jkt-1.jpg','img/adi-ice-jkt-2.jpg','img/adi-ice-jkt-3.jpg','img/adi-ice-jkt-4.jpg'] },
+    'adidas-jkt': { brand: 'Adidas', name: 'Adidas', price: 35000, watermark: 'ADI', category: 'camperas', images: ['img/adi-jkt-1.jpg','img/adi-jkt-2.jpg','img/adi-jkt-3.jpg','img/adi-jkt-4.jpg','img/adi-jkt-5.jpg','img/adi-jkt-6.jpg','img/adi-jkt-7.jpg','img/adi-jkt-8.jpg'], hasDiseno: true, disenos: [{ name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Blanco', bg: '#ffffff', border: '#ccc' }] }
   };
 
   const colorSets = {
