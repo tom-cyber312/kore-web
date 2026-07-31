@@ -31,6 +31,34 @@
     </div>
   </div>
 
+  <!-- COUNTDOWN BANNER -->
+  <div class="countdown-banner" id="countdownBanner">
+    <div class="countdown-banner__inner">
+      <p class="countdown-banner__label" id="countdownLabel">El checkout se habilita en</p>
+      <div class="countdown-banner__timer" id="countdownTimer">
+        <div class="countdown-banner__unit">
+          <span class="countdown-banner__num" id="cdDays">00</span>
+          <small>Días</small>
+        </div>
+        <span class="countdown-banner__sep">:</span>
+        <div class="countdown-banner__unit">
+          <span class="countdown-banner__num" id="cdHours">00</span>
+          <small>Horas</small>
+        </div>
+        <span class="countdown-banner__sep">:</span>
+        <div class="countdown-banner__unit">
+          <span class="countdown-banner__num" id="cdMins">00</span>
+          <small>Min</small>
+        </div>
+        <span class="countdown-banner__sep">:</span>
+        <div class="countdown-banner__unit">
+          <span class="countdown-banner__num" id="cdSecs">00</span>
+          <small>Seg</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- HEADER -->
   <header class="header" id="header">
     <div class="header__container">
@@ -1412,6 +1440,10 @@
         <div class="cart-sidebar__total">
           <span>Total</span>
           <span id="cartTotal">$0</span>
+        </div>
+        <div class="checkout-lock" id="checkoutLock" style="display: none;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <p>El checkout se habilita cuando termine la cuenta regresiva</p>
         </div>
         <button id="continueBtn" class="btn btn--primary btn--glow btn--full">
           Continuar

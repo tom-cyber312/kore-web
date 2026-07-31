@@ -354,6 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function openCart(resetSteps = true) {
     cartSidebar.classList.add('active');
     document.body.style.overflow = 'hidden';
+    dropsSection.style.overflow = 'hidden';
     if (resetSteps) {
       checkoutForm.style.display = 'none';
       paymentOptions.style.display = 'none';
@@ -367,6 +368,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function closeCart() {
     cartSidebar.classList.remove('active');
     document.body.style.overflow = '';
+    dropsSection.style.overflow = '';
   }
 
   function updateCartUI() {
@@ -513,7 +515,23 @@ document.addEventListener('DOMContentLoaded', () => {
     return msg;
   }
 
+  let checkoutLocked = true;
+  const checkoutLockMsg = document.getElementById('checkoutLock');
+
+  function showCheckoutLockMessage() {
+    if (!checkoutLockMsg) return;
+    checkoutLockMsg.style.display = 'flex';
+    clearTimeout(showCheckoutLockMessage._timeout);
+    showCheckoutLockMessage._timeout = setTimeout(() => {
+      checkoutLockMsg.style.display = 'none';
+    }, 3500);
+  }
+
   continueBtn.addEventListener('click', () => {
+    if (checkoutLocked) {
+      showCheckoutLockMessage();
+      return;
+    }
     cartFooter.style.display = 'none';
     cartItemsContainer.style.display = 'none';
     checkoutForm.style.display = 'block';
@@ -1006,6 +1024,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       } else if (disenoSelector) {
         disenoSelector.style.display = 'none';
+        if (disenoContainer) disenoContainer.innerHTML = '';
       }
 
       const espaldaSelector = document.getElementById('espaldaSelector');
@@ -1034,6 +1053,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       } else if (espaldaSelector) {
         espaldaSelector.style.display = 'none';
+        if (espaldaContainer) espaldaContainer.innerHTML = '';
       }
 
       const pechoSelector = document.getElementById('pechoSelector');
@@ -1058,6 +1078,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       } else if (pechoSelector) {
         pechoSelector.style.display = 'none';
+        if (pechoContainer) pechoContainer.innerHTML = '';
       }
 
       const mangasSelector = document.getElementById('mangasSelector');
@@ -1086,6 +1107,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       } else if (mangasSelector) {
         mangasSelector.style.display = 'none';
+        if (mangasContainer) mangasContainer.innerHTML = '';
       }
 
       modalQty = 1;
@@ -1093,6 +1115,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       productModal.classList.add('active');
       document.body.style.overflow = 'hidden';
+      dropsSection.style.overflow = 'hidden';
     });
   });
 
@@ -1115,6 +1138,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function closeProductModal() {
     productModal.classList.remove('active');
     document.body.style.overflow = '';
+    dropsSection.style.overflow = '';
   }
 
   productModalOverlay.addEventListener('click', closeProductModal);
@@ -1147,7 +1171,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentModalProduct) {
       const activeSize = document.querySelector('.size-btn.active');
       const activeColor = document.querySelector('.color-btn.active');
-      const activeDiseno = document.querySelector('.diseno-btn.active');
+      const activeDiseno = document.querySelector('.diseno-selector .diseno-btn.active');
       const activeEspalda = document.querySelector('.espalda-selector .diseno-btn.active');
       const activePecho = document.querySelector('.pecho-selector .diseno-btn.active');
       const activeManga = document.querySelector('.mangas-selector .diseno-btn.active');
@@ -1227,5 +1251,67 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // ========================================
+  // COUNTDOWN BANNER
+  // ========================================
+  const COUNTDOWN_END = new Date('2026-08-01T13:00:00-03:00').getTime();
+  const COUNTDOWN_GRACE = 60 * 60 * 1000; // 1 hora después de llegar a 0
+  const countdownBanner = document.getElementById('countdownBanner');
+  const countdownLabel = document.getElementById('countdownLabel');
+  const cdDays = document.getElementById('cdDays');
+  const cdHours = document.getElementById('cdHours');
+  const cdMins = document.getElementById('cdMins');
+  const cdSecs = document.getElementById('cdSecs');
+
+  function pad2(n) {
+    return String(n).padStart(2, '0');
+  }
+
+  function renderCountdown(ms) {
+    const totalSecs = Math.max(0, Math.floor(ms / 1000));
+    const days = Math.floor(totalSecs / 86400);
+    const hours = Math.floor((totalSecs % 86400) / 3600);
+    const mins = Math.floor((totalSecs % 3600) / 60);
+    const secs = totalSecs % 60;
+    cdDays.textContent = pad2(days);
+    cdHours.textContent = pad2(hours);
+    cdMins.textContent = pad2(mins);
+    cdSecs.textContent = pad2(secs);
+  }
+
+  function initCountdown() {
+    if (!countdownBanner) return;
+    let interval = null;
+
+    function tick() {
+      const now = Date.now();
+      const remaining = COUNTDOWN_END - now;
+
+      if (remaining > 0) {
+        checkoutLocked = true;
+        countdownBanner.classList.add('visible');
+        countdownBanner.classList.remove('open');
+        countdownLabel.textContent = 'El checkout se habilita en';
+        renderCountdown(remaining);
+      } else if (now - COUNTDOWN_END < COUNTDOWN_GRACE) {
+        checkoutLocked = false;
+        countdownBanner.classList.add('visible');
+        countdownBanner.classList.add('open');
+        countdownLabel.textContent = '¡Checkout habilitado! Ya podés finalizar tu compra';
+        renderCountdown(0);
+      } else {
+        checkoutLocked = false;
+        countdownBanner.remove();
+        if (interval) clearInterval(interval);
+        return;
+      }
+    }
+
+    tick();
+    interval = setInterval(tick, 1000);
+  }
+
+  initCountdown();
 
 });

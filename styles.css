@@ -240,6 +240,85 @@ ul, ol {
 }
 
 /* ========================================
+   COUNTDOWN BANNER
+   ======================================== */
+.countdown-banner {
+  background: var(--black-card);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 0;
+  position: relative;
+  z-index: 1001;
+  display: none;
+}
+
+.countdown-banner.visible {
+  display: block;
+}
+
+.countdown-banner__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  text-align: center;
+}
+
+.countdown-banner__label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white-muted);
+}
+
+.countdown-banner__timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.countdown-banner__unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 48px;
+}
+
+.countdown-banner__unit small {
+  font-size: 0.6rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--white-dim);
+  margin-top: 2px;
+}
+
+.countdown-banner__num {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--white);
+  letter-spacing: 1px;
+}
+
+.countdown-banner__sep {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--red);
+  padding-bottom: 16px;
+}
+
+.countdown-banner.open .countdown-banner__num,
+.countdown-banner.open .countdown-banner__sep {
+  color: #4caf50;
+}
+
+/* ========================================
    HEADER
    ======================================== */
 .header {
@@ -1764,7 +1843,7 @@ ul, ol {
 .cart-sidebar__overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: #010100;
   z-index: 2100;
   opacity: 0;
   transition: var(--transition);
@@ -2515,6 +2594,41 @@ ul, ol {
     display: none;
   }
 
+  .countdown-banner {
+    padding: 8px 0;
+  }
+
+  .countdown-banner__inner {
+    gap: 2px;
+    padding: 0 12px;
+  }
+
+  .countdown-banner__label {
+    font-size: 0.62rem;
+    letter-spacing: 1.5px;
+  }
+
+  .countdown-banner__timer {
+    gap: 6px;
+  }
+
+  .countdown-banner__unit {
+    min-width: 38px;
+  }
+
+  .countdown-banner__unit small {
+    font-size: 0.52rem;
+  }
+
+  .countdown-banner__num {
+    font-size: 1.3rem;
+  }
+
+  .countdown-banner__sep {
+    font-size: 1.1rem;
+    padding-bottom: 14px;
+  }
+
   .hero__artwork {
     height: 100vh;
   }
@@ -2729,7 +2843,6 @@ ul, ol {
   }
 
   .filter-btn--basicos {
-    width: 100%;
     text-align: center;
   }
 
@@ -3116,6 +3229,29 @@ ul, ol {
   font-size: 0.78rem;
   margin-top: 8px;
   font-weight: 600;
+}
+
+.checkout-lock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(244, 143, 177, 0.08);
+  border: 1px solid rgba(244, 143, 177, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  color: var(--red);
+}
+
+.checkout-lock svg {
+  flex-shrink: 0;
+}
+
+.checkout-lock p {
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--white-muted);
 }
 
 /* ========================================
