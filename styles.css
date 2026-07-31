@@ -1990,13 +1990,13 @@ ul, ol {
 .product-modal__content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  align-items: start;
 }
 
 .product-modal__image {
   height: 600px;
   display: flex;
   align-items: center;
+  align-self: center;
 }
 
 .modal-carousel {
