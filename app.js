@@ -385,7 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="cart-item__image"><span>${brandShort}</span></div>
             <div class="cart-item__info">
               <div class="cart-item__name">${item.name}</div>
-              <div class="cart-item__detail">${item.talle} / ${item.color}${item.espalda ? ' / Espalda: ' + item.espalda : ''}</div>
+              <div class="cart-item__detail">${item.talle} / ${item.color}${item.espalda ? ' / Espalda: ' + item.espalda : ''}${item.pecho ? ' / Pecho: ' + item.pecho : ''}${item.manga ? ' / Mangas: ' + item.manga : ''}</div>
               <div class="cart-item__price">$${(item.price * item.qty).toLocaleString('es-AR')}</div>
             </div>
             <div class="cart-item__qty">
@@ -456,7 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function buildWhatsAppMessage(shippingData, paymentMethod) {
     let msg = 'Hola! Quiero hacer un pedido desde KØRE:\n\n';
     cart.forEach(item => {
-      msg += '- ' + item.name + ' (Talle: ' + item.talle + ', Color: ' + item.color + (item.espalda ? ', Espalda: ' + item.espalda : '') + ') x' + item.qty + ' — $' + (item.price * item.qty).toLocaleString('es-AR') + '\n';
+      msg += '- ' + item.name + ' (Talle: ' + item.talle + ', Color: ' + item.color + (item.espalda ? ', Espalda: ' + item.espalda : '') + (item.pecho ? ', Pecho: ' + item.pecho : '') + (item.manga ? ', Mangas: ' + item.manga : '') + ') x' + item.qty + ' — $' + (item.price * item.qty).toLocaleString('es-AR') + '\n';
     });
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
     let discount = 0;
@@ -580,13 +580,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function addToCart(name, price, talle, color, qty = 1, openAfter = true, espalda = '') {
-    const key = `${name}-${talle}-${color}-${espalda}`;
-    const existing = cart.find(item => `${item.name}-${item.talle}-${item.color}-${(item.espalda||'')}` === key);
+  function addToCart(name, price, talle, color, qty = 1, openAfter = true, espalda = '', pecho = '', manga = '') {
+    const key = `${name}-${talle}-${color}-${espalda}-${pecho}-${manga}`;
+    const existing = cart.find(item => `${item.name}-${item.talle}-${item.color}-${(item.espalda||'')}-${(item.pecho||'')}-${(item.manga||'')}` === key);
     if (existing) {
       existing.qty += qty;
     } else {
-      cart.push({ name, price, talle, color, qty: qty, espalda: espalda });
+      cart.push({ name, price, talle, color, qty: qty, espalda, pecho, manga });
     }
     updateCartUI();
     if (openAfter) {
@@ -822,7 +822,12 @@ document.addEventListener('DOMContentLoaded', () => {
     'hellstar-chico-jkt': { brand: 'Hellstar', name: 'Hellstar chico', price: 34600, watermark: 'HLS', category: 'camperas', images: ['img/hst-jkt-chico-1.jpg','img/hst-jkt-chico-2.jpg','img/hst-jkt-chico-3.jpg','img/hst-jkt-chico-4.jpg','img/hst-jkt-chico-5.jpg','img/hst-jkt-chico-6.jpg','img/hst-jkt-chico-7.jpg','img/hst-jkt-chico-8.jpg','img/hst-jkt-chico-9.jpg','img/hst-jkt-chico-10.jpg','img/hst-jkt-chico-11.jpg'], hasDiseno: true, disenos: [{ name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Blanco', bg: '#ffffff', border: '#ccc' }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Negro', add: 2000 }, { name: 'Cremita', add: 2000 }] },
     'hellstar-jkt': { brand: 'Hellstar', name: 'Hellstar', price: 35500, watermark: 'HLS', category: 'camperas', images: ['img/hst-jkt-1.jpg','img/hst-jkt-2.jpg','img/hst-jkt-3.jpg','img/hst-jkt-4.jpg','img/hst-jkt-5.jpg','img/hst-jkt-6.jpg','img/hst-jkt-7.jpg','img/hst-jkt-8.jpg'], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Negro', add: 2000 }, { name: 'Cremita', add: 2000 }] },
     'nocta-jkt': { brand: 'Nocta', name: 'Nocta', price: 35150, watermark: 'NCT', category: 'camperas', images: ['img/nct-jkt-1.jpg','img/nct-jkt-2.jpg','img/nct-jkt-3.jpg'] },
-    'nocta-nike-jkt': { brand: 'Nocta', name: 'Nocta x Nike', price: 34950, watermark: 'NCT', category: 'camperas', images: ['img/nct-nike-jkt-1.jpg','img/nct-nike-jkt-2.jpg','img/nct-nike-jkt-3.jpg'] }
+    'nocta-nike-jkt': { brand: 'Nocta', name: 'Nocta x Nike', price: 34950, watermark: 'NCT', category: 'camperas', images: ['img/nct-nike-jkt-1.jpg','img/nct-nike-jkt-2.jpg','img/nct-nike-jkt-3.jpg'] },
+    'chrome-negro-jkt': { brand: 'Chrome Heart', name: 'Chrome Hearts negro', price: 34000, watermark: 'CH', category: 'camperas', images: ['img/chr-neg-jkt-1.jpg','img/chr-neg-jkt-2.jpg','img/chr-neg-jkt-3.jpg','img/chr-neg-jkt-4.jpg','img/chr-neg-jkt-5.jpg'], hasPecho: true, pechos: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 0 }], hasMangas: true, mangas: [{ name: 'Sin', add: 0 }, { name: 'Negro', add: 2500 }, { name: 'Gris', add: 2500 }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2000 }] },
+    'chrome-blanco-jkt': { brand: 'Chrome Heart', name: 'Chrome Hearts blanco', price: 34000, watermark: 'CH', category: 'camperas', images: ['img/chr-blan-jkt-1.jpg','img/chr-blan-jkt-2.jpg','img/chr-blan-jkt-3.jpg','img/chr-blan-jkt-4.jpg','img/chr-blan-jkt-5.jpg'], hasPecho: true, pechos: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 0 }], hasMangas: true, mangas: [{ name: 'Sin', add: 0 }, { name: 'Negro', add: 2500 }, { name: 'Gris', add: 2500 }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2000 }] },
+    'chrome-gris-jkt': { brand: 'Chrome Heart', name: 'Chrome Hearts gris', price: 34000, watermark: 'CH', category: 'camperas', images: ['img/chr-gris-jkt-1.jpg','img/chr-gris-jkt-2.jpg','img/chr-gris-jkt-3.jpg','img/chr-gris-jkt-4.jpg','img/chr-gris-jkt-5.jpg'], hasPecho: true, pechos: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 0 }], hasMangas: true, mangas: [{ name: 'Sin', add: 0 }, { name: 'Negro', add: 2500 }, { name: 'Gris', add: 2500 }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2000 }] },
+    'chrome-rosado-jkt': { brand: 'Chrome Heart', name: 'Chrome Hearts rosado', price: 34000, watermark: 'CH', category: 'camperas', images: ['img/chr-ros-jkt-1.jpg','img/chr-ros-jkt-2.jpg','img/chr-ros-jkt-3.jpg','img/chr-ros-jkt-4.jpg','img/chr-ros-jkt-5.jpg'], hasPecho: true, pechos: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 0 }], hasMangas: true, mangas: [{ name: 'Sin', add: 0 }, { name: 'Negro', add: 2500 }, { name: 'Gris', add: 2500 }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2000 }] },
+    'chrome-jkt': { brand: 'Chrome Heart', name: 'Chrome Hearts', price: 34000, watermark: 'CH', category: 'camperas', images: ['img/chr-jkt-1.jpg','img/chr-jkt-2.jpg','img/chr-jkt-3.jpg','img/chr-jkt-4.jpg','img/chr-jkt-5.jpg','img/chr-jkt-6.jpg','img/chr-jkt-7.jpg','img/chr-jkt-8.jpg'], hasPecho: true, pechos: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 0 }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2000 }] }
   };
 
   const colorSets = {
@@ -1013,6 +1018,52 @@ document.addEventListener('DOMContentLoaded', () => {
         espaldaSelector.style.display = 'none';
       }
 
+      const pechoSelector = document.getElementById('pechoSelector');
+      const pechoContainer = document.querySelector('.pecho-selector');
+      if (data.hasPecho && pechoSelector && pechoContainer) {
+        pechoSelector.style.display = 'block';
+        pechoContainer.innerHTML = '';
+        const pechos = data.pechos || [{ name: 'Sin', add: 0 }];
+        pechos.forEach((p, i) => {
+          const pbtn = document.createElement('button');
+          pbtn.className = 'diseno-btn' + (i === 0 ? ' active' : '');
+          pbtn.dataset.pecho = p.name;
+          pbtn.dataset.add = p.add;
+          pbtn.textContent = p.name;
+          pechoContainer.appendChild(pbtn);
+        });
+      } else if (pechoSelector) {
+        pechoSelector.style.display = 'none';
+      }
+
+      const mangasSelector = document.getElementById('mangasSelector');
+      const mangasContainer = document.querySelector('.mangas-selector');
+      if (data.hasMangas && mangasSelector && mangasContainer) {
+        mangasSelector.style.display = 'block';
+        mangasContainer.innerHTML = '';
+        const mangas = data.mangas || [{ name: 'Sin', add: 0 }];
+        mangas.forEach((m, i) => {
+          const mbtn = document.createElement('button');
+          mbtn.className = 'diseno-btn' + (i === 0 ? ' active' : '');
+          mbtn.dataset.manga = m.name;
+          mbtn.dataset.add = m.add;
+          mbtn.textContent = m.name;
+          mangasContainer.appendChild(mbtn);
+        });
+        mangasContainer.querySelectorAll('.diseno-btn').forEach(mbtn => {
+          mbtn.addEventListener('click', () => {
+            mangasContainer.querySelectorAll('.diseno-btn').forEach(b => b.classList.remove('active'));
+            mbtn.classList.add('active');
+            const notice = document.getElementById('mangasNotice');
+            if (notice) {
+              notice.classList.toggle('visible', parseInt(mbtn.dataset.add || 0) > 0);
+            }
+          });
+        });
+      } else if (mangasSelector) {
+        mangasSelector.style.display = 'none';
+      }
+
       modalQty = 1;
       if (modalQtyValue) modalQtyValue.textContent = '1';
 
@@ -1074,6 +1125,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const activeColor = document.querySelector('.color-btn.active');
       const activeDiseno = document.querySelector('.diseno-btn.active');
       const activeEspalda = document.querySelector('.espalda-selector .diseno-btn.active');
+      const activePecho = document.querySelector('.pecho-selector .diseno-btn.active');
+      const activeManga = document.querySelector('.mangas-selector .diseno-btn.active');
       const defaultSizes = sizeSets[currentModalProduct.category] || sizeSets.remeras;
       const talle = activeSize ? activeSize.dataset.size : defaultSizes[0];
       let color = activeColor ? activeColor.dataset.color : 'Negro';
@@ -1081,12 +1134,21 @@ document.addEventListener('DOMContentLoaded', () => {
         color = color + ' / ' + activeDiseno.dataset.diseno;
       }
       let espalda = '';
+      let pecho = '';
+      let manga = '';
       let price = currentModalProduct.price;
       if (activeEspalda) {
         espalda = activeEspalda.dataset.espalda;
         price = price + parseInt(activeEspalda.dataset.add || 0);
       }
-      addToCart(currentModalProduct.name, price, talle, color, modalQty, false, espalda);
+      if (activePecho) {
+        pecho = activePecho.dataset.pecho;
+      }
+      if (activeManga) {
+        manga = activeManga.dataset.manga;
+        price = price + parseInt(activeManga.dataset.add || 0);
+      }
+      addToCart(currentModalProduct.name, price, talle, color, modalQty, false, espalda, pecho, manga);
       modalQty = 1;
       if (modalQtyValue) modalQtyValue.textContent = '1';
     }
