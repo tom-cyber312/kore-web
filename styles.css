@@ -1995,6 +1995,8 @@ ul, ol {
 
 .product-modal__image {
   height: 600px;
+  display: flex;
+  align-items: center;
 }
 
 .modal-carousel {
