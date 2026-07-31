@@ -2728,6 +2728,11 @@ ul, ol {
     font-size: 0.7rem;
   }
 
+  .filter-btn--basicos {
+    width: 100%;
+    text-align: center;
+  }
+
   .drops__subfilters {
     gap: 4px;
   }
