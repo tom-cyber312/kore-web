@@ -376,7 +376,7 @@ ul, ol {
 }
 
 .header__nav {
-  display: flex;
+  display: none;
   gap: 32px;
 }
 
@@ -463,7 +463,7 @@ ul, ol {
 }
 
 .header__hamburger {
-  display: none;
+  display: flex;
   flex-direction: column;
   gap: 5px;
   width: 24px;
@@ -472,6 +472,7 @@ ul, ol {
 
 .header__hamburger span {
   display: block;
+  width: 100%;
   height: 2px;
   background: var(--white);
   border-radius: 2px;
@@ -494,7 +495,7 @@ ul, ol {
    MOBILE NAV
    ======================================== */
 .mobile-nav {
-  display: none;
+  display: block;
 }
 
 .mobile-nav__overlay {
@@ -2481,6 +2482,20 @@ ul, ol {
 /* ========================================
    RESPONSIVE — TABLET
    ======================================== */
+@media (min-width: 1025px) {
+  .header__nav {
+    display: flex;
+  }
+
+  .header__hamburger {
+    display: none;
+  }
+
+  .mobile-nav {
+    display: none;
+  }
+}
+
 @media (max-width: 1024px) {
   .header__nav {
     display: none;
@@ -2785,6 +2800,26 @@ ul, ol {
 }
 
 @media (max-width: 480px) {
+  /* Header: asegurar que el botón de menú (3 líneas) siempre se muestre y se pueda tocar */
+  .header__container {
+    gap: 10px;
+  }
+
+  .header__logo {
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .header__actions {
+    flex-shrink: 0;
+    gap: 8px;
+  }
+
+  .header__hamburger {
+    display: flex !important;
+    width: 28px;
+  }
+
   .intro__img {
     max-width: 85vw;
     max-height: 55vh;
