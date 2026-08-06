@@ -1071,6 +1071,7 @@ ul, ol {
   position: relative;
   height: 280px;
   overflow: hidden;
+  border-radius: var(--radius) var(--radius) 0 0;
 }
 
 .product-card__image img {
