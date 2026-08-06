@@ -348,7 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const validCoupons = {
     'KORE10': { type: 'percent', value: 10 },
     'KORE20': { type: 'percent', value: 20 },
-    'DESCUENTO': { type: 'fixed', value: 1000 }
+    'DESCUENTO': { type: 'percent', value: 10 }
   };
 
   function openCart(resetSteps = true) {
