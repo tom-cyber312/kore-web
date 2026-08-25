@@ -1067,6 +1067,30 @@ ul, ol {
   display: none;
 }
 
+.product-card--out-of-stock {
+  opacity: 0.4 !important;
+  pointer-events: none;
+}
+
+.product-card--out-of-stock .product-card__image {
+  position: relative;
+}
+
+.product-card--out-of-stock .product-card__image::after {
+  content: 'SIN STOCK';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.6);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  z-index: 1;
+}
+
 .product-card__image {
   position: relative;
   height: 280px;

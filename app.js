@@ -854,8 +854,8 @@ document.addEventListener('DOMContentLoaded', () => {
     'chrome-rosado-jkt': { brand: 'Chrome Heart', name: 'Chrome Hearts rosado', price: 34000, watermark: 'CH', category: 'camperas', images: ['img/chr-ros-jkt-1.webp','img/chr-ros-jkt-2.webp','img/chr-ros-jkt-3.webp','img/chr-ros-jkt-4.webp','img/chr-ros-jkt-5.webp'], hasPecho: true, pechos: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 0 }], hasMangas: true, mangas: [{ name: 'Sin', add: 0 }, { name: 'Negro', add: 2500 }, { name: 'Gris', add: 2500 }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2000 }] },
     'chrome-jkt': { brand: 'Chrome Heart', name: 'Chrome Hearts', price: 34000, watermark: 'CH', category: 'camperas', images: ['img/chr-jkt-1.webp','img/chr-jkt-2.webp','img/chr-jkt-3.webp','img/chr-jkt-4.webp','img/chr-jkt-5.webp','img/chr-jkt-6.webp','img/chr-jkt-7.webp','img/chr-jkt-8.webp'], hasPecho: true, pechos: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 0 }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2000 }] },
     'basicos-rem': { brand: 'Basicos', name: 'Remeras', price: 15000, watermark: 'BSC', category: 'basicos', images: ['img/bsc-rem-1.webp','img/bsc-rem-2.webp','img/bsc-rem-3.webp','img/bsc-rem-4.webp'] },
-    'basicos-jkt': { brand: 'Basicos', name: 'Camperas', price: 30000, watermark: 'BSC', category: 'basicos', images: ['img/bsc-jkt-1.webp','img/bsc-jkt-2.webp','img/bsc-jkt-3.webp','img/bsc-jkt-4.webp'] },
-    'basicos-pant': { brand: 'Basicos', name: 'Pantalones', price: 25000, watermark: 'BSC', category: 'basicos', images: ['img/bsc-pant-1.webp','img/bsc-pant-2.webp','img/bsc-pant-3.webp','img/bsc-pant-4.webp'] },
+    'basicos-jkt': { brand: 'Basicos', name: 'Camperas', price: 30000, watermark: 'BSC', category: 'basicos', images: ['img/bsc-jkt-1.webp','img/bsc-jkt-2.webp','img/bsc-jkt-3.webp','img/bsc-jkt-4.webp'], colors: [{ name: 'Negro', bg: '#1a1a1a', border: '1px solid #555' }, { name: 'Gris', bg: '#888', border: 'none' }, { name: 'Blanco', bg: '#f5f5f5', border: '1px solid #333' }, { name: 'Rosado', bg: '#f8bbd0', border: 'none' }, { name: 'Rojo', bg: '#e53935', border: 'none' }] },
+    'basicos-pant': { brand: 'Basicos', name: 'Pantalones', price: 25000, watermark: 'BSC', category: 'basicos', images: ['img/bsc-pant-1.webp','img/bsc-pant-2.webp','img/bsc-pant-3.webp','img/bsc-pant-4.webp'], colors: [{ name: 'Negro', bg: '#1a1a1a', border: '1px solid #555' }, { name: 'Gris', bg: '#888', border: 'none' }, { name: 'Blanco', bg: '#f5f5f5', border: '1px solid #333' }, { name: 'Rosado', bg: '#f8bbd0', border: 'none' }] },
     'jordan-retro-jkt': { brand: 'Jordan', name: 'Jordan retro', price: 34700, watermark: 'JRD', category: 'camperas', images: ['img/jrd-retro-jkt-1.webp','img/jrd-retro-jkt-2.webp','img/jrd-retro-jkt-3.webp','img/jrd-retro-jkt-4.webp'] },
     'jordan-glitch-jkt': { brand: 'Jordan', name: 'Jordan glich', price: 34900, watermark: 'JRD', category: 'camperas', images: ['img/jrd-glitch-jkt-1.webp','img/jrd-glitch-jkt-2.webp','img/jrd-glitch-jkt-3.webp','img/jrd-glitch-jkt-4.webp'] },
     'jordan-jkt': { brand: 'Jordan', name: 'Jordan', price: 35100, watermark: 'JRD', category: 'camperas', images: ['img/jrd-jkt-1.webp','img/jrd-jkt-2.webp','img/jrd-jkt-3.webp','img/jrd-jkt-4.webp'] },
@@ -976,7 +976,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       renderSizeButtons(data.category);
 
-      const colors = colorSets[data.category] || colorSets.remeras;
+      const colors = data.colors || colorSets[data.category] || colorSets.remeras;
       colorSelectorContainer.innerHTML = '';
         colors.forEach((c, i) => {
           const cbtn = document.createElement('button');
