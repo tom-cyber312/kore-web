@@ -162,12 +162,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const subcategories = {
     remeras: ['jordan', 'nike', 'corteiz', 'supreme', 'adidas', 'lacoste', 'calvin-klein', 'bape'],
-    pantalones: ['chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz'],
-    camperas: ['chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz', 'jordan', 'nike', 'adidas'],
+    pantalones: ['drop-04', 'chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz'],
+    camperas: ['drop-04', 'chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz', 'jordan', 'nike', 'adidas'],
     basicos: ['remeras', 'pantalones', 'camperas']
   };
 
   const subcategoryLabels = {
+    'drop-04': 'Drop 04',
     'jordan': 'Jordan',
     'nike': 'Nike',
     'corteiz': 'Corteiz',
@@ -515,23 +516,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return msg;
   }
 
-  let checkoutLocked = true;
-  const checkoutLockMsg = document.getElementById('checkoutLock');
-
-  function showCheckoutLockMessage() {
-    if (!checkoutLockMsg) return;
-    checkoutLockMsg.style.display = 'flex';
-    clearTimeout(showCheckoutLockMessage._timeout);
-    showCheckoutLockMessage._timeout = setTimeout(() => {
-      checkoutLockMsg.style.display = 'none';
-    }, 3500);
-  }
-
   continueBtn.addEventListener('click', () => {
-    if (checkoutLocked) {
-      showCheckoutLockMessage();
-      return;
-    }
     cartFooter.style.display = 'none';
     cartItemsContainer.style.display = 'none';
     checkoutForm.style.display = 'block';
@@ -790,6 +775,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const addToCartModalBtn = document.querySelector('.add-to-cart-modal-btn');
 
   const productData = {
+    'baggy-rojo': { brand: 'Drop 04', name: 'Baggy doble cintura rojo', price: 34000, watermark: 'DRP', category: 'pantalones', images: ['img/baggy-rojo.webp'] },
+    'baggy-azul': { brand: 'Drop 04', name: 'Baggy doble cintura azul', price: 34000, watermark: 'DRP', category: 'pantalones', images: ['img/baggy-azul.webp'] },
+    'baggy-negro': { brand: 'Drop 04', name: 'Baggy doble cintura negro', price: 30000, watermark: 'DRP', category: 'pantalones', images: ['img/baggy-negro.webp'] },
+    'baggy-camu': { brand: 'Drop 04', name: 'Baggy camuflado verde', price: 28000, watermark: 'DRP', category: 'pantalones', images: ['img/baggy-camu.webp'] },
+    'mixed-emotion': { brand: 'Drop 04', name: 'Campera Mixed Emotion Angel', price: 42000, watermark: 'DRP', category: 'camperas', images: ['img/mixed-emotion-1.webp','img/mixed-emotion-2.webp'] },
+    'coldculture': { brand: 'Drop 04', name: 'Campera camuflada coldculture verde', price: 39000, watermark: 'DRP', category: 'camperas', images: ['img/coldculture.webp'] },
+    'camu-verde': { brand: 'Drop 04', name: 'Campera camuflada verde', price: 35000, watermark: 'DRP', category: 'camperas', images: ['img/camu-verde.webp'] },
+    'strass-niki': { brand: 'Drop 04', name: 'Campera strass nikistreetwear', price: 39000, watermark: 'DRP', category: 'camperas', images: ['img/strass-niki-1.webp','img/strass-niki-2.webp'] },
+    'camu-gris': { brand: 'Drop 04', name: 'Campera camuflada gris', price: 38000, watermark: 'DRP', category: 'camperas', images: ['img/camu-gris.webp'] },
     'corteiz-chico': { brand: 'Corteiz', name: 'Corteiz Chico', price: 16900, watermark: 'CTZ', category: 'remeras', images: ['img/ctz-chi-1.webp','img/ctz-chi-2.webp','img/ctz-chi-3.webp'] },
     'corteiz-manos': { brand: 'Corteiz', name: 'Corteiz Manos', price: 17600, watermark: 'CTZ', category: 'remeras', images: ['img/ctz-man-1.webp','img/ctz-man-2.webp','img/ctz-man-3.webp','img/ctz-man-4.webp'] },
     'corteiz-lata': { brand: 'Corteiz', name: 'Corteiz Lata', price: 17600, watermark: 'CTZ', category: 'remeras', images: ['img/ctz-lat-1.webp','img/ctz-lat-2.webp','img/ctz-lat-3.webp','img/ctz-lat-4.webp'] },
@@ -1255,9 +1249,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ========================================
-  // COUNTDOWN BANNER
+  // COUNTDOWN BANNER (DROP 04)
   // ========================================
-  const COUNTDOWN_END = new Date('2026-08-01T13:00:00-03:00').getTime();
+  const COUNTDOWN_END = new Date('2026-09-02T15:00:00-03:00').getTime();
   const COUNTDOWN_GRACE = 60 * 60 * 1000; // 1 hora después de llegar a 0
   const countdownBanner = document.getElementById('countdownBanner');
   const countdownLabel = document.getElementById('countdownLabel');
@@ -1282,8 +1276,17 @@ document.addEventListener('DOMContentLoaded', () => {
     cdSecs.textContent = pad2(secs);
   }
 
+  function setDrop04Locked(locked) {
+    document.querySelectorAll('.product-card.drop-04-locked').forEach(card => {
+      card.classList.toggle('drop-04-locked', locked);
+    });
+  }
+
   function initCountdown() {
-    if (!countdownBanner) return;
+    if (!countdownBanner) {
+      setDrop04Locked(false);
+      return;
+    }
     let interval = null;
 
     function tick() {
@@ -1291,20 +1294,20 @@ document.addEventListener('DOMContentLoaded', () => {
       const remaining = COUNTDOWN_END - now;
 
       if (remaining > 0) {
-        checkoutLocked = true;
         countdownBanner.classList.add('visible');
         countdownBanner.classList.remove('open');
-        countdownLabel.textContent = 'El checkout se habilita en';
+        countdownLabel.textContent = 'El Drop 04 se habilita en';
         renderCountdown(remaining);
+        setDrop04Locked(true);
       } else if (now - COUNTDOWN_END < COUNTDOWN_GRACE) {
-        checkoutLocked = false;
         countdownBanner.classList.add('visible');
         countdownBanner.classList.add('open');
-        countdownLabel.textContent = '¡Checkout habilitado! Ya podés finalizar tu compra';
+        countdownLabel.textContent = '¡Drop 04 disponible! Ya podés ver los productos';
         renderCountdown(0);
+        setDrop04Locked(false);
       } else {
-        checkoutLocked = false;
         countdownBanner.remove();
+        setDrop04Locked(false);
         if (interval) clearInterval(interval);
         return;
       }

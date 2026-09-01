@@ -1153,6 +1153,10 @@ ul, ol {
   transform: translateY(-2px);
 }
 
+.product-card.drop-04-locked .product-card__quick-view {
+  display: none;
+}
+
 .product-card__info {
   padding: 16px;
 }
