@@ -970,28 +970,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
       renderSizeButtons(data.category);
 
-      const colors = data.colors || colorSets[data.category] || colorSets.remeras;
-      colorSelectorContainer.innerHTML = '';
-        colors.forEach((c, i) => {
-          const cbtn = document.createElement('button');
-          cbtn.className = 'color-btn' + (i === 0 ? ' active' : '');
-          cbtn.dataset.color = c.name;
-          cbtn.style.background = c.bg;
-          if (c.border !== 'none') cbtn.style.border = c.border;
-          cbtn.setAttribute('aria-label', c.name);
-          if (data.category === 'pantalones' && c.name === 'Blanco') {
-            cbtn.classList.add('color-btn--disabled');
-            cbtn.classList.remove('active');
-          }
-          colorSelectorContainer.appendChild(cbtn);
-        });
+      const colorSelectorParent = colorSelectorContainer.closest('.product-modal__selector');
 
-      colorSelectorContainer.querySelectorAll('.color-btn').forEach(cbtn => {
-        cbtn.addEventListener('click', () => {
-          colorSelectorContainer.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
-          cbtn.classList.add('active');
+      if (data.brand === 'Drop 04') {
+        if (colorSelectorParent) colorSelectorParent.style.display = 'none';
+      } else {
+        if (colorSelectorParent) colorSelectorParent.style.display = '';
+        const colors = data.colors || colorSets[data.category] || colorSets.remeras;
+        colorSelectorContainer.innerHTML = '';
+          colors.forEach((c, i) => {
+            const cbtn = document.createElement('button');
+            cbtn.className = 'color-btn' + (i === 0 ? ' active' : '');
+            cbtn.dataset.color = c.name;
+            cbtn.style.background = c.bg;
+            if (c.border !== 'none') cbtn.style.border = c.border;
+            cbtn.setAttribute('aria-label', c.name);
+            if (data.category === 'pantalones' && c.name === 'Blanco') {
+              cbtn.classList.add('color-btn--disabled');
+              cbtn.classList.remove('active');
+            }
+            colorSelectorContainer.appendChild(cbtn);
+          });
+
+        colorSelectorContainer.querySelectorAll('.color-btn').forEach(cbtn => {
+          cbtn.addEventListener('click', () => {
+            colorSelectorContainer.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+            cbtn.classList.add('active');
+          });
         });
-      });
+      }
 
       const disenoSelector = document.getElementById('disenoSelector');
       const disenoContainer = document.querySelector('.diseno-selector');
