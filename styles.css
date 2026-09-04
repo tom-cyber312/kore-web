@@ -1829,6 +1829,110 @@ ul, ol {
   color: var(--white-dim);
 }
 
+.footer__legal {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.footer__legal a {
+  font-size: 0.75rem;
+  color: var(--white-dim);
+  text-decoration: underline;
+  transition: var(--transition);
+}
+
+.footer__legal a:hover {
+  color: var(--red);
+}
+
+/* ========================================
+   LEGAL / TERMINOS
+   ======================================== */
+.legal {
+  padding: 64px 0;
+  background: var(--black);
+}
+
+.legal__block {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+  background: var(--black-card);
+  overflow: hidden;
+}
+
+.legal__block summary {
+  padding: 16px 20px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--white);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: var(--transition);
+}
+
+.legal__block summary::-webkit-details-marker {
+  display: none;
+}
+
+.legal__block summary::after {
+  content: '+';
+  font-size: 1.4rem;
+  color: var(--red);
+  transition: var(--transition);
+}
+
+.legal__block[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.legal__block summary:hover {
+  background: rgba(244, 143, 177, 0.05);
+}
+
+.legal__content {
+  padding: 4px 20px 20px;
+  border-top: 1px solid var(--border);
+  color: var(--white-muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.legal__content h4 {
+  color: var(--white);
+  font-size: 0.85rem;
+  margin: 16px 0 6px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.legal__content p,
+.legal__content li {
+  color: var(--white-muted);
+  font-size: 0.82rem;
+}
+
+.legal__content ul,
+.legal__content ol {
+  padding-left: 20px;
+  margin: 6px 0;
+}
+
+.legal__content li {
+  margin-bottom: 4px;
+}
+
+.legal__content a {
+  color: var(--red);
+  text-decoration: underline;
+}
+
 /* ========================================
    WHATSAPP FLOATING BUTTON
    ======================================== */
@@ -2798,6 +2902,14 @@ ul, ol {
     flex-direction: column;
     gap: 8px;
     text-align: center;
+  }
+
+  .footer__legal {
+    justify-content: center;
+  }
+
+  .legal {
+    padding: 40px 0;
   }
 
   .hero__ctas {
