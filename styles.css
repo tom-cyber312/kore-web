@@ -2352,6 +2352,16 @@ ul, ol {
   background: rgba(244, 143, 177, 0.1);
 }
 
+.size-btn--out-of-stock,
+.size-btn--out-of-stock:hover {
+  border-color: var(--border);
+  color: var(--white-dim);
+  background: var(--gray-light);
+  opacity: 0.4;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
 .color-selector {
   display: flex;
   gap: 10px;

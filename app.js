@@ -777,13 +777,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const productData = {
     'baggy-rojo': { brand: 'Drop 04', name: 'Baggy doble cintura rojo', price: 34000, watermark: 'DRP', category: 'pantalones', images: ['img/baggy-rojo.webp'] },
     'baggy-azul': { brand: 'Drop 04', name: 'Baggy doble cintura azul', price: 34000, watermark: 'DRP', category: 'pantalones', images: ['img/baggy-azul.webp'] },
-    'baggy-negro': { brand: 'Drop 04', name: 'Baggy doble cintura negro', price: 30000, watermark: 'DRP', category: 'pantalones', images: ['img/baggy-negro.webp'] },
+    'baggy-negro': { brand: 'Drop 04', name: 'Baggy doble cintura negro', price: 30000, watermark: 'DRP', category: 'pantalones', images: ['img/baggy-negro.webp'], outOfStock: ['2', '3'] },
     'baggy-camu': { brand: 'Drop 04', name: 'Baggy camuflado verde', price: 28000, watermark: 'DRP', category: 'pantalones', images: ['img/baggy-camu.webp'] },
     'mixed-emotion': { brand: 'Drop 04', name: 'Campera Mixed Emotion Angel', price: 42000, watermark: 'DRP', category: 'camperas', images: ['img/mixed-emotion-1.webp','img/mixed-emotion-2.webp'] },
     'coldculture': { brand: 'Drop 04', name: 'Campera camuflada coldculture verde', price: 39000, watermark: 'DRP', category: 'camperas', images: ['img/coldculture.webp'] },
     'camu-verde': { brand: 'Drop 04', name: 'Campera camuflada verde', price: 35000, watermark: 'DRP', category: 'camperas', images: ['img/camu-verde.webp'] },
-    'strass-niki': { brand: 'Drop 04', name: 'Campera strass nikistreetwear', price: 39000, watermark: 'DRP', category: 'camperas', images: ['img/strass-niki-1.webp','img/strass-niki-2.webp'] },
-    'camu-gris': { brand: 'Drop 04', name: 'Campera camuflada gris', price: 38000, watermark: 'DRP', category: 'camperas', images: ['img/camu-gris.webp'] },
+    'strass-niki': { brand: 'Drop 04', name: 'Campera strass nikistreetwear', price: 39000, watermark: 'DRP', category: 'camperas', images: ['img/strass-niki-1.webp','img/strass-niki-2.webp'], outOfStock: ['4'] },
+    'camu-gris': { brand: 'Drop 04', name: 'Campera camuflada gris', price: 38000, watermark: 'DRP', category: 'camperas', images: ['img/camu-gris.webp'], outOfStock: ['3'] },
     'corteiz-chico': { brand: 'Corteiz', name: 'Corteiz Chico', price: 16900, watermark: 'CTZ', category: 'remeras', images: ['img/ctz-chi-1.webp','img/ctz-chi-2.webp','img/ctz-chi-3.webp'] },
     'corteiz-manos': { brand: 'Corteiz', name: 'Corteiz Manos', price: 17600, watermark: 'CTZ', category: 'remeras', images: ['img/ctz-man-1.webp','img/ctz-man-2.webp','img/ctz-man-3.webp','img/ctz-man-4.webp'] },
     'corteiz-lata': { brand: 'Corteiz', name: 'Corteiz Lata', price: 17600, watermark: 'CTZ', category: 'remeras', images: ['img/ctz-lat-1.webp','img/ctz-lat-2.webp','img/ctz-lat-3.webp','img/ctz-lat-4.webp'] },
@@ -968,7 +968,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modalDotsEl.innerHTML = '';
       }
 
-      renderSizeButtons(data.category);
+      renderSizeButtons(data.category, data);
 
       const colorSelectorParent = colorSelectorContainer.closest('.product-modal__selector');
 
@@ -1152,15 +1152,26 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const sizeSelector = document.querySelector('.size-selector');
 
-  function renderSizeButtons(category) {
+  function renderSizeButtons(category, product) {
     const sizes = sizeSets[category] || sizeSets.remeras;
+    const unavailable = (product && product.outOfStock) || [];
+    let activeSet = false;
     sizeSelector.innerHTML = '';
     sizes.forEach((s, i) => {
       const btn = document.createElement('button');
-      btn.className = 'size-btn' + (i === 0 ? ' active' : '');
+      btn.className = 'size-btn';
       btn.dataset.size = s;
       btn.textContent = s;
+      if (unavailable.indexOf(s) !== -1) {
+        btn.classList.add('size-btn--out-of-stock');
+        btn.dataset.outOfStock = 'true';
+        btn.disabled = true;
+      } else if (!activeSet) {
+        btn.classList.add('active');
+        activeSet = true;
+      }
       btn.addEventListener('click', () => {
+        if (btn.disabled) return;
         sizeSelector.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
       });
