@@ -883,6 +883,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const colorSelectorContainer = document.querySelector('.color-selector');
 
+  function isProductFullyOutOfStock(data) {
+    if (!data || !data.outOfStock) return false;
+    const sizes = sizeSets[data.category] || sizeSets.remeras;
+    return sizes.every(s => data.outOfStock.includes(s));
+  }
+
   let currentModalProduct = null;
   let modalQty = 1;
   const modalQtyValue = document.getElementById('modalQtyValue');
@@ -1150,6 +1156,18 @@ document.addEventListener('DOMContentLoaded', () => {
     pantalones: ['2', '3', '4'],
     camperas: ['2', '3', '4']
   };
+
+  document.querySelectorAll('.product-card').forEach(card => {
+    const btn = card.querySelector('.product-card__quick-view');
+    if (!btn) return;
+    const data = productData[btn.dataset.product];
+    if (data && isProductFullyOutOfStock(data)) {
+      card.classList.add('product-card--sold-out');
+      btn.textContent = 'Sin stock';
+      btn.disabled = true;
+    }
+  });
+
   const sizeSelector = document.querySelector('.size-selector');
 
   function renderSizeButtons(category, product) {
