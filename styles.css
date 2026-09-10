@@ -1098,8 +1098,9 @@ ul, ol {
   border-radius: var(--radius) var(--radius) 0 0;
 }
 
-.product-card--xlg .product-card__image {
-  height: 320px;
+.product-card--xlg .product-card__image img {
+  transform: scale(1.35);
+  object-fit: cover;
 }
 
 .product-card__image img {
@@ -2895,10 +2896,6 @@ ul, ol {
     height: 240px;
   }
 
-  .product-card--xlg .product-card__image {
-    height: 275px;
-  }
-
   .product-card__quick-view {
     font-size: 0.7rem;
     padding: 8px 14px;
@@ -3045,10 +3042,6 @@ ul, ol {
 
   .product-card__image {
     height: 200px;
-  }
-
-  .product-card--xlg .product-card__image {
-    height: 230px;
   }
 
   .product-card__info {
