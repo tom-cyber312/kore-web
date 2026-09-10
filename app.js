@@ -832,7 +832,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'trapstar-chico-pant': { brand: 'Trapstar', name: 'Trapstar chico', price: 29700, watermark: 'TSP', category: 'pantalones', images: ['img/tst-chico-1.webp','img/tst-chico-2.webp','img/tst-chico-3.webp','img/tst-chico-4.webp'] },
     'chrome-pant': { brand: 'Chrome Heart', name: 'Chrome Heart', price: 29500, watermark: 'CH', category: 'pantalones', images: ['img/chr-pant-1.webp','img/chr-pant-2.webp','img/chr-pant-3.webp','img/chr-pant-4.webp'] },
     'corteiz-chico-jkt': { brand: 'Corteiz', name: 'Corteiz chico', price: 34700, watermark: 'CTZ', category: 'camperas', images: ['img/ctz-jkt-chi-1.webp','img/ctz-jkt-chi-2.webp','img/ctz-jkt-chi-3.webp','img/ctz-jkt-chi-4.webp','img/ctz-jkt-chi-5.webp','img/ctz-jkt-chi-6.webp','img/ctz-jkt-chi-7.webp'], hasDiseno: true, disenos: [{ name: 'Celeste', bg: '#64b5f6', border: 'none' }, { name: 'Negro', bg: '#1a1a1a', border: 'none' }] },
-    'corteiz-jkt': { brand: 'Corteiz', name: 'Corteiz', price: 35400, watermark: 'CTZ', category: 'camperas', images: ['img/ctz-jkt-1.webp','img/ctz-jkt-2.webp','img/ctz-jkt-3.webp','img/ctz-jkt-4.webp'] },
+    'corteiz-jkt': { brand: 'Corteiz', name: 'Corteiz', price: 35400, watermark: 'CTZ', category: 'camperas', images: ['img/ctz-jkt-1.webp','img/ctz-jkt-2.webp','img/ctz-jkt-3.webp','img/ctz-jkt-4.webp','img/ctz-jkt-5.webp','img/ctz-jkt-6.webp','img/ctz-jkt-7.webp','img/ctz-jkt-8.webp','img/ctz-jkt-9.webp','img/ctz-jkt-10.webp','img/ctz-jkt-11.webp'], hasDisenoColor: true, disenoColors: [{ name: 'Azul', bg: '#2196f3', border: 'none' }, { name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Blanco', bg: '#ffffff', border: '#ccc' }] },
     'corteiz-oval-jkt': { brand: 'Corteiz', name: 'Corteiz oval', price: 35400, watermark: 'CTZ', category: 'camperas', images: ['img/ctz-oval-1.webp','img/ctz-oval-2.webp','img/ctz-oval-3.webp','img/ctz-oval-4.webp'] },
     'corteiz-crtz-jkt': { brand: 'Corteiz', name: 'Corteiz CRTZ', price: 35100, watermark: 'CTZ', category: 'camperas', images: ['img/ctz-crtz-jkt-1.webp','img/ctz-crtz-jkt-2.webp','img/ctz-crtz-jkt-3.webp','img/ctz-crtz-jkt-4.webp'] },
     'trapstar-large-jkt': { brand: 'Trapstar', name: 'Trapstar large', price: 35400, watermark: 'TSP', category: 'camperas', images: ['img/tst-jkt-large-1.webp','img/tst-jkt-large-2.webp','img/tst-jkt-large-3.webp','img/tst-jkt-large-4.webp','img/tst-jkt-large-5.webp','img/tst-jkt-large-6.webp','img/tst-jkt-large-9.webp'], hasDiseno: true, disenos: [{ name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Blanco', bg: '#ffffff', border: '#ccc' }, { name: 'Rojo', bg: '#d32f2f', border: 'none' }] },
@@ -1114,9 +1114,12 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         });
         window.updateDisenoColorVisibility = function () {
+          const hasEspaldaSelector = espaldaSelector && espaldaSelector.style.display !== 'none';
+          const hasPechoSelector = pechoSelector && pechoSelector.style.display !== 'none';
           const espaldaActive = document.querySelector('.espalda-selector .diseno-btn.active');
           const pechoActive = document.querySelector('.pecho-selector .diseno-btn.active');
           const show =
+            (!hasEspaldaSelector && !hasPechoSelector) ||
             (espaldaActive && espaldaActive.dataset.espalda === 'Con') ||
             (pechoActive && pechoActive.dataset.pecho === 'Con');
           disenoColorSelector.style.display = show ? 'block' : 'none';
@@ -1266,7 +1269,8 @@ document.addEventListener('DOMContentLoaded', () => {
         manga = activeManga.dataset.manga;
         price = price + parseInt(activeManga.dataset.add || 0);
       }
-      if (activeDisenoColor && (espalda === 'Con' || pecho === 'Con')) {
+      const disenoColorSelectorEl = document.getElementById('disenoColorSelector');
+      if (activeDisenoColor && disenoColorSelectorEl && disenoColorSelectorEl.style.display !== 'none') {
         color = color + ' / Diseño ' + activeDisenoColor.dataset.disenoColor;
       }
       addToCart(currentModalProduct.name, price, talle, color, modalQty, false, espalda, pecho, manga);
