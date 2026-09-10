@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentSubfilter = null;
 
   const subcategories = {
-    remeras: ['jordan', 'nike', 'corteiz', 'supreme', 'adidas', 'lacoste', 'calvin-klein', 'bape'],
+    remeras: ['jordan', 'nike', 'corteiz', 'supreme', 'adidas', 'lacoste', 'calvin-klein', 'bape', 'trapstar'],
     pantalones: ['drop-04', 'chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz'],
     camperas: ['drop-04', 'chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz', 'jordan', 'nike', 'adidas'],
     basicos: ['remeras', 'pantalones', 'camperas']
@@ -793,6 +793,8 @@ document.addEventListener('DOMContentLoaded', () => {
     'corteiz-plb-chico': { brand: 'Corteiz', name: 'Corteiz plb chico', price: 16900, watermark: 'CTZ', category: 'remeras', images: ['img/ctz-plb-chi-1.webp','img/ctz-plb-chi-2.webp','img/ctz-plb-chi-3.webp','img/ctz-plb-chi-4.webp'] },
     'corteiz-plb': { brand: 'Corteiz', name: 'Corteiz plb', price: 17600, watermark: 'CTZ', category: 'remeras', images: ['img/ctz-plb-1.webp','img/ctz-plb-2.webp','img/ctz-plb-3.webp','img/ctz-plb-4.webp','img/ctz-plb-5.webp','img/ctz-plb-6.webp','img/ctz-plb-7.webp','img/ctz-plb-8.webp'], hasDisenoColor: true, disenoColors: [{ name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Blanco', bg: '#ffffff', border: '#ccc' }, { name: 'Azul', bg: '#2196f3', border: 'none' }] },
     'corteiz-crtz': { brand: 'Corteiz', name: 'Corteiz CRTZ', price: 17600, watermark: 'CTZ', category: 'remeras', images: ['img/ctz-crtz-1.webp','img/ctz-crtz-2.webp','img/ctz-crtz-3.webp','img/ctz-crtz-4.webp'] },
+    'trapstar-chico-rem': { brand: 'Trapstar', name: 'Trapstar chico', price: 17000, watermark: 'TSP', category: 'remeras', images: ['img/tst-rem-chi-1.webp','img/tst-rem-chi-2.webp','img/tst-rem-chi-3.webp'] },
+    'trapstar-rem': { brand: 'Trapstar', name: 'Trapstar', price: 17700, watermark: 'TSP', category: 'remeras', images: ['img/tst-rem-1.webp','img/tst-rem-2.webp','img/tst-rem-3.webp','img/tst-rem-4.webp','img/tst-rem-5.webp','img/tst-rem-6.webp','img/tst-rem-7.webp','img/tst-rem-8.webp','img/tst-rem-9.webp','img/tst-rem-10.webp','img/tst-rem-11.webp'], hasDisenoColor: true, disenoColors: [{ name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Blanco', bg: '#ffffff', border: '#ccc' }, { name: 'Rojo', bg: '#d32f2f', border: 'none' }] },
     'jordan-saturno': { brand: 'Jordan', name: 'Jordan Saturno', price: 17800, watermark: 'JRD', category: 'remeras', images: ['img/jrd-saturno-1.webp','img/jrd-saturno-2.webp','img/jrd-saturno-3.webp','img/jrd-saturno-4.webp'] },
     'jordan-flight': { brand: 'Jordan', name: 'Jordan Flight', price: 17800, watermark: 'JRD', category: 'remeras', images: ['img/jrd-flight-1.webp','img/jrd-flight-2.webp','img/jrd-flight-3.webp','img/jrd-flight-4.webp'] },
     'jordan-air': { brand: 'Jordan', name: 'Air Jordan', price: 17700, watermark: 'JRD', category: 'remeras', images: ['img/jrd-air-1.webp','img/jrd-air-2.webp','img/jrd-air-3.webp','img/jrd-air-4.webp'], outOfStock: ['S', 'M', 'L'] },
