@@ -842,10 +842,10 @@ document.addEventListener('DOMContentLoaded', () => {
     'hellstar-jkt': { brand: 'Hellstar', name: 'Hellstar', price: 35500, watermark: 'HLS', category: 'camperas', images: ['img/hst-jkt-1.webp','img/hst-jkt-2.webp','img/hst-jkt-3.webp','img/hst-jkt-4.webp','img/hst-jkt-5.webp','img/hst-jkt-6.webp','img/hst-jkt-7.webp','img/hst-jkt-8.webp'], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Negro', add: 2000 }, { name: 'Cremita', add: 2000 }] },
     'nocta-jkt': { brand: 'Nocta', name: 'Nocta', price: 35150, watermark: 'NCT', category: 'camperas', images: ['img/nct-jkt-1.webp','img/nct-jkt-2.webp','img/nct-jkt-3.webp'] },
     'nocta-nike-jkt': { brand: 'Nocta', name: 'Nocta x Nike', price: 34950, watermark: 'NCT', category: 'camperas', images: ['img/nct-nike-jkt-1.webp','img/nct-nike-jkt-2.webp','img/nct-nike-jkt-3.webp'] },
-    'chrome-negro-jkt': { brand: 'Chrome Heart', name: 'Chrome Hearts negro', price: 34000, watermark: 'CH', category: 'camperas', images: ['img/chr-neg-jkt-3.webp','img/chr-neg-jkt-1.webp','img/chr-neg-jkt-4.webp','img/chr-neg-jkt-5.webp'], hasPecho: true, pechos: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 0 }], hasMangas: true, mangas: [{ name: 'Sin', add: 0 }, { name: 'Negro', add: 2500 }, { name: 'Gris', add: 2500 }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2000 }] },
-    'chrome-blanco-jkt': { brand: 'Chrome Heart', name: 'Chrome Hearts blanco', price: 34000, watermark: 'CH', category: 'camperas', images: ['img/chr-blan-jkt-1.webp','img/chr-blan-jkt-2.webp','img/chr-blan-jkt-3.webp','img/chr-blan-jkt-4.webp','img/chr-blan-jkt-5.webp'], hasPecho: true, pechos: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 0 }], hasMangas: true, mangas: [{ name: 'Sin', add: 0 }, { name: 'Negro', add: 2500 }, { name: 'Gris', add: 2500 }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2000 }] },
-    'chrome-gris-jkt': { brand: 'Chrome Heart', name: 'Chrome Hearts gris', price: 34000, watermark: 'CH', category: 'camperas', images: ['img/chr-gris-jkt-2.webp','img/chr-gris-jkt-1.webp','img/chr-gris-jkt-3.webp','img/chr-gris-jkt-4.webp','img/chr-gris-jkt-5.webp'], hasPecho: true, pechos: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 0 }], hasMangas: true, mangas: [{ name: 'Sin', add: 0 }, { name: 'Negro', add: 2500 }, { name: 'Gris', add: 2500 }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2000 }] },
-    'chrome-rosado-jkt': { brand: 'Chrome Heart', name: 'Chrome Hearts rosado', price: 34000, watermark: 'CH', category: 'camperas', images: ['img/chr-ros-jkt-1.webp','img/chr-ros-jkt-2.webp','img/chr-ros-jkt-3.webp','img/chr-ros-jkt-4.webp','img/chr-ros-jkt-5.webp'], hasPecho: true, pechos: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 0 }], hasMangas: true, mangas: [{ name: 'Sin', add: 0 }, { name: 'Negro', add: 2500 }, { name: 'Gris', add: 2500 }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2000 }] },
+    'chrome-negro-jkt': { brand: 'Chrome Heart', name: 'Chrome Hearts negro', price: 34000, watermark: 'CH', category: 'camperas', images: ['img/chr-neg-jkt-3.webp','img/chr-neg-jkt-1.webp','img/chr-neg-jkt-4.webp','img/chr-neg-jkt-5.webp','img/chr-neg-jkt-6.webp','img/chr-neg-jkt-7.webp'], hasPecho: true, pechos: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 0 }], hasMangas: true, mangas: [{ name: 'Sin', add: 0 }, { name: 'Negro', add: 2500 }, { name: 'Gris', add: 2500 }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2000 }], hasDisenoColor: true, disenoColors: [{ name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Blanco', bg: '#ffffff', border: '#ccc' }] },
+    'chrome-blanco-jkt': { brand: 'Chrome Heart', name: 'Chrome Hearts blanco', price: 34000, watermark: 'CH', category: 'camperas', images: ['img/chr-blan-jkt-1.webp','img/chr-blan-jkt-2.webp','img/chr-blan-jkt-3.webp','img/chr-blan-jkt-4.webp','img/chr-blan-jkt-5.webp','img/chr-blan-jkt-6.webp','img/chr-blan-jkt-7.webp'], hasPecho: true, pechos: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 0 }], hasMangas: true, mangas: [{ name: 'Sin', add: 0 }, { name: 'Negro', add: 2500 }, { name: 'Gris', add: 2500 }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2000 }], hasDisenoColor: true, disenoColors: [{ name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Blanco', bg: '#ffffff', border: '#ccc' }] },
+    'chrome-gris-jkt': { brand: 'Chrome Heart', name: 'Chrome Hearts gris', price: 34000, watermark: 'CH', category: 'camperas', images: ['img/chr-gris-jkt-2.webp','img/chr-gris-jkt-1.webp','img/chr-gris-jkt-3.webp','img/chr-gris-jkt-4.webp','img/chr-gris-jkt-5.webp','img/chr-gris-jkt-6.webp','img/chr-gris-jkt-7.webp'], hasPecho: true, pechos: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 0 }], hasMangas: true, mangas: [{ name: 'Sin', add: 0 }, { name: 'Negro', add: 2500 }, { name: 'Gris', add: 2500 }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2000 }], hasDisenoColor: true, disenoColors: [{ name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Blanco', bg: '#ffffff', border: '#ccc' }] },
+    'chrome-rosado-jkt': { brand: 'Chrome Heart', name: 'Chrome Hearts rosado', price: 34000, watermark: 'CH', category: 'camperas', images: ['img/chr-ros-jkt-1.webp','img/chr-ros-jkt-2.webp','img/chr-ros-jkt-3.webp','img/chr-ros-jkt-4.webp','img/chr-ros-jkt-5.webp','img/chr-ros-jkt-6.webp','img/chr-ros-jkt-7.webp'], hasPecho: true, pechos: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 0 }], hasMangas: true, mangas: [{ name: 'Sin', add: 0 }, { name: 'Negro', add: 2500 }, { name: 'Gris', add: 2500 }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2000 }], hasDisenoColor: true, disenoColors: [{ name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Blanco', bg: '#ffffff', border: '#ccc' }] },
     'chrome-jkt': { brand: 'Chrome Heart', name: 'Chrome Hearts', price: 34000, watermark: 'CH', category: 'camperas', images: ['img/chr-jkt-1.webp','img/chr-jkt-2.webp','img/chr-jkt-3.webp','img/chr-jkt-4.webp','img/chr-jkt-5.webp','img/chr-jkt-6.webp','img/chr-jkt-7.webp','img/chr-jkt-8.webp'], hasPecho: true, pechos: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 0 }], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2000 }] },
     'basicos-rem': { brand: 'Basicos', name: 'Remeras', price: 15000, watermark: 'BSC', category: 'basicos', images: ['img/bsc-rem-1.webp','img/bsc-rem-2.webp','img/bsc-rem-3.webp','img/bsc-rem-4.webp'] },
     'basicos-jkt': { brand: 'Basicos', name: 'Camperas', price: 30000, watermark: 'BSC', category: 'basicos', images: ['img/bsc-jkt-1.webp','img/bsc-jkt-2.webp','img/bsc-jkt-3.webp','img/bsc-jkt-4.webp'], colors: [{ name: 'Negro', bg: '#1a1a1a', border: '1px solid #555' }, { name: 'Gris', bg: '#888', border: 'none' }, { name: 'Blanco', bg: '#f5f5f5', border: '1px solid #333' }, { name: 'Rosado', bg: '#f8bbd0', border: 'none' }, { name: 'Rojo', bg: '#e53935', border: 'none' }] },
@@ -1056,6 +1056,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (notice) {
               notice.classList.toggle('visible', parseInt(ebtn.dataset.add || 0) > 0);
             }
+            if (data.hasDisenoColor && typeof updateDisenoColorVisibility === 'function') {
+              updateDisenoColorVisibility();
+            }
           });
         });
       } else if (espaldaSelector) {
@@ -1081,11 +1084,47 @@ document.addEventListener('DOMContentLoaded', () => {
           pbtn.addEventListener('click', () => {
             pechoContainer.querySelectorAll('.diseno-btn').forEach(b => b.classList.remove('active'));
             pbtn.classList.add('active');
+            if (data.hasDisenoColor && typeof updateDisenoColorVisibility === 'function') {
+              updateDisenoColorVisibility();
+            }
           });
         });
       } else if (pechoSelector) {
         pechoSelector.style.display = 'none';
         if (pechoContainer) pechoContainer.innerHTML = '';
+      }
+
+      const disenoColorSelector = document.getElementById('disenoColorSelector');
+      const disenoColorContainer = document.querySelector('.diseno-color-selector');
+      if (data.hasDisenoColor && disenoColorSelector && disenoColorContainer) {
+        disenoColorContainer.innerHTML = '';
+        const disenoColors = data.disenoColors || [{ name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Blanco', bg: '#ffffff', border: '#ccc' }];
+        disenoColors.forEach((c, i) => {
+          const cbtn = document.createElement('button');
+          cbtn.className = 'diseno-btn' + (i === 0 ? ' active' : '');
+          cbtn.dataset.disenoColor = c.name;
+          cbtn.innerHTML = '<span class="diseno-btn__swatch" style="background:' + c.bg + '"></span>' + c.name;
+          cbtn.setAttribute('aria-label', c.name);
+          disenoColorContainer.appendChild(cbtn);
+        });
+        disenoColorContainer.querySelectorAll('.diseno-btn').forEach(cbtn => {
+          cbtn.addEventListener('click', () => {
+            disenoColorContainer.querySelectorAll('.diseno-btn').forEach(b => b.classList.remove('active'));
+            cbtn.classList.add('active');
+          });
+        });
+        window.updateDisenoColorVisibility = function () {
+          const espaldaActive = document.querySelector('.espalda-selector .diseno-btn.active');
+          const pechoActive = document.querySelector('.pecho-selector .diseno-btn.active');
+          const show =
+            (espaldaActive && espaldaActive.dataset.espalda === 'Con') ||
+            (pechoActive && pechoActive.dataset.pecho === 'Con');
+          disenoColorSelector.style.display = show ? 'block' : 'none';
+        };
+        window.updateDisenoColorVisibility();
+      } else if (disenoColorSelector) {
+        disenoColorSelector.style.display = 'none';
+        if (disenoColorContainer) disenoColorContainer.innerHTML = '';
       }
 
       const mangasSelector = document.getElementById('mangasSelector');
@@ -1205,6 +1244,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const activeEspalda = document.querySelector('.espalda-selector .diseno-btn.active');
       const activePecho = document.querySelector('.pecho-selector .diseno-btn.active');
       const activeManga = document.querySelector('.mangas-selector .diseno-btn.active');
+      const activeDisenoColor = document.querySelector('.diseno-color-selector .diseno-btn.active');
       const defaultSizes = sizeSets[currentModalProduct.category] || sizeSets.remeras;
       const talle = activeSize ? activeSize.dataset.size : defaultSizes[0];
       let color = activeColor ? activeColor.dataset.color : 'Negro';
@@ -1225,6 +1265,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (activeManga) {
         manga = activeManga.dataset.manga;
         price = price + parseInt(activeManga.dataset.add || 0);
+      }
+      if (activeDisenoColor && (espalda === 'Con' || pecho === 'Con')) {
+        color = color + ' / Diseño ' + activeDisenoColor.dataset.disenoColor;
       }
       addToCart(currentModalProduct.name, price, talle, color, modalQty, false, espalda, pecho, manga);
       modalQty = 1;
