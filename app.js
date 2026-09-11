@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentSubfilter = null;
 
   const subcategories = {
-    remeras: ['jordan', 'nike', 'corteiz', 'supreme', 'adidas', 'lacoste', 'calvin-klein', 'bape', 'trapstar', 'hellstar'],
+    remeras: ['jordan', 'nike', 'corteiz', 'supreme', 'adidas', 'lacoste', 'calvin-klein', 'bape', 'trapstar', 'hellstar', 'nocta'],
     pantalones: ['drop-04', 'chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz'],
     camperas: ['drop-04', 'chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz', 'jordan', 'nike', 'adidas'],
     basicos: ['remeras', 'pantalones', 'camperas']
@@ -798,6 +798,8 @@ document.addEventListener('DOMContentLoaded', () => {
     'hellstar-logo-rem': { brand: 'Hellstar', name: 'Hellstar logo', price: 17700, watermark: 'HLS', category: 'remeras', images: ['img/hst-rem-logo-1.webp','img/hst-rem-logo-2.webp','img/hst-rem-logo-3.webp'] },
     'hellstar-logo-chico-rem': { brand: 'Hellstar', name: 'Hellstar logo chico', price: 17200, watermark: 'HLS', category: 'remeras', images: ['img/hst-rem-logo-chi-1.webp','img/hst-rem-logo-chi-2.webp','img/hst-rem-logo-chi-3.webp','img/hst-rem-logo-chi-4.webp','img/hst-rem-logo-chi-5.webp','img/hst-rem-logo-chi-6.webp'], hasDisenoColor: true, disenoColors: [{ name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Blanco', bg: '#ffffff', border: '#ccc' }] },
     'hellstar-rem': { brand: 'Hellstar', name: 'Hellstar', price: 17500, watermark: 'HLS', category: 'remeras', images: ['img/hst-rem-1.webp','img/hst-rem-2.webp','img/hst-rem-3.webp','img/hst-rem-4.webp','img/hst-rem-5.webp','img/hst-rem-6.webp','img/hst-rem-7.webp'], hasDisenoColor: true, disenoColors: [{ name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Blanco', bg: '#ffffff', border: '#ccc' }] },
+    'nocta-rem': { brand: 'Nocta', name: 'Nocta', price: 17000, watermark: 'NCT', category: 'remeras', images: ['img/nct-rem-1.webp','img/nct-rem-2.webp','img/nct-rem-3.webp'] },
+    'nocta-nike-rem': { brand: 'Nocta', name: 'Nocta x Nike', price: 17200, watermark: 'NCT', category: 'remeras', images: ['img/nct-nike-rem-1.webp','img/nct-nike-rem-2.webp','img/nct-nike-rem-3.webp'] },
     'jordan-saturno': { brand: 'Jordan', name: 'Jordan Saturno', price: 17800, watermark: 'JRD', category: 'remeras', images: ['img/jrd-saturno-1.webp','img/jrd-saturno-2.webp','img/jrd-saturno-3.webp','img/jrd-saturno-4.webp'] },
     'jordan-flight': { brand: 'Jordan', name: 'Jordan Flight', price: 17800, watermark: 'JRD', category: 'remeras', images: ['img/jrd-flight-1.webp','img/jrd-flight-2.webp','img/jrd-flight-3.webp','img/jrd-flight-4.webp'] },
     'jordan-air': { brand: 'Jordan', name: 'Air Jordan', price: 17700, watermark: 'JRD', category: 'remeras', images: ['img/jrd-air-1.webp','img/jrd-air-2.webp','img/jrd-air-3.webp','img/jrd-air-4.webp'], outOfStock: ['S', 'M', 'L'] },
