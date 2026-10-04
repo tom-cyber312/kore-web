@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     pantalones: ['drop-04', 'chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz', 'essentials', 'maison-margiela', 'acne-studios', 'comme-des-garcons', 'dog-running', 'nike', 'bape'],
     camperas: ['drop-04', 'chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz', 'jordan', 'nike', 'adidas', 'maison-margiela', 'comme-des-garcons', 'acne-studios', 'essentials', 'bape'],
     basicos: ['remeras', 'pantalones', 'camperas', 'shorts'],
-    shorts: ['shorts', 'maison-margiela', 'comme-des-garcons']
+    shorts: ['doble-cintura', 'maison-margiela', 'comme-des-garcons']
   };
 
   const subcategoryLabels = {
@@ -186,6 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'pantalones': 'Pantalones',
     'camperas': 'Camperas',
     'shorts': 'Shorts',
+      'doble-cintura': 'Doble cintura',
     'maison-margiela': 'Maison Margiela',
     'comme-des-garcons': 'Comme des Garcons',
     'acne-studios': 'Acne Studios',
