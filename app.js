@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     pantalones: ['drop-04', 'chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz', 'essentials', 'maison-margiela', 'acne-studios', 'comme-des-garcons', 'dog-running', 'nike', 'bape'],
     camperas: ['drop-04', 'chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz', 'jordan', 'nike', 'adidas', 'maison-margiela', 'comme-des-garcons', 'acne-studios', 'essentials', 'bape'],
     basicos: ['remeras', 'pantalones', 'camperas', 'shorts'],
-    shorts: ['doble-cintura', 'nike', 'dog-running', 'acne-studios', 'essentials', 'maison-margiela', 'comme-des-garcons']
+    shorts: ['doble-cintura', 'nike', 'dog-running', 'acne-studios', 'essentials', 'maison-margiela', 'comme-des-garcons', 'syna']
   };
 
   const subcategoryLabels = {
@@ -796,6 +796,10 @@ document.addEventListener('DOMContentLoaded', () => {
     'dog-blanco-shorts': { brand: 'Dog Running', name: 'Dog Running blanco', price: 18000, watermark: 'DR', category: 'shorts', images: ['img/dog-blan-shorts-1.png','img/dog-blan-shorts-2.png','img/dog-blan-shorts-3.png','img/dog-blan-shorts-4.png'] },
     'acne-stockholm-shorts': { brand: 'Acne Studios', name: 'Acne Studios Stockholm', price: 18000, watermark: 'ACN', category: 'shorts', images: ['img/acn-sthlm-shorts-1.png','img/acn-sthlm-shorts-2.png','img/acn-sthlm-shorts-3.png'] },
     'essentials-negro-shorts': { brand: 'Essentials', name: 'Essential negro', price: 18000, watermark: 'ESS', category: 'shorts', images: ['img/ess-negr-shorts-1.png','img/ess-negr-shorts-2.png','img/ess-negr-shorts-3.png'] },
+    'syna-blanco-shorts': { brand: 'Syna Word', name: 'Syna blanco', price: 18000, watermark: 'SYN', category: 'shorts', images: ['img/syn-blan-shorts-1.png','img/syn-blan-shorts-2.png','img/syn-blan-shorts-3.png','img/syn-blan-shorts-4.png'] },
+    'syna-negro-shorts': { brand: 'Syna Word', name: 'Syna negro', price: 18000, watermark: 'SYN', category: 'shorts', images: ['img/syn-negr-shorts-1.png','img/syn-negr-shorts-2.png','img/syn-negr-shorts-3.png'] },
+    'dog-amarillo-shorts': { brand: 'Dog Running', name: 'Dog Running amarillo', price: 18000, watermark: 'DR', category: 'shorts', images: ['img/dog-amar-shorts-1.png','img/dog-amar-shorts-2.png','img/dog-amar-shorts-3.png'] },
+    'nike-negro-shorts': { brand: 'Nike', name: 'Nike negro', price: 18000, watermark: 'NK', category: 'shorts', images: ['img/nk-negr-shorts-1.png','img/nk-negr-shorts-2.png','img/nk-negr-shorts-3.png'] },
     'nike-blanco-pant': { brand: 'Nike', name: 'Nike blanco', price: 30000, watermark: 'NK', category: 'pantalones', images: ['img/nk-blan-pant-1.png','img/nk-blan-pant-2.png','img/nk-blan-pant-3.png'] },
     'nike-negro-pant': { brand: 'Nike', name: 'Nike negro', price: 30000, watermark: 'NK', category: 'pantalones', images: ['img/nk-neg-pant-1.png','img/nk-neg-pant-2.png','img/nk-neg-pant-3.png'] },
     'syna-blanco': { brand: 'Syna Word', name: 'Syna blanco', price: 17700, watermark: 'SYN', category: 'remeras', images: ['img/syn-blan-1.png','img/syn-blan-2.png','img/syn-blan-3.png'] },
