@@ -2429,7 +2429,8 @@ ul, ol {
 
 .espalda-selector,
 .pecho-selector,
-.mangas-selector {
+.mangas-selector,
+.corte-selector {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;

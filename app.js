@@ -404,7 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="cart-item__image"><span>${brandShort}</span></div>
             <div class="cart-item__info">
               <div class="cart-item__name">${item.name}</div>
-              <div class="cart-item__detail">${item.talle} / ${item.color}${item.espalda ? ' / Espalda: ' + item.espalda : ''}${item.pecho ? ' / Pecho: ' + item.pecho : ''}${item.manga ? ' / Mangas: ' + item.manga : ''}${item.parteBaja ? ' / Parte baja: ' + item.parteBaja : ''}</div>
+              <div class="cart-item__detail">${item.talle} / ${item.color}${item.espalda ? ' / Espalda: ' + item.espalda : ''}${item.pecho ? ' / Pecho: ' + item.pecho : ''}${item.manga ? ' / Mangas: ' + item.manga : ''}${item.parteBaja ? ' / Parte baja: ' + item.parteBaja : ''}${item.corte ? ' / Corte: ' + item.corte : ''}</div>
               <div class="cart-item__price">$${(item.price * item.qty).toLocaleString('es-AR')}</div>
             </div>
             <div class="cart-item__qty">
@@ -475,7 +475,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function buildWhatsAppMessage(shippingData, paymentMethod) {
     let msg = 'Hola! Quiero hacer un pedido desde KØRE:\n\n';
     cart.forEach(item => {
-      msg += '- ' + item.name + ' (Talle: ' + item.talle + ', Color: ' + item.color + (item.espalda ? ', Espalda: ' + item.espalda : '') + (item.pecho ? ', Pecho: ' + item.pecho : '') + (item.manga ? ', Mangas: ' + item.manga : '') + (item.parteBaja ? ', Parte baja: ' + item.parteBaja : '') + ') x' + item.qty + ' — $' + (item.price * item.qty).toLocaleString('es-AR') + '\n';
+      msg += '- ' + item.name + ' (Talle: ' + item.talle + ', Color: ' + item.color + (item.espalda ? ', Espalda: ' + item.espalda : '') + (item.pecho ? ', Pecho: ' + item.pecho : '') + (item.manga ? ', Mangas: ' + item.manga : '') + (item.parteBaja ? ', Parte baja: ' + item.parteBaja : '') + (item.corte ? ', Corte: ' + item.corte : '') + ') x' + item.qty + ' — $' + (item.price * item.qty).toLocaleString('es-AR') + '\n';
     });
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
     let discount = 0;
@@ -599,13 +599,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function addToCart(name, price, talle, color, qty = 1, openAfter = true, espalda = '', pecho = '', manga = '', parteBaja = '') {
-    const key = `${name}-${talle}-${color}-${espalda}-${pecho}-${manga}-${parteBaja}`;
-    const existing = cart.find(item => `${item.name}-${item.talle}-${item.color}-${(item.espalda||'')}-${(item.pecho||'')}-${(item.manga||'')}-${(item.parteBaja||'')}` === key);
+  function addToCart(name, price, talle, color, qty = 1, openAfter = true, espalda = '', pecho = '', manga = '', parteBaja = '', corte = '') {
+    const key = `${name}-${talle}-${color}-${espalda}-${pecho}-${manga}-${parteBaja}-${corte}`;
+    const existing = cart.find(item => `${item.name}-${item.talle}-${item.color}-${(item.espalda||'')}-${(item.pecho||'')}-${(item.manga||'')}-${(item.parteBaja||'')}-${(item.corte||'')}` === key);
     if (existing) {
       existing.qty += qty;
     } else {
-      cart.push({ name, price, talle, color, qty: qty, espalda, pecho, manga, parteBaja });
+      cart.push({ name, price, talle, color, qty: qty, espalda, pecho, manga, parteBaja, corte });
     }
     updateCartUI();
     if (openAfter) {
@@ -785,21 +785,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const productData = {
     'basicos-shorts': { brand: 'Basicos', name: 'Shorts', price: 17000, watermark: 'BSC', category: 'basicos', sizes: ['S', 'M', 'L', 'XL', 'XXL'], images: ['img/shorts-basic-1.png','img/shorts-basic-2.png'], colors: [{ name: 'Negro', bg: '#1a1a1a', border: '1px solid #555' }, { name: 'Gris', bg: '#888', border: 'none' }] },
-    'short-doble-negro': { brand: 'Shorts', name: 'Short doble cintura negro', price: 25000, watermark: 'SHT', category: 'shorts', images: ['img/short-dob-neg-1.png','img/short-dob-neg-2.png'] },
-    'short-doble-gris': { brand: 'Shorts', name: 'Short doble cintura gris', price: 25000, watermark: 'SHT', category: 'shorts', images: ['img/short-dob-gris-1.png','img/short-dob-gris-2.png'] },
-    'mm-paris-shorts': { brand: 'Maison Margiela', name: 'Maison Margiela Paris', price: 18000, watermark: 'MM', category: 'shorts', images: ['img/mm-paris-1.png','img/mm-paris-2.png','img/mm-paris-3.png'] },
-    'cdg-grande-shorts': { brand: 'Comme des Garcons', name: 'Comme des Garcon grande', price: 18000, watermark: 'CDG', category: 'shorts', images: ['img/cdg-grande-1.png','img/cdg-grande-2.png','img/cdg-grande-3.png'] },
-    'play-cdg-shorts': { brand: 'Comme des Garcons', name: 'Play Comme des Garcons', price: 18500, watermark: 'CDG', category: 'shorts', images: ['img/play-cdg-1.png','img/play-cdg-2.png','img/play-cdg-3.png','img/play-cdg-4.png'] },
-    'cdg-shorts': { brand: 'Comme des Garcons', name: 'Comme des Garcons', price: 18500, watermark: 'CDG', category: 'shorts', images: ['img/cdg-1.png','img/cdg-2.png'] },
-    'cdg-negro-shorts': { brand: 'Comme des Garcons', name: 'Comme des Garcons negro', price: 18000, watermark: 'CDG', category: 'shorts', images: ['img/cdg-negro-1.png','img/cdg-negro-2.png','img/cdg-negro-3.png'] },
-    'nike-blanco-shorts': { brand: 'Nike', name: 'Nike blanco', price: 18000, watermark: 'NK', category: 'shorts', images: ['img/nk-blan-shorts-1.png','img/nk-blan-shorts-2.png','img/nk-blan-shorts-3.png','img/nk-blan-shorts-4.png'] },
-    'dog-blanco-shorts': { brand: 'Dog Running', name: 'Dog Running blanco', price: 18000, watermark: 'DR', category: 'shorts', images: ['img/dog-blan-shorts-1.png','img/dog-blan-shorts-2.png','img/dog-blan-shorts-3.png','img/dog-blan-shorts-4.png'] },
-    'acne-stockholm-shorts': { brand: 'Acne Studios', name: 'Acne Studios Stockholm', price: 18000, watermark: 'ACN', category: 'shorts', images: ['img/acn-sthlm-shorts-1.png','img/acn-sthlm-shorts-2.png','img/acn-sthlm-shorts-3.png'] },
-    'essentials-negro-shorts': { brand: 'Essentials', name: 'Essential negro', price: 18000, watermark: 'ESS', category: 'shorts', images: ['img/ess-negr-shorts-1.png','img/ess-negr-shorts-2.png','img/ess-negr-shorts-3.png'] },
-    'syna-blanco-shorts': { brand: 'Syna Word', name: 'Syna blanco', price: 18000, watermark: 'SYN', category: 'shorts', images: ['img/syn-blan-shorts-1.png','img/syn-blan-shorts-2.png','img/syn-blan-shorts-3.png','img/syn-blan-shorts-4.png'] },
-    'syna-negro-shorts': { brand: 'Syna Word', name: 'Syna negro', price: 18000, watermark: 'SYN', category: 'shorts', images: ['img/syn-negr-shorts-1.png','img/syn-negr-shorts-2.png','img/syn-negr-shorts-3.png'] },
-    'dog-amarillo-shorts': { brand: 'Dog Running', name: 'Dog Running amarillo', price: 18000, watermark: 'DR', category: 'shorts', images: ['img/dog-amar-shorts-1.png','img/dog-amar-shorts-2.png','img/dog-amar-shorts-3.png'] },
-    'nike-negro-shorts': { brand: 'Nike', name: 'Nike negro', price: 18000, watermark: 'NK', category: 'shorts', images: ['img/nk-negr-shorts-1.png','img/nk-negr-shorts-2.png','img/nk-negr-shorts-3.png'] },
+    'short-doble-negro': { brand: 'Shorts', name: 'Short doble cintura negro', price: 25000, watermark: 'SHT', category: 'shorts', noColors: true, fixedColor: 'Negro', images: ['img/short-dob-neg-1.png','img/short-dob-neg-2.png'] },
+    'short-doble-gris': { brand: 'Shorts', name: 'Short doble cintura gris', price: 25000, watermark: 'SHT', category: 'shorts', noColors: true, fixedColor: 'Gris', images: ['img/short-dob-gris-1.png','img/short-dob-gris-2.png'] },
+    'mm-paris-shorts': { brand: 'Maison Margiela', name: 'Maison Margiela Paris', price: 20000, watermark: 'MM', category: 'shorts', images: ['img/mm-paris-1.png','img/mm-paris-2.png','img/mm-paris-3.png'] },
+    'cdg-grande-shorts': { brand: 'Comme des Garcons', name: 'Comme des Garcon grande', price: 20000, watermark: 'CDG', category: 'shorts', images: ['img/cdg-grande-1.png','img/cdg-grande-2.png','img/cdg-grande-3.png'] },
+    'play-cdg-shorts': { brand: 'Comme des Garcons', name: 'Play Comme des Garcons', price: 20500, watermark: 'CDG', category: 'shorts', images: ['img/play-cdg-1.png','img/play-cdg-2.png','img/play-cdg-3.png','img/play-cdg-4.png'] },
+    'cdg-shorts': { brand: 'Comme des Garcons', name: 'Comme des Garcons', price: 20500, watermark: 'CDG', category: 'shorts', images: ['img/cdg-1.png','img/cdg-2.png'] },
+    'cdg-negro-shorts': { brand: 'Comme des Garcons', name: 'Comme des Garcons negro', price: 20000, watermark: 'CDG', category: 'shorts', images: ['img/cdg-negro-1.png','img/cdg-negro-2.png','img/cdg-negro-3.png'] },
+    'nike-blanco-shorts': { brand: 'Nike', name: 'Nike blanco', price: 20000, watermark: 'NK', category: 'shorts', images: ['img/nk-blan-shorts-1.png','img/nk-blan-shorts-2.png','img/nk-blan-shorts-3.png','img/nk-blan-shorts-4.png'] },
+    'dog-blanco-shorts': { brand: 'Dog Running', name: 'Dog Running blanco', price: 20000, watermark: 'DR', category: 'shorts', images: ['img/dog-blan-shorts-1.png','img/dog-blan-shorts-2.png','img/dog-blan-shorts-3.png','img/dog-blan-shorts-4.png'] },
+    'acne-stockholm-shorts': { brand: 'Acne Studios', name: 'Acne Studios Stockholm', price: 20000, watermark: 'ACN', category: 'shorts', images: ['img/acn-sthlm-shorts-1.png','img/acn-sthlm-shorts-2.png','img/acn-sthlm-shorts-3.png'] },
+    'essentials-negro-shorts': { brand: 'Essentials', name: 'Essential negro', price: 20000, watermark: 'ESS', category: 'shorts', images: ['img/ess-negr-shorts-1.png','img/ess-negr-shorts-2.png','img/ess-negr-shorts-3.png'] },
+    'syna-blanco-shorts': { brand: 'Syna Word', name: 'Syna blanco', price: 20000, watermark: 'SYN', category: 'shorts', images: ['img/syn-blan-shorts-1.png','img/syn-blan-shorts-2.png','img/syn-blan-shorts-3.png','img/syn-blan-shorts-4.png'] },
+    'syna-negro-shorts': { brand: 'Syna Word', name: 'Syna negro', price: 20000, watermark: 'SYN', category: 'shorts', images: ['img/syn-negr-shorts-1.png','img/syn-negr-shorts-2.png','img/syn-negr-shorts-3.png'] },
+    'dog-amarillo-shorts': { brand: 'Dog Running', name: 'Dog Running amarillo', price: 20000, watermark: 'DR', category: 'shorts', images: ['img/dog-amar-shorts-1.png','img/dog-amar-shorts-2.png','img/dog-amar-shorts-3.png'] },
+    'nike-negro-shorts': { brand: 'Nike', name: 'Nike negro', price: 20000, watermark: 'NK', category: 'shorts', images: ['img/nk-negr-shorts-1.png','img/nk-negr-shorts-2.png','img/nk-negr-shorts-3.png'] },
     'nike-blanco-pant': { brand: 'Nike', name: 'Nike blanco', price: 30000, watermark: 'NK', category: 'pantalones', images: ['img/nk-blan-pant-1.png','img/nk-blan-pant-2.png','img/nk-blan-pant-3.png'] },
     'nike-negro-pant': { brand: 'Nike', name: 'Nike negro', price: 30000, watermark: 'NK', category: 'pantalones', images: ['img/nk-neg-pant-1.png','img/nk-neg-pant-2.png','img/nk-neg-pant-3.png'] },
     'syna-blanco': { brand: 'Syna Word', name: 'Syna blanco', price: 17700, watermark: 'SYN', category: 'remeras', images: ['img/syn-blan-1.png','img/syn-blan-2.png','img/syn-blan-3.png'] },
@@ -955,11 +955,35 @@ document.addEventListener('DOMContentLoaded', () => {
     ],
     shorts: [
       { name: 'Negro', bg: '#1a1a1a', border: '1px solid #555' },
-      { name: 'Gris', bg: '#888', border: 'none' }
+      { name: 'Gris', bg: '#888', border: 'none' },
+      { name: 'Rojo', bg: '#e53935', border: 'none' },
+      { name: 'Rosado', bg: '#f8bbd0', border: 'none' }
     ]
   };
 
   const colorSelectorContainer = document.querySelector('.color-selector');
+
+  const CORTE_ADD_PRESET = 5000;
+
+  function getCorteOptions() {
+    return [{ name: 'Normal', add: 0 }, { name: '3/4', add: CORTE_ADD_PRESET }];
+  }
+
+  function getColors(product) {
+    if (!product) return colorSets.remeras;
+    if (product.noColors) return [];
+    if (Array.isArray(product.colors) && product.colors.length) return product.colors;
+    return colorSets[product.category] || colorSets.remeras;
+  }
+
+  function getCortes(product) {
+    if (!product) return null;
+    if (product.noCorte) return null;
+    if (Array.isArray(product.cortes) && product.cortes.length) return product.cortes;
+    if (product.hasCorte) return getCorteOptions();
+    if (product.category === 'shorts') return getCorteOptions();
+    return null;
+  }
 
   function getSizes(product) {
     if (!product) return sizeSets.remeras;
@@ -1062,11 +1086,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const colorSelectorParent = colorSelectorContainer.closest('.product-modal__selector');
 
-      if (data.brand === 'Drop 04') {
+      if (data.brand === 'Drop 04' || data.noColors) {
         if (colorSelectorParent) colorSelectorParent.style.display = 'none';
       } else {
         if (colorSelectorParent) colorSelectorParent.style.display = '';
-        const colors = data.colors || colorSets[data.category] || colorSets.remeras;
+        const colors = getColors(data);
         colorSelectorContainer.innerHTML = '';
           colors.forEach((c, i) => {
             const cbtn = document.createElement('button');
@@ -1270,6 +1294,36 @@ document.addEventListener('DOMContentLoaded', () => {
         if (parteBajaContainer) parteBajaContainer.innerHTML = '';
       }
 
+      const corteSelector = document.getElementById('corteSelector');
+      const corteContainer = document.querySelector('.corte-selector');
+      const cortes = getCortes(data);
+      if (cortes && corteSelector && corteContainer) {
+        corteSelector.style.display = 'block';
+        corteContainer.innerHTML = '';
+        cortes.forEach((c, i) => {
+          const cbtn = document.createElement('button');
+          cbtn.type = 'button';
+          cbtn.className = 'diseno-btn' + (i === 0 ? ' active' : '');
+          cbtn.dataset.corte = c.name;
+          cbtn.dataset.add = c.add;
+          cbtn.textContent = c.name;
+          corteContainer.appendChild(cbtn);
+        });
+        const corteNotice = document.getElementById('corteNotice');
+        if (corteNotice) corteNotice.classList.remove('visible');
+        corteContainer.querySelectorAll('.diseno-btn').forEach(cbtn => {
+          cbtn.addEventListener('click', () => {
+            corteContainer.querySelectorAll('.diseno-btn').forEach(b => b.classList.remove('active'));
+            cbtn.classList.add('active');
+            const notice = document.getElementById('corteNotice');
+            if (notice) notice.classList.toggle('visible', parseInt(cbtn.dataset.add || 0) > 0);
+          });
+        });
+      } else if (corteSelector) {
+        corteSelector.style.display = 'none';
+        if (corteContainer) corteContainer.innerHTML = '';
+      }
+
       modalQty = 1;
       if (modalQtyValue) modalQtyValue.textContent = '1';
 
@@ -1364,9 +1418,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const activeManga = document.querySelector('.mangas-selector .diseno-btn.active');
       const activeDisenoColor = document.querySelector('.diseno-color-selector .diseno-btn.active');
       const activeParteBaja = document.querySelector('.parte-baja-selector .diseno-btn.active');
+      const activeCorte = document.querySelector('.corte-selector .diseno-btn.active');
       const defaultSizes = getSizes(currentModalProduct);
       const talle = activeSize ? activeSize.dataset.size : defaultSizes[0];
-      let color = activeColor ? activeColor.dataset.color : 'Negro';
+      let color = activeColor ? activeColor.dataset.color : (currentModalProduct.fixedColor || 'Negro');
       if (activeDiseno) {
         color = color + ' / ' + activeDiseno.dataset.diseno;
       }
@@ -1390,11 +1445,16 @@ document.addEventListener('DOMContentLoaded', () => {
         parteBaja = activeParteBaja.dataset.partebaja;
         price = price + parseInt(activeParteBaja.dataset.add || 0);
       }
+      let corte = '';
+      if (activeCorte) {
+        corte = activeCorte.dataset.corte;
+        price = price + parseInt(activeCorte.dataset.add || 0);
+      }
       const disenoColorSelectorEl = document.getElementById('disenoColorSelector');
       if (activeDisenoColor && disenoColorSelectorEl && disenoColorSelectorEl.style.display !== 'none') {
         color = color + ' / Diseño ' + activeDisenoColor.dataset.disenoColor;
       }
-      addToCart(currentModalProduct.name, price, talle, color, modalQty, false, espalda, pecho, manga, parteBaja);
+      addToCart(currentModalProduct.name, price, talle, color, modalQty, false, espalda, pecho, manga, parteBaja, corte);
       modalQty = 1;
       if (modalQtyValue) modalQtyValue.textContent = '1';
     }
