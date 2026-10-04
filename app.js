@@ -804,7 +804,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'dog-blanco-rem': { brand: 'Dog Running', name: 'Dog Running blanco', price: 17500, watermark: 'DR', category: 'remeras', images: ['img/dog-blanco-rem-1.png','img/dog-blanco-rem-2.png','img/dog-blanco-rem-3.png'] },
     'essentials-negro-rem': { brand: 'Essentials', name: 'Essentials negro', price: 17700, watermark: 'ESS', category: 'remeras', images: ['img/ess-negro-rem-1.png','img/ess-negro-rem-2.png','img/ess-negro-rem-3.png'] },
     'essentials-blanco-rem': { brand: 'Essentials', name: 'Essentials blanco', price: 17700, watermark: 'ESS', category: 'remeras', images: ['img/ess-blanco-rem-1.png','img/ess-blanco-rem-2.png','img/ess-blanco-rem-3.png'] },
-    'baggy-rojo': { brand: 'Drop 04', name: 'Baggy doble cintura rojo', price: 34000, watermark: 'DRP', category: 'pantalones', images: ['img/baggy-rojo.webp'], outOfStock: ['2', '3', '4'] },
+    'baggy-rojo': { brand: 'Drop 04', name: 'Baggy doble cintura rojo', price: 34000, watermark: 'DRP', category: 'pantalones', images: ['img/baggy-rojo.webp'] },
     'baggy-azul': { brand: 'Drop 04', name: 'Baggy doble cintura azul', price: 34000, watermark: 'DRP', category: 'pantalones', images: ['img/baggy-azul.webp'] },
     'baggy-negro': { brand: 'Drop 04', name: 'Baggy doble cintura negro', price: 30000, watermark: 'DRP', category: 'pantalones', images: ['img/baggy-negro.webp'], outOfStock: ['2', '3'] },
     'baggy-camu': { brand: 'Drop 04', name: 'Baggy camuflado verde', price: 28000, watermark: 'DRP', category: 'pantalones', images: ['img/baggy-camu.webp'] },
