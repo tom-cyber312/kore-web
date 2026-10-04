@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     pantalones: ['drop-04', 'chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz', 'essentials', 'maison-margiela', 'acne-studios', 'comme-des-garcons', 'dog-running', 'nike', 'bape'],
     camperas: ['drop-04', 'chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz', 'jordan', 'nike', 'adidas', 'maison-margiela', 'comme-des-garcons', 'acne-studios', 'essentials', 'bape'],
     basicos: ['remeras', 'pantalones', 'camperas', 'shorts'],
-    shorts: ['doble-cintura', 'nike', 'dog-running', 'acne-studios', 'essentials', 'maison-margiela', 'comme-des-garcons', 'syna', 'corteiz', 'bape']
+    shorts: ['doble-cintura', 'nike', 'nike-x-stussy', 'adidas', 'dog-running', 'acne-studios', 'essentials', 'maison-margiela', 'comme-des-garcons', 'syna', 'corteiz', 'bape']
   };
 
   const subcategoryLabels = {
@@ -187,6 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'camperas': 'Camperas',
     'shorts': 'Shorts',
       'doble-cintura': 'Doble cintura',
+      'nike-x-stussy': 'Nike x Stussy',
     'maison-margiela': 'Maison Margiela',
     'comme-des-garcons': 'Comme des Garcons',
     'acne-studios': 'Acne Studios',
@@ -804,6 +805,11 @@ document.addEventListener('DOMContentLoaded', () => {
     'corteiz-trasparente-shorts': { brand: 'Corteiz', name: 'Corteiz trasparente', price: 19000, watermark: 'CTZ', category: 'shorts', images: ['img/ctz-tras-shorts-1.png','img/ctz-tras-shorts-2.png','img/ctz-tras-shorts-3.png','img/ctz-tras-shorts-4.png'] },
     'cdg-rojo-shorts': { brand: 'Comme des Garcons', name: 'Comme des Garcons rojo', price: 18500, watermark: 'CDG', category: 'shorts', images: ['img/cdg-rojo-shorts-1.png','img/cdg-rojo-shorts-2.png','img/cdg-rojo-shorts-3.png'] },
     'bape-sta-shorts': { brand: 'Bape', name: 'Bape sta', price: 18500, watermark: 'BPE', category: 'shorts', images: ['img/bape-sta-shorts-1.png','img/bape-sta-shorts-2.png','img/bape-sta-shorts-3.png'] },
+    'adidas-blanco-shorts': { brand: 'Adidas', name: 'Adidas blanco', price: 18500, watermark: 'ADI', category: 'shorts', images: ['img/adi-blan-shorts-1.png','img/adi-blan-shorts-2.png','img/adi-blan-shorts-3.png','img/adi-blan-shorts-4.png'] },
+    'adidas-negro-shorts': { brand: 'Adidas', name: 'Adidas negro', price: 18500, watermark: 'ADI', category: 'shorts', images: ['img/adi-negr-shorts-1.png','img/adi-negr-shorts-2.png','img/adi-negr-shorts-3.png'] },
+    'dog-negro-shorts': { brand: 'Dog Running', name: 'Dog Running negro', price: 19000, watermark: 'DR', category: 'shorts', images: ['img/dog-negr-shorts-1.png','img/dog-negr-shorts-2.png','img/dog-negr-shorts-3.png'] },
+    'corteiz-chico-shorts': { brand: 'Corteiz', name: 'Corteiz chico', price: 18500, watermark: 'CTZ', category: 'shorts', images: ['img/ctz-chic-shorts-1.png','img/ctz-chic-shorts-2.png','img/ctz-chic-shorts-3.png'] },
+    'nike-stussy-shorts': { brand: 'Nike x Stussy', name: 'Nike x Stussy', price: 18500, watermark: 'NK', category: 'shorts', images: ['img/nk-stss-shorts-2.png','img/nk-stss-shorts-3.png'] },
     'nike-blanco-pant': { brand: 'Nike', name: 'Nike blanco', price: 30000, watermark: 'NK', category: 'pantalones', images: ['img/nk-blan-pant-1.png','img/nk-blan-pant-2.png','img/nk-blan-pant-3.png'] },
     'nike-negro-pant': { brand: 'Nike', name: 'Nike negro', price: 30000, watermark: 'NK', category: 'pantalones', images: ['img/nk-neg-pant-1.png','img/nk-neg-pant-2.png','img/nk-neg-pant-3.png'] },
     'syna-blanco': { brand: 'Syna Word', name: 'Syna blanco', price: 17700, watermark: 'SYN', category: 'remeras', images: ['img/syn-blan-1.png','img/syn-blan-2.png','img/syn-blan-3.png'] },
