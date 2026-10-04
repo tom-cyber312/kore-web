@@ -978,8 +978,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const CORTE_ADD_PRESET = 6500;
 
+  // Colores disponibles segun el corte elegido.
+  // Rosado no esta disponible en ningun corte; Rojo solo en 3/4.
+  const CORTE_COLOR_RULES = {
+    'Normal': ['Negro', 'Gris'],
+    '3/4': ['Negro', 'Gris', 'Rojo']
+  };
+
   function getCorteOptions() {
     return [{ name: 'Normal', add: 0 }, { name: '3/4', add: CORTE_ADD_PRESET }];
+  }
+
+  // null = sin restricciones para ese corte
+  function getAvailableColorsForCorte(product, corteName) {
+    if (!product || product.noColors) return null;
+    if (!corteName) return null;
+    if (!Array.isArray(product.colors) && product.category !== 'shorts') return null;
+    return CORTE_COLOR_RULES[corteName] || null;
+  }
+
+  // Marca como no disponibles los colores que el corte no permite y,
+  // si el color activo quedo fuera, selecciona el primero disponible.
+  function applyCorteColorAvailability(product, corteName) {
+    const cont = document.querySelector('.color-selector');
+    if (!cont) return;
+    const btns = Array.from(cont.querySelectorAll('.color-btn'));
+    if (!btns.length) return;
+    const allowed = getAvailableColorsForCorte(product, corteName);
+
+    btns.forEach(b => {
+      const ok = !allowed || allowed.indexOf(b.dataset.color) !== -1;
+      b.classList.toggle('color-btn--disabled', !ok);
+      b.disabled = !ok;
+      b.setAttribute('aria-disabled', ok ? 'false' : 'true');
+      if (!ok) b.title = b.dataset.color + ' no disponible en corte ' + corteName;
+      else b.title = b.dataset.color;
+    });
+
+    if (!allowed) return;
+    const active = cont.querySelector('.color-btn.active');
+    if (active && allowed.indexOf(active.dataset.color) === -1) {
+      const first = btns.find(b => !b.classList.contains('color-btn--disabled'));
+      btns.forEach(b => b.classList.remove('active'));
+      if (first) first.classList.add('active');
+    } else if (!active) {
+      const first = btns.find(b => !b.classList.contains('color-btn--disabled'));
+      if (first) first.classList.add('active');
+    }
   }
 
   function getColors(product) {
@@ -1107,16 +1152,19 @@ document.addEventListener('DOMContentLoaded', () => {
         colorSelectorContainer.innerHTML = '';
           colors.forEach((c, i) => {
             const cbtn = document.createElement('button');
+            cbtn.type = 'button';
             cbtn.className = 'color-btn' + (i === 0 ? ' active' : '');
             cbtn.dataset.color = c.name;
             cbtn.style.background = c.bg;
             if (c.border !== 'none') cbtn.style.border = c.border;
             cbtn.setAttribute('aria-label', c.name);
+            cbtn.setAttribute('title', c.name);
             colorSelectorContainer.appendChild(cbtn);
           });
 
         colorSelectorContainer.querySelectorAll('.color-btn').forEach(cbtn => {
           cbtn.addEventListener('click', () => {
+            if (cbtn.classList.contains('color-btn--disabled')) return;
             colorSelectorContainer.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
             cbtn.classList.add('active');
           });
@@ -1330,8 +1378,10 @@ document.addEventListener('DOMContentLoaded', () => {
             cbtn.classList.add('active');
             const notice = document.getElementById('corteNotice');
             if (notice) notice.classList.toggle('visible', parseInt(cbtn.dataset.add || 0) > 0);
+            applyCorteColorAvailability(data, cbtn.dataset.corte);
           });
         });
+        applyCorteColorAvailability(data, cortes[0].name);
       } else if (corteSelector) {
         corteSelector.style.display = 'none';
         if (corteContainer) corteContainer.innerHTML = '';
