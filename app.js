@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     pantalones: ['drop-04', 'chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz', 'essentials', 'maison-margiela', 'acne-studios', 'comme-des-garcons', 'dog-running', 'nike', 'bape'],
     camperas: ['drop-04', 'chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz', 'jordan', 'nike', 'adidas', 'maison-margiela', 'comme-des-garcons', 'acne-studios', 'essentials', 'bape'],
     basicos: ['remeras', 'pantalones', 'camperas', 'shorts'],
-    shorts: ['doble-cintura', 'nike', 'dog-running', 'acne-studios', 'essentials', 'maison-margiela', 'comme-des-garcons', 'syna']
+    shorts: ['doble-cintura', 'nike', 'dog-running', 'acne-studios', 'essentials', 'maison-margiela', 'comme-des-garcons', 'syna', 'corteiz', 'bape']
   };
 
   const subcategoryLabels = {
@@ -800,6 +800,10 @@ document.addEventListener('DOMContentLoaded', () => {
     'syna-negro-shorts': { brand: 'Syna Word', name: 'Syna negro', price: 18500, watermark: 'SYN', category: 'shorts', images: ['img/syn-negr-shorts-1.png','img/syn-negr-shorts-2.png','img/syn-negr-shorts-3.png'] },
     'dog-amarillo-shorts': { brand: 'Dog Running', name: 'Dog Running amarillo', price: 18500, watermark: 'DR', category: 'shorts', images: ['img/dog-amar-shorts-1.png','img/dog-amar-shorts-2.png','img/dog-amar-shorts-3.png'] },
     'nike-negro-shorts': { brand: 'Nike', name: 'Nike negro', price: 18500, watermark: 'NK', category: 'shorts', images: ['img/nk-negr-shorts-1.png','img/nk-negr-shorts-2.png','img/nk-negr-shorts-3.png'] },
+    'essentials-blanco-shorts': { brand: 'Essentials', name: 'Essential blanco', price: 18500, watermark: 'ESS', category: 'shorts', images: ['img/ess-blan-shorts-1.png','img/ess-blan-shorts-2.png','img/ess-blan-shorts-3.png','img/ess-blan-shorts-4.png'] },
+    'corteiz-trasparente-shorts': { brand: 'Corteiz', name: 'Corteiz trasparente', price: 19000, watermark: 'CTZ', category: 'shorts', images: ['img/ctz-tras-shorts-1.png','img/ctz-tras-shorts-2.png','img/ctz-tras-shorts-3.png','img/ctz-tras-shorts-4.png'] },
+    'cdg-rojo-shorts': { brand: 'Comme des Garcons', name: 'Comme des Garcons rojo', price: 18500, watermark: 'CDG', category: 'shorts', images: ['img/cdg-rojo-shorts-1.png','img/cdg-rojo-shorts-2.png','img/cdg-rojo-shorts-3.png'] },
+    'bape-sta-shorts': { brand: 'Bape', name: 'Bape sta', price: 18500, watermark: 'BPE', category: 'shorts', images: ['img/bape-sta-shorts-1.png','img/bape-sta-shorts-2.png','img/bape-sta-shorts-3.png'] },
     'nike-blanco-pant': { brand: 'Nike', name: 'Nike blanco', price: 30000, watermark: 'NK', category: 'pantalones', images: ['img/nk-blan-pant-1.png','img/nk-blan-pant-2.png','img/nk-blan-pant-3.png'] },
     'nike-negro-pant': { brand: 'Nike', name: 'Nike negro', price: 30000, watermark: 'NK', category: 'pantalones', images: ['img/nk-neg-pant-1.png','img/nk-neg-pant-2.png','img/nk-neg-pant-3.png'] },
     'syna-blanco': { brand: 'Syna Word', name: 'Syna blanco', price: 17700, watermark: 'SYN', category: 'remeras', images: ['img/syn-blan-1.png','img/syn-blan-2.png','img/syn-blan-3.png'] },
@@ -963,7 +967,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const colorSelectorContainer = document.querySelector('.color-selector');
 
-  const CORTE_ADD_PRESET = 5000;
+  const CORTE_ADD_PRESET = 6500;
 
   function getCorteOptions() {
     return [{ name: 'Normal', add: 0 }, { name: '3/4', add: CORTE_ADD_PRESET }];
