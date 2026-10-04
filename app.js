@@ -161,10 +161,11 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentSubfilter = null;
 
   const subcategories = {
-    remeras: ['jordan', 'nike', 'corteiz', 'supreme', 'adidas', 'lacoste', 'calvin-klein', 'bape', 'trapstar', 'hellstar', 'nocta', 'chrome-heart'],
-    pantalones: ['drop-04', 'chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz'],
-    camperas: ['drop-04', 'chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz', 'jordan', 'nike', 'adidas'],
-    basicos: ['remeras', 'pantalones', 'camperas']
+    remeras: ['jordan', 'nike', 'corteiz', 'supreme', 'adidas', 'lacoste', 'calvin-klein', 'bape', 'trapstar', 'hellstar', 'nocta', 'chrome-heart', 'syna', 'comme-des-garcons', 'acne-studios', 'maison-margiela', 'dog-running', 'essentials'],
+    pantalones: ['drop-04', 'chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz', 'essentials', 'maison-margiela', 'acne-studios', 'comme-des-garcons', 'dog-running', 'nike', 'bape'],
+    camperas: ['drop-04', 'chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz', 'jordan', 'nike', 'adidas', 'maison-margiela', 'comme-des-garcons', 'acne-studios', 'essentials', 'bape'],
+    basicos: ['remeras', 'pantalones', 'camperas', 'shorts'],
+    shorts: ['shorts']
   };
 
   const subcategoryLabels = {
@@ -183,7 +184,14 @@ document.addEventListener('DOMContentLoaded', () => {
     'nocta': 'Nocta',
     'remeras': 'Remeras',
     'pantalones': 'Pantalones',
-    'camperas': 'Camperas'
+    'camperas': 'Camperas',
+    'shorts': 'Shorts',
+    'maison-margiela': 'Maison Margiela',
+    'comme-des-garcons': 'Comme des Garcons',
+    'acne-studios': 'Acne Studios',
+    'essentials': 'Essentials',
+    'dog-running': 'Dog Running',
+    'syna': 'Syna Word'
   };
 
   function buildSubfilters(category) {
@@ -395,7 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="cart-item__image"><span>${brandShort}</span></div>
             <div class="cart-item__info">
               <div class="cart-item__name">${item.name}</div>
-              <div class="cart-item__detail">${item.talle} / ${item.color}${item.espalda ? ' / Espalda: ' + item.espalda : ''}${item.pecho ? ' / Pecho: ' + item.pecho : ''}${item.manga ? ' / Mangas: ' + item.manga : ''}</div>
+              <div class="cart-item__detail">${item.talle} / ${item.color}${item.espalda ? ' / Espalda: ' + item.espalda : ''}${item.pecho ? ' / Pecho: ' + item.pecho : ''}${item.manga ? ' / Mangas: ' + item.manga : ''}${item.parteBaja ? ' / Parte baja: ' + item.parteBaja : ''}</div>
               <div class="cart-item__price">$${(item.price * item.qty).toLocaleString('es-AR')}</div>
             </div>
             <div class="cart-item__qty">
@@ -466,7 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function buildWhatsAppMessage(shippingData, paymentMethod) {
     let msg = 'Hola! Quiero hacer un pedido desde KØRE:\n\n';
     cart.forEach(item => {
-      msg += '- ' + item.name + ' (Talle: ' + item.talle + ', Color: ' + item.color + (item.espalda ? ', Espalda: ' + item.espalda : '') + (item.pecho ? ', Pecho: ' + item.pecho : '') + (item.manga ? ', Mangas: ' + item.manga : '') + ') x' + item.qty + ' — $' + (item.price * item.qty).toLocaleString('es-AR') + '\n';
+      msg += '- ' + item.name + ' (Talle: ' + item.talle + ', Color: ' + item.color + (item.espalda ? ', Espalda: ' + item.espalda : '') + (item.pecho ? ', Pecho: ' + item.pecho : '') + (item.manga ? ', Mangas: ' + item.manga : '') + (item.parteBaja ? ', Parte baja: ' + item.parteBaja : '') + ') x' + item.qty + ' — $' + (item.price * item.qty).toLocaleString('es-AR') + '\n';
     });
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
     let discount = 0;
@@ -590,13 +598,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function addToCart(name, price, talle, color, qty = 1, openAfter = true, espalda = '', pecho = '', manga = '') {
-    const key = `${name}-${talle}-${color}-${espalda}-${pecho}-${manga}`;
-    const existing = cart.find(item => `${item.name}-${item.talle}-${item.color}-${(item.espalda||'')}-${(item.pecho||'')}-${(item.manga||'')}` === key);
+  function addToCart(name, price, talle, color, qty = 1, openAfter = true, espalda = '', pecho = '', manga = '', parteBaja = '') {
+    const key = `${name}-${talle}-${color}-${espalda}-${pecho}-${manga}-${parteBaja}`;
+    const existing = cart.find(item => `${item.name}-${item.talle}-${item.color}-${(item.espalda||'')}-${(item.pecho||'')}-${(item.manga||'')}-${(item.parteBaja||'')}` === key);
     if (existing) {
       existing.qty += qty;
     } else {
-      cart.push({ name, price, talle, color, qty: qty, espalda, pecho, manga });
+      cart.push({ name, price, talle, color, qty: qty, espalda, pecho, manga, parteBaja });
     }
     updateCartUI();
     if (openAfter) {
@@ -775,6 +783,27 @@ document.addEventListener('DOMContentLoaded', () => {
   const addToCartModalBtn = document.querySelector('.add-to-cart-modal-btn');
 
   const productData = {
+    'basicos-shorts': { brand: 'Basicos', name: 'Shorts', price: 17000, watermark: 'BSC', category: 'basicos', images: ['img/shorts-basic-1.png','img/shorts-basic-2.png'], colors: [{ name: 'Negro', bg: '#1a1a1a', border: '1px solid #555' }, { name: 'Gris', bg: '#888', border: 'none' }] },
+    'short-doble-negro': { brand: 'Shorts', name: 'Short doble cintura negro', price: 25000, watermark: 'SHT', category: 'shorts', images: ['img/short-dob-neg-1.png','img/short-dob-neg-2.png'] },
+    'short-doble-gris': { brand: 'Shorts', name: 'Short doble cintura gris', price: 25000, watermark: 'SHT', category: 'shorts', images: ['img/short-dob-gris-1.png','img/short-dob-gris-2.png'] },
+    'nike-blanco-pant': { brand: 'Nike', name: 'Nike blanco', price: 35000, watermark: 'NK', category: 'pantalones', images: ['img/nk-blan-pant-1.png','img/nk-blan-pant-2.png','img/nk-blan-pant-3.png'] },
+    'nike-negro-pant': { brand: 'Nike', name: 'Nike negro', price: 35000, watermark: 'NK', category: 'pantalones', images: ['img/nk-neg-pant-1.png','img/nk-neg-pant-2.png','img/nk-neg-pant-3.png'] },
+    'syna-blanco': { brand: 'Syna Word', name: 'Syna blanco', price: 17700, watermark: 'SYN', category: 'remeras', images: ['img/syn-blan-1.png','img/syn-blan-2.png','img/syn-blan-3.png'] },
+    'syna-negro': { brand: 'Syna Word', name: 'Syna negro', price: 17700, watermark: 'SYN', category: 'remeras', images: ['img/syn-neg-1.png','img/syn-neg-2.png','img/syn-neg-3.png'] },
+    'comme-rojo-rem': { brand: 'Comme des Garcons', name: 'Comme des Garcons rojo', price: 17500, watermark: 'CDG', category: 'remeras', images: ['img/cdg-rem-rojo-1.png','img/cdg-rem-rojo-2.png','img/cdg-rem-rojo-3.png','img/cdg-rem-rojo-4.png','img/cdg-rem-rojo-5.png','img/cdg-rem-rojo-6.png'], hasParteBaja: true, parteBajas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2500 }] },
+    'comme-negro-rem': { brand: 'Comme des Garcons', name: 'Comme des Garcons negro', price: 17500, watermark: 'CDG', category: 'remeras', images: ['img/cdg-rem-neg-1.png','img/cdg-rem-neg-2.png','img/cdg-rem-neg-3.png'] },
+    'play-comme-rem': { brand: 'Comme des Garcons', name: 'Play Comme des Garcons', price: 18000, watermark: 'CDG', category: 'remeras', images: ['img/cdg-play-1.png','img/cdg-play-2.png','img/cdg-play-3.png'] },
+    'bapesta-rem': { brand: 'Bape', name: 'Bapesta', price: 17300, watermark: 'BPE', category: 'remeras', images: ['img/bap-rem-1.png','img/bap-rem-2.png','img/bap-rem-3.png'] },
+    'corteiz-trasparente-rem': { brand: 'Corteiz', name: 'Corteiz trasparente', price: 18000, watermark: 'CTZ', category: 'remeras', images: ['img/ctz-tras-rem-1.png','img/ctz-tras-rem-2.png','img/ctz-tras-rem-3.png'] },
+    'acne-stockholm-grande-rem': { brand: 'Acne Studios', name: 'Acne Studios Stockholm grande', price: 18000, watermark: 'ACN', category: 'remeras', images: ['img/acn-rem-grd-1.png','img/acn-rem-grd-2.png','img/acn-rem-grd-3.png'] },
+    'acne-stockholm-rem': { brand: 'Acne Studios', name: 'Acne Studios Stockholm', price: 17200, watermark: 'ACN', category: 'remeras', images: ['img/acn-rem-1.png','img/acn-rem-2.png','img/acn-rem-3.png'] },
+    'maison-margiela-rem': { brand: 'Maison Margiela', name: 'Maison Margiela', price: 17200, watermark: 'MM', category: 'remeras', images: ['img/mm-rem-1.png','img/mm-rem-2.png','img/mm-rem-3.png'] },
+    'maison-margiela-grande-rem': { brand: 'Maison Margiela', name: 'Maison Margiela grande', price: 18000, watermark: 'MM', category: 'remeras', images: ['img/mm-rem-grd-1.png','img/mm-rem-grd-2.png'] },
+    'dog-amarillo-rem': { brand: 'Dog Running', name: 'Dog Running amarillo', price: 17500, watermark: 'DR', category: 'remeras', images: ['img/dog-amarillo-rem-1.png','img/dog-amarillo-rem-2.png','img/dog-amarillo-rem-3.png','img/dog-amarillo-rem-4.png'] },
+    'dog-negro-rem': { brand: 'Dog Running', name: 'Dog Running negro', price: 17500, watermark: 'DR', category: 'remeras', images: ['img/dog-negro-rem-1.png','img/dog-negro-rem-2.png','img/dog-negro-rem-3.png'] },
+    'dog-blanco-rem': { brand: 'Dog Running', name: 'Dog Running blanco', price: 17500, watermark: 'DR', category: 'remeras', images: ['img/dog-blanco-rem-1.png','img/dog-blanco-rem-2.png','img/dog-blanco-rem-3.png'] },
+    'essentials-negro-rem': { brand: 'Essentials', name: 'Essentials negro', price: 17700, watermark: 'ESS', category: 'remeras', images: ['img/ess-negro-rem-1.png','img/ess-negro-rem-2.png','img/ess-negro-rem-3.png'] },
+    'essentials-blanco-rem': { brand: 'Essentials', name: 'Essentials blanco', price: 17700, watermark: 'ESS', category: 'remeras', images: ['img/ess-blanco-rem-1.png','img/ess-blanco-rem-2.png','img/ess-blanco-rem-3.png'] },
     'baggy-rojo': { brand: 'Drop 04', name: 'Baggy doble cintura rojo', price: 34000, watermark: 'DRP', category: 'pantalones', images: ['img/baggy-rojo.webp'], outOfStock: ['2', '3', '4'] },
     'baggy-azul': { brand: 'Drop 04', name: 'Baggy doble cintura azul', price: 34000, watermark: 'DRP', category: 'pantalones', images: ['img/baggy-azul.webp'] },
     'baggy-negro': { brand: 'Drop 04', name: 'Baggy doble cintura negro', price: 30000, watermark: 'DRP', category: 'pantalones', images: ['img/baggy-negro.webp'], outOfStock: ['2', '3'] },
@@ -870,7 +899,25 @@ document.addEventListener('DOMContentLoaded', () => {
     'nike-stussy-jkt': { brand: 'Nike', name: 'Nike x Stussy', price: 35100, watermark: 'NK', category: 'camperas', images: ['img/nk-stussy-jkt-1.webp','img/nk-stussy-jkt-2.webp','img/nk-stussy-jkt-3.webp','img/nk-stussy-jkt-4.webp'] },
     'nike-glitch-jkt': { brand: 'Nike', name: 'Nike glich', price: 34900, watermark: 'NK', category: 'camperas', images: ['img/nk-glitch-jkt-1.webp','img/nk-glitch-jkt-2.webp','img/nk-glitch-jkt-3.webp','img/nk-glitch-jkt-4.webp'] },
     'adidas-ice-jkt': { brand: 'Adidas', name: 'Adidas ice', price: 34500, watermark: 'ADI', category: 'camperas', images: ['img/adi-ice-jkt-1.webp','img/adi-ice-jkt-2.webp','img/adi-ice-jkt-3.webp','img/adi-ice-jkt-4.webp'] },
-    'adidas-jkt': { brand: 'Adidas', name: 'Adidas', price: 35000, watermark: 'ADI', category: 'camperas', images: ['img/adi-jkt-1.webp','img/adi-jkt-2.webp','img/adi-jkt-3.webp','img/adi-jkt-4.webp','img/adi-jkt-5.webp','img/adi-jkt-6.webp','img/adi-jkt-7.webp','img/adi-jkt-8.webp'], hasDiseno: true, disenos: [{ name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Blanco', bg: '#ffffff', border: '#ccc' }] }
+    'adidas-jkt': { brand: 'Adidas', name: 'Adidas', price: 35000, watermark: 'ADI', category: 'camperas', images: ['img/adi-jkt-1.webp','img/adi-jkt-2.webp','img/adi-jkt-3.webp','img/adi-jkt-4.webp','img/adi-jkt-5.webp','img/adi-jkt-6.webp','img/adi-jkt-7.webp','img/adi-jkt-8.webp'], hasDiseno: true, disenos: [{ name: 'Negro', bg: '#1a1a1a', border: 'none' }, { name: 'Blanco', bg: '#ffffff', border: '#ccc' }] },
+    'maison-margiela-jkt': { brand: 'Maison Margiela', name: 'Maison Margiela', price: 35100, watermark: 'MM', category: 'camperas', images: ['img/mm-margiela-jkt-1.png','img/mm-margiela-jkt-2.png','img/mm-margiela-jkt-3.png'] },
+    'comme-chico-jkt': { brand: 'Comme des Garcons', name: 'Comme chico', price: 35000, watermark: 'CDG', category: 'camperas', images: ['img/cdg-chico-jkt-1.png','img/cdg-chico-jkt-2.png','img/cdg-chico-jkt-3.png','img/cdg-chico-jkt-4.png','img/cdg-chico-jkt-5.png','img/cdg-chico-jkt-6.png','img/cdg-chico-jkt-7.png'], hasDiseno: true, disenos: [{ name: 'Rojo', bg: '#e53935', border: 'none' }, { name: 'Negro', bg: '#1a1a1a', border: 'none' }] },
+    'acne-studio-jkt': { brand: 'Acne Studios', name: 'Acne Studios Stockholm', price: 35200, watermark: 'ACN', category: 'camperas', images: ['img/acn-studio-jkt-1.png','img/acn-studio-jkt-2.png','img/acn-studio-jkt-3.png'] },
+    'essentials-blanco-jkt': { brand: 'Essentials', name: 'Essentials blanco', price: 35500, watermark: 'ESS', category: 'camperas', images: ['img/ess-blan-jkt-1.png','img/ess-blan-jkt-2.png','img/ess-blan-jkt-3.png','img/ess-blan-jkt-4.png'], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2500 }] },
+    'essentials-negro-jkt': { brand: 'Essentials', name: 'Essentials negro', price: 35500, watermark: 'ESS', category: 'camperas', images: ['img/ess-neg-jkt-1.png','img/ess-neg-jkt-2.png','img/ess-neg-jkt-3.png','img/ess-neg-jkt-4.png','img/ess-neg-jkt-5.png'], hasEspalda: true, espaldas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2500 }] },
+    'bapesta-jkt': { brand: 'Bape', name: 'Bapesta', price: 35000, watermark: 'BPE', category: 'camperas', images: ['img/bap-jkt-1.png','img/bap-jkt-2.png','img/bap-jkt-3.png'] },
+    'corteiz-trasparente-jkt': { brand: 'Corteiz', name: 'Corteiz trasparente', price: 35800, watermark: 'CTZ', category: 'camperas', images: ['img/ctz-tras-jkt-1.png','img/ctz-tras-jkt-2.png','img/ctz-tras-jkt-3.png'] },
+    'essentials-blanco-pant': { brand: 'Essentials', name: 'Essentials blanco', price: 30500, watermark: 'ESS', category: 'pantalones', images: ['img/ess-blan-pant-1.png','img/ess-blan-pant-2.png','img/ess-blan-pant-3.png'] },
+    'essentials-negro-pant': { brand: 'Essentials', name: 'Essentials negro', price: 30500, watermark: 'ESS', category: 'pantalones', images: ['img/ess-neg-pant-1.png','img/ess-neg-pant-2.png','img/ess-neg-pant-3.png'] },
+    'maison-margiela-pant': { brand: 'Maison Margiela', name: 'Maison Margiela', price: 30000, watermark: 'MM', category: 'pantalones', images: ['img/mm-margiela-pant-1.png','img/mm-margiela-pant-2.png','img/mm-margiela-pant-3.png'] },
+    'acne-stockholm-pant': { brand: 'Acne Studios', name: 'Acne Studios Stockholm', price: 30200, watermark: 'ACN', category: 'pantalones', images: ['img/acn-stockholm-pant-1.png','img/acn-stockholm-pant-2.png'] },
+    'comme-rojo-pant': { brand: 'Comme des Garcons', name: 'Comme des Garcons rojo', price: 35500, watermark: 'CDG', category: 'pantalones', images: ['img/cdg-rojo-pant-1.png','img/cdg-rojo-pant-2.png','img/cdg-rojo-pant-3.png','img/cdg-rojo-pant-4.png'] },
+    'comme-negro-pant': { brand: 'Comme des Garcons', name: 'Comme des Garcons negro', price: 35500, watermark: 'CDG', category: 'pantalones', images: ['img/cdg-negro-pant-1.png','img/cdg-negro-pant-2.png','img/cdg-negro-pant-3.png'] },
+    'dog-negro-pant': { brand: 'Dog Running', name: 'Dog Running negro', price: 35000, watermark: 'DR', category: 'pantalones', images: ['img/dog-negro-pant-1.png','img/dog-negro-pant-2.png','img/dog-negro-pant-3.png'] },
+    'dog-blanco-pant': { brand: 'Dog Running', name: 'Dog Running blanco', price: 35000, watermark: 'DR', category: 'pantalones', images: ['img/dog-blanco-pant-1.png','img/dog-blanco-pant-2.png','img/dog-blanco-pant-3.png'] },
+    'dog-amarillo-pant': { brand: 'Dog Running', name: 'Dog Running amarillo', price: 35000, watermark: 'DR', category: 'pantalones', images: ['img/dog-amarillo-pant-1.png','img/dog-amarillo-pant-2.png','img/dog-amarillo-pant-3.png','img/dog-amarillo-pant-4.png'] },
+    'bapesta-pant': { brand: 'Bape', name: 'Bapesta', price: 35000, watermark: 'BPE', category: 'pantalones', images: ['img/bap-pant-1.png','img/bap-pant-2.png','img/bap-pant-3.png'] },
+    'corteiz-trasparente-pant': { brand: 'Corteiz', name: 'Corteiz trasparente', price: 35500, watermark: 'CTZ', category: 'pantalones', images: ['img/ctz-tras-pant-1.png','img/ctz-tras-pant-2.png','img/ctz-tras-pant-3.png'] }
   };
 
   const colorSets = {
@@ -891,6 +938,10 @@ document.addEventListener('DOMContentLoaded', () => {
       { name: 'Blanco', bg: '#f5f5f5', border: '1px solid #333' },
       { name: 'Gris', bg: '#888', border: 'none' },
       { name: 'Rosa Bebé', bg: '#f8bbd0', border: 'none' }
+    ],
+    shorts: [
+      { name: 'Negro', bg: '#1a1a1a', border: '1px solid #555' },
+      { name: 'Gris', bg: '#888', border: 'none' }
     ]
   };
 
@@ -1004,10 +1055,6 @@ document.addEventListener('DOMContentLoaded', () => {
             cbtn.style.background = c.bg;
             if (c.border !== 'none') cbtn.style.border = c.border;
             cbtn.setAttribute('aria-label', c.name);
-            if (data.category === 'pantalones' && c.name === 'Blanco') {
-              cbtn.classList.add('color-btn--disabled');
-              cbtn.classList.remove('active');
-            }
             colorSelectorContainer.appendChild(cbtn);
           });
 
@@ -1172,6 +1219,37 @@ document.addEventListener('DOMContentLoaded', () => {
         if (mangasContainer) mangasContainer.innerHTML = '';
       }
 
+      const parteBajaSelector = document.getElementById('parteBajaSelector');
+      const parteBajaContainer = document.querySelector('.parte-baja-selector');
+      if (data.hasParteBaja && parteBajaSelector && parteBajaContainer) {
+        parteBajaSelector.style.display = 'block';
+        parteBajaContainer.innerHTML = '';
+        const partesBajas = data.parteBajas || [{ name: 'Sin', add: 0 }];
+        partesBajas.forEach((p, i) => {
+          const pbtn = document.createElement('button');
+          pbtn.className = 'diseno-btn' + (i === 0 ? ' active' : '');
+          pbtn.dataset.partebaja = p.name;
+          pbtn.dataset.add = p.add;
+          pbtn.textContent = p.name;
+          parteBajaContainer.appendChild(pbtn);
+        });
+        const pbNotice = document.getElementById('parteBajaNotice');
+        if (pbNotice) pbNotice.classList.remove('visible');
+        parteBajaContainer.querySelectorAll('.diseno-btn').forEach(pbtn => {
+          pbtn.addEventListener('click', () => {
+            parteBajaContainer.querySelectorAll('.diseno-btn').forEach(b => b.classList.remove('active'));
+            pbtn.classList.add('active');
+            const notice = document.getElementById('parteBajaNotice');
+            if (notice) {
+              notice.classList.toggle('visible', parseInt(pbtn.dataset.add || 0) > 0);
+            }
+          });
+        });
+      } else if (parteBajaSelector) {
+        parteBajaSelector.style.display = 'none';
+        if (parteBajaContainer) parteBajaContainer.innerHTML = '';
+      }
+
       modalQty = 1;
       if (modalQtyValue) modalQtyValue.textContent = '1';
 
@@ -1209,7 +1287,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const sizeSets = {
     remeras: ['S', 'M', 'L', 'XL'],
     pantalones: ['2', '3', '4'],
-    camperas: ['2', '3', '4']
+    camperas: ['2', '3', '4'],
+    shorts: ['1', '2', '3', '4', '5', 'XXL'],
+    basicos: ['S', 'M', 'L', 'XL']
   };
 
   document.querySelectorAll('.product-card').forEach(card => {
@@ -1261,6 +1341,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const activePecho = document.querySelector('.pecho-selector .diseno-btn.active');
       const activeManga = document.querySelector('.mangas-selector .diseno-btn.active');
       const activeDisenoColor = document.querySelector('.diseno-color-selector .diseno-btn.active');
+      const activeParteBaja = document.querySelector('.parte-baja-selector .diseno-btn.active');
       const defaultSizes = sizeSets[currentModalProduct.category] || sizeSets.remeras;
       const talle = activeSize ? activeSize.dataset.size : defaultSizes[0];
       let color = activeColor ? activeColor.dataset.color : 'Negro';
@@ -1270,6 +1351,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let espalda = '';
       let pecho = '';
       let manga = '';
+      let parteBaja = '';
       let price = currentModalProduct.price;
       if (activeEspalda) {
         espalda = activeEspalda.dataset.espalda;
@@ -1282,11 +1364,15 @@ document.addEventListener('DOMContentLoaded', () => {
         manga = activeManga.dataset.manga;
         price = price + parseInt(activeManga.dataset.add || 0);
       }
+      if (activeParteBaja) {
+        parteBaja = activeParteBaja.dataset.partebaja;
+        price = price + parseInt(activeParteBaja.dataset.add || 0);
+      }
       const disenoColorSelectorEl = document.getElementById('disenoColorSelector');
       if (activeDisenoColor && disenoColorSelectorEl && disenoColorSelectorEl.style.display !== 'none') {
         color = color + ' / Diseño ' + activeDisenoColor.dataset.disenoColor;
       }
-      addToCart(currentModalProduct.name, price, talle, color, modalQty, false, espalda, pecho, manga);
+      addToCart(currentModalProduct.name, price, talle, color, modalQty, false, espalda, pecho, manga, parteBaja);
       modalQty = 1;
       if (modalQtyValue) modalQtyValue.textContent = '1';
     }
