@@ -783,11 +783,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const addToCartModalBtn = document.querySelector('.add-to-cart-modal-btn');
 
   const productData = {
-    'basicos-shorts': { brand: 'Basicos', name: 'Shorts', price: 17000, watermark: 'BSC', category: 'basicos', images: ['img/shorts-basic-1.png','img/shorts-basic-2.png'], colors: [{ name: 'Negro', bg: '#1a1a1a', border: '1px solid #555' }, { name: 'Gris', bg: '#888', border: 'none' }] },
+    'basicos-shorts': { brand: 'Basicos', name: 'Shorts', price: 17000, watermark: 'BSC', category: 'basicos', sizes: ['S', 'M', 'L', 'XL', 'XXL'], images: ['img/shorts-basic-1.png','img/shorts-basic-2.png'], colors: [{ name: 'Negro', bg: '#1a1a1a', border: '1px solid #555' }, { name: 'Gris', bg: '#888', border: 'none' }] },
     'short-doble-negro': { brand: 'Shorts', name: 'Short doble cintura negro', price: 25000, watermark: 'SHT', category: 'shorts', images: ['img/short-dob-neg-1.png','img/short-dob-neg-2.png'] },
     'short-doble-gris': { brand: 'Shorts', name: 'Short doble cintura gris', price: 25000, watermark: 'SHT', category: 'shorts', images: ['img/short-dob-gris-1.png','img/short-dob-gris-2.png'] },
-    'nike-blanco-pant': { brand: 'Nike', name: 'Nike blanco', price: 35000, watermark: 'NK', category: 'pantalones', images: ['img/nk-blan-pant-1.png','img/nk-blan-pant-2.png','img/nk-blan-pant-3.png'] },
-    'nike-negro-pant': { brand: 'Nike', name: 'Nike negro', price: 35000, watermark: 'NK', category: 'pantalones', images: ['img/nk-neg-pant-1.png','img/nk-neg-pant-2.png','img/nk-neg-pant-3.png'] },
+    'nike-blanco-pant': { brand: 'Nike', name: 'Nike blanco', price: 30000, watermark: 'NK', category: 'pantalones', images: ['img/nk-blan-pant-1.png','img/nk-blan-pant-2.png','img/nk-blan-pant-3.png'] },
+    'nike-negro-pant': { brand: 'Nike', name: 'Nike negro', price: 30000, watermark: 'NK', category: 'pantalones', images: ['img/nk-neg-pant-1.png','img/nk-neg-pant-2.png','img/nk-neg-pant-3.png'] },
     'syna-blanco': { brand: 'Syna Word', name: 'Syna blanco', price: 17700, watermark: 'SYN', category: 'remeras', images: ['img/syn-blan-1.png','img/syn-blan-2.png','img/syn-blan-3.png'] },
     'syna-negro': { brand: 'Syna Word', name: 'Syna negro', price: 17700, watermark: 'SYN', category: 'remeras', images: ['img/syn-neg-1.png','img/syn-neg-2.png','img/syn-neg-3.png'] },
     'comme-rojo-rem': { brand: 'Comme des Garcons', name: 'Comme des Garcons rojo', price: 17500, watermark: 'CDG', category: 'remeras', images: ['img/cdg-rem-rojo-1.png','img/cdg-rem-rojo-2.png','img/cdg-rem-rojo-3.png','img/cdg-rem-rojo-4.png','img/cdg-rem-rojo-5.png','img/cdg-rem-rojo-6.png'], hasParteBaja: true, parteBajas: [{ name: 'Sin', add: 0 }, { name: 'Con', add: 2500 }] },
@@ -911,13 +911,13 @@ document.addEventListener('DOMContentLoaded', () => {
     'essentials-negro-pant': { brand: 'Essentials', name: 'Essentials negro', price: 30500, watermark: 'ESS', category: 'pantalones', images: ['img/ess-neg-pant-1.png','img/ess-neg-pant-2.png','img/ess-neg-pant-3.png'] },
     'maison-margiela-pant': { brand: 'Maison Margiela', name: 'Maison Margiela', price: 30000, watermark: 'MM', category: 'pantalones', images: ['img/mm-margiela-pant-1.png','img/mm-margiela-pant-2.png','img/mm-margiela-pant-3.png'] },
     'acne-stockholm-pant': { brand: 'Acne Studios', name: 'Acne Studios Stockholm', price: 30200, watermark: 'ACN', category: 'pantalones', images: ['img/acn-stockholm-pant-1.png','img/acn-stockholm-pant-2.png'] },
-    'comme-rojo-pant': { brand: 'Comme des Garcons', name: 'Comme des Garcons rojo', price: 35500, watermark: 'CDG', category: 'pantalones', images: ['img/cdg-rojo-pant-1.png','img/cdg-rojo-pant-2.png','img/cdg-rojo-pant-3.png','img/cdg-rojo-pant-4.png'] },
-    'comme-negro-pant': { brand: 'Comme des Garcons', name: 'Comme des Garcons negro', price: 35500, watermark: 'CDG', category: 'pantalones', images: ['img/cdg-negro-pant-1.png','img/cdg-negro-pant-2.png','img/cdg-negro-pant-3.png'] },
-    'dog-negro-pant': { brand: 'Dog Running', name: 'Dog Running negro', price: 35000, watermark: 'DR', category: 'pantalones', images: ['img/dog-negro-pant-1.png','img/dog-negro-pant-2.png','img/dog-negro-pant-3.png'] },
-    'dog-blanco-pant': { brand: 'Dog Running', name: 'Dog Running blanco', price: 35000, watermark: 'DR', category: 'pantalones', images: ['img/dog-blanco-pant-1.png','img/dog-blanco-pant-2.png','img/dog-blanco-pant-3.png'] },
-    'dog-amarillo-pant': { brand: 'Dog Running', name: 'Dog Running amarillo', price: 35000, watermark: 'DR', category: 'pantalones', images: ['img/dog-amarillo-pant-1.png','img/dog-amarillo-pant-2.png','img/dog-amarillo-pant-3.png','img/dog-amarillo-pant-4.png'] },
-    'bapesta-pant': { brand: 'Bape', name: 'Bapesta', price: 35000, watermark: 'BPE', category: 'pantalones', images: ['img/bap-pant-1.png','img/bap-pant-2.png','img/bap-pant-3.png'] },
-    'corteiz-trasparente-pant': { brand: 'Corteiz', name: 'Corteiz trasparente', price: 35500, watermark: 'CTZ', category: 'pantalones', images: ['img/ctz-tras-pant-1.png','img/ctz-tras-pant-2.png','img/ctz-tras-pant-3.png'] }
+    'comme-rojo-pant': { brand: 'Comme des Garcons', name: 'Comme des Garcons rojo', price: 30500, watermark: 'CDG', category: 'pantalones', images: ['img/cdg-rojo-pant-1.png','img/cdg-rojo-pant-2.png','img/cdg-rojo-pant-3.png','img/cdg-rojo-pant-4.png'] },
+    'comme-negro-pant': { brand: 'Comme des Garcons', name: 'Comme des Garcons negro', price: 30500, watermark: 'CDG', category: 'pantalones', images: ['img/cdg-negro-pant-1.png','img/cdg-negro-pant-2.png','img/cdg-negro-pant-3.png'] },
+    'dog-negro-pant': { brand: 'Dog Running', name: 'Dog Running negro', price: 30000, watermark: 'DR', category: 'pantalones', images: ['img/dog-negro-pant-1.png','img/dog-negro-pant-2.png','img/dog-negro-pant-3.png'] },
+    'dog-blanco-pant': { brand: 'Dog Running', name: 'Dog Running blanco', price: 30000, watermark: 'DR', category: 'pantalones', images: ['img/dog-blanco-pant-1.png','img/dog-blanco-pant-2.png','img/dog-blanco-pant-3.png'] },
+    'dog-amarillo-pant': { brand: 'Dog Running', name: 'Dog Running amarillo', price: 30000, watermark: 'DR', category: 'pantalones', images: ['img/dog-amarillo-pant-1.png','img/dog-amarillo-pant-2.png','img/dog-amarillo-pant-3.png','img/dog-amarillo-pant-4.png'] },
+    'bapesta-pant': { brand: 'Bape', name: 'Bapesta', price: 30000, watermark: 'BPE', category: 'pantalones', images: ['img/bap-pant-1.png','img/bap-pant-2.png','img/bap-pant-3.png'] },
+    'corteiz-trasparente-pant': { brand: 'Corteiz', name: 'Corteiz trasparente', price: 30500, watermark: 'CTZ', category: 'pantalones', images: ['img/ctz-tras-pant-1.png','img/ctz-tras-pant-2.png','img/ctz-tras-pant-3.png'] }
   };
 
   const colorSets = {
@@ -947,9 +947,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const colorSelectorContainer = document.querySelector('.color-selector');
 
+  function getSizes(product) {
+    if (!product) return sizeSets.remeras;
+    if (Array.isArray(product.sizes) && product.sizes.length) return product.sizes;
+    return sizeSets[product.category] || sizeSets.remeras;
+  }
+
   function isProductFullyOutOfStock(data) {
     if (!data || !data.outOfStock) return false;
-    const sizes = sizeSets[data.category] || sizeSets.remeras;
+    const sizes = getSizes(data);
     return sizes.every(s => data.outOfStock.includes(s));
   }
 
@@ -1288,7 +1294,7 @@ document.addEventListener('DOMContentLoaded', () => {
     remeras: ['S', 'M', 'L', 'XL'],
     pantalones: ['2', '3', '4'],
     camperas: ['2', '3', '4'],
-    shorts: ['1', '2', '3', '4', '5', 'XXL'],
+    shorts: ['1', '2', '3', '4', '5'],
     basicos: ['S', 'M', 'L', 'XL']
   };
 
@@ -1306,7 +1312,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const sizeSelector = document.querySelector('.size-selector');
 
   function renderSizeButtons(category, product) {
-    const sizes = sizeSets[category] || sizeSets.remeras;
+    const sizes = (product && Array.isArray(product.sizes) && product.sizes.length)
+      ? product.sizes
+      : (sizeSets[category] || sizeSets.remeras);
     const unavailable = (product && product.outOfStock) || [];
     let activeSet = false;
     sizeSelector.innerHTML = '';
@@ -1342,7 +1350,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const activeManga = document.querySelector('.mangas-selector .diseno-btn.active');
       const activeDisenoColor = document.querySelector('.diseno-color-selector .diseno-btn.active');
       const activeParteBaja = document.querySelector('.parte-baja-selector .diseno-btn.active');
-      const defaultSizes = sizeSets[currentModalProduct.category] || sizeSets.remeras;
+      const defaultSizes = getSizes(currentModalProduct);
       const talle = activeSize ? activeSize.dataset.size : defaultSizes[0];
       let color = activeColor ? activeColor.dataset.color : 'Negro';
       if (activeDiseno) {
