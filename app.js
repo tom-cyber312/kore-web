@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     pantalones: ['drop-04', 'chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz', 'essentials', 'maison-margiela', 'acne-studios', 'comme-des-garcons', 'dog-running', 'nike', 'bape'],
     camperas: ['drop-04', 'chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz', 'jordan', 'nike', 'adidas', 'maison-margiela', 'comme-des-garcons', 'acne-studios', 'essentials', 'bape'],
     basicos: ['remeras', 'pantalones', 'camperas', 'shorts'],
-    shorts: ['shorts']
+    shorts: ['shorts', 'maison-margiela', 'comme-des-garcons']
   };
 
   const subcategoryLabels = {
@@ -786,6 +786,11 @@ document.addEventListener('DOMContentLoaded', () => {
     'basicos-shorts': { brand: 'Basicos', name: 'Shorts', price: 17000, watermark: 'BSC', category: 'basicos', sizes: ['S', 'M', 'L', 'XL', 'XXL'], images: ['img/shorts-basic-1.png','img/shorts-basic-2.png'], colors: [{ name: 'Negro', bg: '#1a1a1a', border: '1px solid #555' }, { name: 'Gris', bg: '#888', border: 'none' }] },
     'short-doble-negro': { brand: 'Shorts', name: 'Short doble cintura negro', price: 25000, watermark: 'SHT', category: 'shorts', images: ['img/short-dob-neg-1.png','img/short-dob-neg-2.png'] },
     'short-doble-gris': { brand: 'Shorts', name: 'Short doble cintura gris', price: 25000, watermark: 'SHT', category: 'shorts', images: ['img/short-dob-gris-1.png','img/short-dob-gris-2.png'] },
+    'mm-paris-shorts': { brand: 'Maison Margiela', name: 'Maison Margiela Paris', price: 18000, watermark: 'MM', category: 'shorts', images: ['img/mm-paris-1.png','img/mm-paris-2.png','img/mm-paris-3.png'] },
+    'cdg-grande-shorts': { brand: 'Comme des Garcons', name: 'Comme des Garcon grande', price: 18000, watermark: 'CDG', category: 'shorts', images: ['img/cdg-grande-1.png','img/cdg-grande-2.png','img/cdg-grande-3.png'] },
+    'play-cdg-shorts': { brand: 'Comme des Garcons', name: 'Play Comme des Garcons', price: 18500, watermark: 'CDG', category: 'shorts', images: ['img/play-cdg-1.png','img/play-cdg-2.png','img/play-cdg-3.png','img/play-cdg-4.png'] },
+    'cdg-shorts': { brand: 'Comme des Garcons', name: 'Comme des Garcons', price: 18500, watermark: 'CDG', category: 'shorts', images: ['img/cdg-1.png','img/cdg-2.png'] },
+    'cdg-negro-shorts': { brand: 'Comme des Garcons', name: 'Comme des Garcons negro', price: 18000, watermark: 'CDG', category: 'shorts', images: ['img/cdg-negro-1.png','img/cdg-negro-2.png','img/cdg-negro-3.png'] },
     'nike-blanco-pant': { brand: 'Nike', name: 'Nike blanco', price: 30000, watermark: 'NK', category: 'pantalones', images: ['img/nk-blan-pant-1.png','img/nk-blan-pant-2.png','img/nk-blan-pant-3.png'] },
     'nike-negro-pant': { brand: 'Nike', name: 'Nike negro', price: 30000, watermark: 'NK', category: 'pantalones', images: ['img/nk-neg-pant-1.png','img/nk-neg-pant-2.png','img/nk-neg-pant-3.png'] },
     'syna-blanco': { brand: 'Syna Word', name: 'Syna blanco', price: 17700, watermark: 'SYN', category: 'remeras', images: ['img/syn-blan-1.png','img/syn-blan-2.png','img/syn-blan-3.png'] },
