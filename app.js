@@ -335,7 +335,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const transferSummaryEl = document.getElementById('transferSummary');
   let currentPaymentMethod = '';
 
+  const SHIPPING_DOMICILIO = 8500;
+
   function getShippingCost() {
+    if (shippingData.metodoValue === 'domicilio') return SHIPPING_DOMICILIO;
     const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
     if (totalQty <= 3) return 6500;
     if (totalQty <= 6) return 10000;
@@ -343,6 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function getShippingLabel() {
+    if (shippingData.metodoValue === 'domicilio') return '$8.500 (aprox)';
     const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
     if (totalQty <= 3) return '$6.500 (aprox)';
     if (totalQty <= 6) return '$10.000 (aprox)';
