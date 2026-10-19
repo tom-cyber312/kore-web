@@ -1008,6 +1008,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     camperas: {
       'Gris': ['2', '3', '4'],
+      'Blanco': ['2', '3', '4'],
       'Rojo': ['2', '3']
     },
     shorts: {
