@@ -524,7 +524,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (paymentMethod === 'Transferencia') {
       msg += '\nAlias: kore.arg';
       msg += '\nA nombre de: Tomas Martin Rodriguez';
-      msg += '\nEmpresa: Mercado Pago';
+      msg += '\nEmpresa: Naranja X';
       msg += '\nPaso comprobante por WhatsApp';
     }
     return msg;
@@ -620,20 +620,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function showAddedToast() {
+  function showToast(message, icon) {
     let toast = document.getElementById('cartToast');
     if (!toast) {
       toast = document.createElement('div');
       toast.id = 'cartToast';
       toast.className = 'cart-toast';
-      toast.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Agregado al carrito';
       document.body.appendChild(toast);
     }
+    toast.innerHTML = (icon || '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>') + ' ' + message;
     toast.classList.add('visible');
     clearTimeout(toast._timeout);
     toast._timeout = setTimeout(() => {
       toast.classList.remove('visible');
     }, 2000);
+  }
+
+  function showAddedToast() {
+    showToast('Agregado al carrito');
   }
 
   function openWhatsApp(url) {
@@ -973,7 +977,8 @@ document.addEventListener('DOMContentLoaded', () => {
       { name: 'Negro', bg: '#1a1a1a', border: '1px solid #555' },
       { name: 'Blanco', bg: '#f5f5f5', border: '1px solid #333' },
       { name: 'Gris', bg: '#888', border: 'none' },
-      { name: 'Rosa Bebé', bg: '#f8bbd0', border: 'none' }
+      { name: 'Rosa Bebé', bg: '#f8bbd0', border: 'none' },
+      { name: 'Rojo', bg: '#e53935', border: 'none' }
     ],
     shorts: [
       { name: 'Negro', bg: '#1a1a1a', border: '1px solid #555' },
@@ -986,6 +991,33 @@ document.addEventListener('DOMContentLoaded', () => {
   const colorSelectorContainer = document.querySelector('.color-selector');
 
   const CORTE_ADD_PRESET = 6500;
+
+  // Corte de remera. Boxy y Oversize quedan sin stock por ahora.
+  const CORTES_REMERA = [
+    { name: 'Regular', add: 0 },
+    { name: 'Boxy', add: 0, outOfStock: true },
+    { name: 'Oversize', add: 0, outOfStock: true }
+  ];
+
+  // Talles sin stock segun el color elegido (y el corte, en shorts).
+  const STOCK_RULES = {
+    remeras: {
+      'Negro': ['L', 'XL'],
+      'Blanco': ['S', 'L', 'XL'],
+      'Azul': ['L', 'XL']
+    },
+    camperas: {
+      'Gris': ['2', '3', '4'],
+      'Rojo': ['2', '3']
+    },
+    shorts: {
+      '3/4': {
+        'Rojo': ['3', '5'],
+        'Gris': ['2'],
+        'Negro': ['2', '5']
+      }
+    }
+  };
 
   // Colores disponibles segun el corte elegido.
   // Rosado no esta disponible en ningun corte; Rojo solo en 3/4.
@@ -1049,6 +1081,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (Array.isArray(product.cortes) && product.cortes.length) return product.cortes;
     if (product.hasCorte) return getCorteOptions();
     if (product.category === 'shorts') return getCorteOptions();
+    if (product.category === 'remeras') return CORTES_REMERA;
     return null;
   }
 
@@ -1155,6 +1188,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (data.brand === 'Drop 04' || data.noColors) {
         if (colorSelectorParent) colorSelectorParent.style.display = 'none';
+        colorSelectorContainer.innerHTML = '';
       } else {
         if (colorSelectorParent) colorSelectorParent.style.display = '';
         const colors = getColors(data);
@@ -1176,9 +1210,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (cbtn.classList.contains('color-btn--disabled')) return;
             colorSelectorContainer.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
             cbtn.classList.add('active');
+            renderSizeButtons(data.category, data);
           });
         });
       }
+
+      renderSizeButtons(data.category, data);
 
       const disenoSelector = document.getElementById('disenoSelector');
       const disenoContainer = document.querySelector('.diseno-selector');
@@ -1377,20 +1414,30 @@ document.addEventListener('DOMContentLoaded', () => {
           cbtn.dataset.corte = c.name;
           cbtn.dataset.add = c.add;
           cbtn.textContent = c.name;
+          if (c.outOfStock) {
+            cbtn.classList.add('diseno-btn--disabled');
+            cbtn.classList.remove('active');
+            cbtn.disabled = true;
+            cbtn.setAttribute('aria-disabled', 'true');
+            cbtn.title = c.name + ' sin stock';
+          }
           corteContainer.appendChild(cbtn);
         });
         const corteNotice = document.getElementById('corteNotice');
         if (corteNotice) corteNotice.classList.remove('visible');
         corteContainer.querySelectorAll('.diseno-btn').forEach(cbtn => {
           cbtn.addEventListener('click', () => {
+            if (cbtn.classList.contains('diseno-btn--disabled')) return;
             corteContainer.querySelectorAll('.diseno-btn').forEach(b => b.classList.remove('active'));
             cbtn.classList.add('active');
             const notice = document.getElementById('corteNotice');
             if (notice) notice.classList.toggle('visible', parseInt(cbtn.dataset.add || 0) > 0);
             applyCorteColorAvailability(data, cbtn.dataset.corte);
+            renderSizeButtons(data.category, data);
           });
         });
         applyCorteColorAvailability(data, cortes[0].name);
+        renderSizeButtons(data.category, data);
       } else if (corteSelector) {
         corteSelector.style.display = 'none';
         if (corteContainer) corteContainer.innerHTML = '';
@@ -1451,11 +1498,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const sizeSelector = document.querySelector('.size-selector');
 
+  function getUnavailableSizes(product, colorName, corteName) {
+    const unavailable = (product && product.outOfStock) || [];
+    const rules = STOCK_RULES[product && product.category];
+    if (!rules) return unavailable;
+    const colorRule = colorName && rules[colorName];
+    if (Array.isArray(colorRule)) return [...new Set([...unavailable, ...colorRule])];
+    if (colorName && rules[corteName] && Array.isArray(rules[corteName][colorName])) {
+      return [...new Set([...unavailable, ...rules[corteName][colorName]])];
+    }
+    if (corteName && typeof rules[corteName] === 'object' && !Array.isArray(rules[corteName])) {
+      const rc = rules[corteName][colorName];
+      if (Array.isArray(rc)) return [...new Set([...unavailable, ...rc])];
+    }
+    return unavailable;
+  }
+
   function renderSizeButtons(category, product) {
     const sizes = (product && Array.isArray(product.sizes) && product.sizes.length)
       ? product.sizes
       : (sizeSets[category] || sizeSets.remeras);
-    const unavailable = (product && product.outOfStock) || [];
+    const activeColorBtn = document.querySelector('.color-btn.active');
+    const activeCorteBtn = document.querySelector('.corte-selector .diseno-btn.active');
+    const colorName = activeColorBtn ? activeColorBtn.dataset.color : (product && product.fixedColor);
+    const corteName = activeCorteBtn ? activeCorteBtn.dataset.corte : null;
+    const unavailable = getUnavailableSizes(product, colorName, corteName);
     let activeSet = false;
     sizeSelector.innerHTML = '';
     sizes.forEach((s, i) => {
@@ -1464,11 +1531,11 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.dataset.size = s;
       btn.textContent = s;
       if (unavailable.indexOf(s) !== -1) {
-        btn.classList.add('size-btn--out-of-stock');
+        btn.className = 'size-btn size-btn--out-of-stock';
         btn.dataset.outOfStock = 'true';
         btn.disabled = true;
       } else if (!activeSet) {
-        btn.classList.add('active');
+        btn.className = 'size-btn active';
         activeSet = true;
       }
       btn.addEventListener('click', () => {
@@ -1491,8 +1558,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const activeDisenoColor = document.querySelector('.diseno-color-selector .diseno-btn.active');
       const activeParteBaja = document.querySelector('.parte-baja-selector .diseno-btn.active');
       const activeCorte = document.querySelector('.corte-selector .diseno-btn.active');
-      const defaultSizes = getSizes(currentModalProduct);
-      const talle = activeSize ? activeSize.dataset.size : defaultSizes[0];
+      if (!activeSize) {
+        showToast('Sin stock en ese color y corte');
+        return;
+      }
+      const talle = activeSize.dataset.size;
       let color = activeColor ? activeColor.dataset.color : (currentModalProduct.fixedColor || 'Negro');
       if (activeDiseno) {
         color = color + ' / ' + activeDiseno.dataset.diseno;
