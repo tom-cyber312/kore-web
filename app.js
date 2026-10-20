@@ -851,7 +851,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'mixed-emotion': { brand: 'Drop 04', name: 'Campera Mixed Emotion Angel', price: 42000, watermark: 'DRP', category: 'camperas', images: ['img/mixed-emotion-1.webp','img/mixed-emotion-2.webp'] },
     'coldculture': { brand: 'Drop 04', name: 'Campera camuflada coldculture verde', price: 39000, watermark: 'DRP', category: 'camperas', images: ['img/coldculture.webp'] },
     'camu-verde': { brand: 'Drop 04', name: 'Campera camuflada verde', price: 35000, watermark: 'DRP', category: 'camperas', images: ['img/camu-verde.webp'] },
-    'strass-niki': { brand: 'Drop 04', name: 'Campera strass nikistreetwear', price: 39000, watermark: 'DRP', category: 'camperas', images: ['img/strass-niki-1.webp','img/strass-niki-2.webp'], outOfStock: ['3', '4'] },
+    'strass-niki': { brand: 'Drop 04', name: 'Campera strass nikistreetwear', price: 39000, watermark: 'DRP', category: 'camperas', images: ['img/strass-niki-1.webp','img/strass-niki-2.webp'], outOfStock: ['2', '3', '4'] },
     'camu-gris': { brand: 'Drop 04', name: 'Campera camuflada gris', price: 38000, watermark: 'DRP', category: 'camperas', images: ['img/camu-gris.webp'], outOfStock: ['3'] },
     'corteiz-chico': { brand: 'Corteiz', name: 'Corteiz Chico', price: 16900, watermark: 'CTZ', category: 'remeras', images: ['img/ctz-chi-1.webp','img/ctz-chi-2.webp','img/ctz-chi-3.webp'] },
     'corteiz-manos': { brand: 'Corteiz', name: 'Corteiz Manos', price: 17600, watermark: 'CTZ', category: 'remeras', images: ['img/ctz-man-1.webp','img/ctz-man-2.webp','img/ctz-man-3.webp','img/ctz-man-4.webp'] },
