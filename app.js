@@ -992,18 +992,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const CORTE_ADD_PRESET = 6500;
 
-  // Corte de remera. Boxy y Oversize quedan sin stock por ahora.
+  // Corte de remera.
   const CORTES_REMERA = [
     { name: 'Regular', add: 0 },
-    { name: 'Boxy', add: 0, outOfStock: true },
-    { name: 'Oversize', add: 0, outOfStock: true }
+    { name: 'Boxy', add: 0 },
+    { name: 'Oversize', add: 0 }
   ];
 
   // Talles sin stock segun el color elegido (y el corte, en shorts).
   const STOCK_RULES = {
     remeras: {
-      'Negro': ['L', 'XL'],
-      'Blanco': ['S', 'L', 'XL'],
+      'Negro': [],
+      'Blanco': [],
       'Azul': ['L', 'XL']
     },
     camperas: {
@@ -1012,11 +1012,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'Rojo': ['2', '3']
     },
     shorts: {
-      '3/4': {
-        'Rojo': ['3', '5'],
-        'Gris': ['2'],
-        'Negro': ['2', '5']
-      }
+      '3/4': {}
     }
   };
 
