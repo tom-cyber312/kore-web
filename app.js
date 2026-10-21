@@ -793,7 +793,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const addToCartModalBtn = document.querySelector('.add-to-cart-modal-btn');
 
   const productData = {
-    'basicos-shorts': { brand: 'Basicos', name: 'Shorts', price: 15000, watermark: 'BSC', category: 'basicos', sizes: ['S', 'M', 'L', 'XL', 'XXL'], images: ['img/shorts-basic-1.png','img/shorts-basic-2.png'], colors: [{ name: 'Negro', bg: '#1a1a1a', border: '1px solid #555' }, { name: 'Gris', bg: '#888', border: 'none' }] },
+    'basicos-shorts': { brand: 'Basicos', name: 'Shorts', price: 15000, price3_4: 22500, watermark: 'BSC', category: 'basicos', hasCorte: true, sizes: ['S', 'M', 'L', 'XL', 'XXL'], images: ['img/shorts-basic-1.png','img/shorts-basic-2.png'], colors: [{ name: 'Negro', bg: '#1a1a1a', border: '1px solid #555' }, { name: 'Gris', bg: '#888', border: 'none' }, { name: 'Rosado', bg: '#f48fb1', border: 'none' }] },
     'short-doble-negro': { brand: 'Shorts', name: 'Short doble cintura negro', price: 25000, watermark: 'SHT', category: 'shorts', noCorte: true, noColors: true, fixedColor: 'Negro', images: ['img/short-dob-neg-1.png','img/short-dob-neg-2.png'] },
     'short-doble-gris': { brand: 'Shorts', name: 'Short doble cintura gris', price: 25000, watermark: 'SHT', category: 'shorts', noCorte: true, noColors: true, fixedColor: 'Gris', images: ['img/short-dob-gris-1.png','img/short-dob-gris-2.png'] },
     'mm-paris-shorts': { brand: 'Maison Margiela', name: 'Maison Margiela Paris', price: 18500, watermark: 'MM', category: 'shorts', images: ['img/mm-paris-1.png','img/mm-paris-2.png','img/mm-paris-3.png'] },
@@ -995,8 +995,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Corte de remera.
   const CORTES_REMERA = [
     { name: 'Regular', add: 0 },
-    { name: 'Boxy', add: 0 },
-    { name: 'Oversize', add: 0 }
+    { name: 'Boxy', add: 0 }
   ];
 
   // Talles sin stock segun el color elegido (y el corte, en shorts).
@@ -1004,7 +1003,7 @@ document.addEventListener('DOMContentLoaded', () => {
     remeras: {
       'Negro': [],
       'Blanco': [],
-      'Azul': ['L', 'XL']
+      'Azul': []
     },
     camperas: {
       'Gris': ['2', '3', '4'],
@@ -1020,7 +1019,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Rosado no esta disponible en ningun corte; Rojo solo en 3/4.
   const CORTE_COLOR_RULES = {
     'Normal': ['Negro', 'Gris'],
-    '3/4': ['Negro', 'Gris', 'Rojo']
+    '3/4': ['Negro', 'Gris', 'Rojo', 'Rosado']
   };
 
   function getCorteOptions() {
@@ -1042,26 +1041,52 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!cont) return;
     const btns = Array.from(cont.querySelectorAll('.color-btn'));
     if (!btns.length) return;
-    const allowed = getAvailableColorsForCorte(product, corteName);
+    let allowed = getAvailableColorsForCorte(product, corteName);
 
     btns.forEach(b => {
-      const ok = !allowed || allowed.indexOf(b.dataset.color) !== -1;
-      b.classList.toggle('color-btn--disabled', !ok);
-      b.disabled = !ok;
-      b.setAttribute('aria-disabled', ok ? 'false' : 'true');
-      if (!ok) b.title = b.dataset.color + ' no disponible en corte ' + corteName;
-      else b.title = b.dataset.color;
+      b.classList.remove('color-btn--disabled');
+      b.disabled = false;
+      b.setAttribute('aria-disabled', 'false');
+      b.title = b.dataset.color;
     });
 
-    if (!allowed) return;
+    if (allowed && Array.isArray(allowed)) {
+      btns.forEach(b => {
+        const ok = allowed.indexOf(b.dataset.color) !== -1;
+        b.classList.toggle('color-btn--disabled', !ok);
+        b.disabled = !ok;
+        b.setAttribute('aria-disabled', ok ? 'false' : 'true');
+        if (!ok) b.title = b.dataset.color + ' no disponible en corte ' + corteName;
+        else b.title = b.dataset.color;
+      });
+    }
+
+    if (product && product.category === 'remeras' && corteName === 'Boxy') {
+      btns.forEach(b => {
+        const c = b.dataset.color;
+        if (c === 'Rojo' || c === 'Azul') {
+          b.classList.add('color-btn--disabled');
+          b.disabled = true;
+          b.setAttribute('aria-disabled', 'true');
+          b.title = c + ' no disponible en corte Boxy';
+        }
+      });
+    }
+
     const active = cont.querySelector('.color-btn.active');
-    if (active && allowed.indexOf(active.dataset.color) === -1) {
-      const first = btns.find(b => !b.classList.contains('color-btn--disabled'));
+    if (active && active.classList.contains('color-btn--disabled')) {
       btns.forEach(b => b.classList.remove('active'));
+      const first = btns.find(b => !b.classList.contains('color-btn--disabled'));
       if (first) first.classList.add('active');
     } else if (!active) {
       const first = btns.find(b => !b.classList.contains('color-btn--disabled'));
       if (first) first.classList.add('active');
+    } else if (allowed && Array.isArray(allowed)) {
+      if (allowed.indexOf(active.dataset.color) === -1) {
+        btns.forEach(b => b.classList.remove('active'));
+        const first = btns.find(b => !b.classList.contains('color-btn--disabled'));
+        if (first) first.classList.add('active');
+      }
     }
   }
 
@@ -1078,7 +1103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (Array.isArray(product.cortes) && product.cortes.length) return product.cortes;
     if (product.hasCorte) return getCorteOptions();
     if (product.category === 'shorts') return getCorteOptions();
-    if (product.category === 'remeras') return CORTES_REMERA;
+    if (product.category === 'remeras') return CORTES_REMERA.filter(c => c.name !== 'Oversize');
     return null;
   }
 
