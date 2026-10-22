@@ -793,7 +793,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const addToCartModalBtn = document.querySelector('.add-to-cart-modal-btn');
 
   const productData = {
-    'basicos-shorts': { brand: 'Basicos', name: 'Shorts', price: 15000, price3_4: 22500, watermark: 'BSC', category: 'basicos', hasCorte: true, sizes: ['S', 'M', 'L', 'XL', 'XXL'], images: ['img/shorts-basic-1.png','img/shorts-basic-2.png'], colors: [{ name: 'Negro', bg: '#1a1a1a', border: '1px solid #555' }, { name: 'Gris', bg: '#888', border: 'none' }, { name: 'Rosado', bg: '#f48fb1', border: 'none' }] },
+    'basicos-shorts': { brand: 'Basicos', name: 'Shorts', price: 15000, price3_4: 22500, watermark: 'BSC', category: 'basicos', hasCorte: true, sizes: ['S', 'M', 'L', 'XL', 'XXL'], images: ['img/shorts-basic-1.png','img/shorts-basic-2.png'], colors: [{ name: 'Negro', bg: '#1a1a1a', border: '1px solid #555' }, { name: 'Gris', bg: '#888', border: 'none' }, { name: 'Rojo', bg: '#e53935', border: 'none' }, { name: 'Rosado', bg: '#f8bbd0', border: 'none' }] },
     'short-doble-negro': { brand: 'Shorts', name: 'Short doble cintura negro', price: 25000, watermark: 'SHT', category: 'shorts', noCorte: true, noColors: true, fixedColor: 'Negro', images: ['img/short-dob-neg-1.png','img/short-dob-neg-2.png'] },
     'short-doble-gris': { brand: 'Shorts', name: 'Short doble cintura gris', price: 25000, watermark: 'SHT', category: 'shorts', noCorte: true, noColors: true, fixedColor: 'Gris', images: ['img/short-dob-gris-1.png','img/short-dob-gris-2.png'] },
     'mm-paris-shorts': { brand: 'Maison Margiela', name: 'Maison Margiela Paris', price: 18500, watermark: 'MM', category: 'shorts', images: ['img/mm-paris-1.png','img/mm-paris-2.png','img/mm-paris-3.png'] },
@@ -1016,14 +1016,17 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Colores disponibles segun el corte elegido.
-  // Rosado no esta disponible en ningun corte; Rojo solo en 3/4.
+  // Normal: Negro y Gris. 3/4: suma Rojo y Rosado.
   const CORTE_COLOR_RULES = {
     'Normal': ['Negro', 'Gris'],
     '3/4': ['Negro', 'Gris', 'Rojo', 'Rosado']
   };
 
-  function getCorteOptions() {
-    return [{ name: 'Normal', add: 0 }, { name: '3/4', add: CORTE_ADD_PRESET }];
+  function getCorteOptions(product) {
+    const add34 = (product && typeof product.price3_4 === 'number')
+      ? product.price3_4 - product.price
+      : CORTE_ADD_PRESET;
+    return [{ name: 'Normal', add: 0 }, { name: '3/4', add: add34 }];
   }
 
   // null = sin restricciones para ese corte
@@ -1101,8 +1104,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!product) return null;
     if (product.noCorte) return null;
     if (Array.isArray(product.cortes) && product.cortes.length) return product.cortes;
-    if (product.hasCorte) return getCorteOptions();
-    if (product.category === 'shorts') return getCorteOptions();
+    if (product.hasCorte) return getCorteOptions(product);
+    if (product.category === 'shorts') return getCorteOptions(product);
     if (product.category === 'remeras') return CORTES_REMERA.filter(c => c.name !== 'Oversize');
     return null;
   }
@@ -1124,6 +1127,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalQtyValue = document.getElementById('modalQtyValue');
   const modalQtyMinus = document.querySelector('#modalQtySelector .qty-minus');
   const modalQtyPlus = document.querySelector('#modalQtySelector .qty-plus');
+
+  function updateModalPrice() {
+    const data = currentModalProduct;
+    if (!data || !modalPrice) return;
+    let price = data.price;
+    const activeEspalda = document.querySelector('.espalda-selector .diseno-btn.active');
+    const activeManga = document.querySelector('.mangas-selector .diseno-btn.active');
+    const activeParteBaja = document.querySelector('.parte-baja-selector .diseno-btn.active');
+    const activeCorte = document.querySelector('.corte-selector .diseno-btn.active');
+    if (activeEspalda) price += parseInt(activeEspalda.dataset.add || 0);
+    if (activeManga) price += parseInt(activeManga.dataset.add || 0);
+    if (activeParteBaja) price += parseInt(activeParteBaja.dataset.add || 0);
+    if (activeCorte) price += parseInt(activeCorte.dataset.add || 0);
+    modalPrice.textContent = '$' + price.toLocaleString('es-AR');
+  }
 
   document.querySelectorAll('.product-card__quick-view').forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -1292,6 +1310,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.hasDisenoColor && typeof updateDisenoColorVisibility === 'function') {
               updateDisenoColorVisibility();
             }
+            updateModalPrice();
           });
         });
       } else if (espaldaSelector) {
@@ -1320,6 +1339,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.hasDisenoColor && typeof updateDisenoColorVisibility === 'function') {
               updateDisenoColorVisibility();
             }
+            updateModalPrice();
           });
         });
       } else if (pechoSelector) {
@@ -1385,6 +1405,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (notice) {
               notice.classList.toggle('visible', parseInt(mbtn.dataset.add || 0) > 0);
             }
+            updateModalPrice();
           });
         });
       } else if (mangasSelector) {
@@ -1416,6 +1437,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (notice) {
               notice.classList.toggle('visible', parseInt(pbtn.dataset.add || 0) > 0);
             }
+            updateModalPrice();
           });
         });
       } else if (parteBajaSelector) {
@@ -1446,7 +1468,13 @@ document.addEventListener('DOMContentLoaded', () => {
           corteContainer.appendChild(cbtn);
         });
         const corteNotice = document.getElementById('corteNotice');
-        if (corteNotice) corteNotice.classList.remove('visible');
+        if (corteNotice) {
+          corteNotice.classList.remove('visible');
+          const corte34 = cortes.find(c => c.name === '3/4');
+          if (corte34 && corte34.add > 0) {
+            corteNotice.textContent = 'El corte 3/4 suma $' + corte34.add.toLocaleString('es-AR') + ' al precio';
+          }
+        }
         corteContainer.querySelectorAll('.diseno-btn').forEach(cbtn => {
           cbtn.addEventListener('click', () => {
             if (cbtn.classList.contains('diseno-btn--disabled')) return;
@@ -1456,6 +1484,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (notice) notice.classList.toggle('visible', parseInt(cbtn.dataset.add || 0) > 0);
             applyCorteColorAvailability(data, cbtn.dataset.corte);
             renderSizeButtons(data.category, data);
+            updateModalPrice();
           });
         });
         applyCorteColorAvailability(data, cortes[0].name);
@@ -1464,6 +1493,8 @@ document.addEventListener('DOMContentLoaded', () => {
         corteSelector.style.display = 'none';
         if (corteContainer) corteContainer.innerHTML = '';
       }
+
+      updateModalPrice();
 
       modalQty = 1;
       if (modalQtyValue) modalQtyValue.textContent = '1';
