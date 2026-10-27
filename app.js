@@ -1066,19 +1066,32 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    if (product && product.category === 'remeras' && corteName === 'Boxy') {
-      btns.forEach(b => {
-        const c = b.dataset.color;
-        if (c === 'Rojo' || c === 'Azul') {
-          b.classList.add('color-btn--disabled');
-          b.disabled = true;
-          b.setAttribute('aria-disabled', 'true');
-          b.title = c + ' no disponible en corte Boxy';
-        }
-      });
-    }
-    if (product && product.category === 'remeras' && corteName === 'Regular') {
-      // Todos los colores habilitados en corte Regular
+    if (product && product.category === 'remeras') {
+      if (corteName === 'Boxy') {
+        btns.forEach(b => {
+          const c = b.dataset.color;
+          if (c === 'Rojo' || c === 'Azul') {
+            b.classList.add('color-btn--disabled');
+            b.disabled = true;
+            b.setAttribute('aria-disabled', 'true');
+            b.title = c + ' no disponible en corte Boxy';
+          }
+        });
+      }
+      if (corteName === 'Oversize') {
+        btns.forEach(b => {
+          const c = b.dataset.color;
+          if (c === 'Rojo' || c === 'Azul') {
+            b.classList.add('color-btn--disabled');
+            b.disabled = true;
+            b.setAttribute('aria-disabled', 'true');
+            b.title = c + ' no disponible en corte Oversize';
+          }
+        });
+      }
+      if (corteName === 'Regular') {
+        // Todos los colores habilitados en corte Regular
+      }
     }
 
     const active = cont.querySelector('.color-btn.active');
