@@ -1004,7 +1004,8 @@ document.addEventListener('DOMContentLoaded', () => {
     remeras: {
       'Negro': [],
       'Blanco': [],
-      'Azul': []
+      'Azul': [],
+      'Rojo': []
     },
     camperas: {
       'Gris': ['2', '3', '4'],
@@ -1075,6 +1076,9 @@ document.addEventListener('DOMContentLoaded', () => {
           b.title = c + ' no disponible en corte Boxy';
         }
       });
+    }
+    if (product && product.category === 'remeras' && corteName === 'Regular') {
+      // Todos los colores habilitados en corte Regular
     }
 
     const active = cont.querySelector('.color-btn.active');
