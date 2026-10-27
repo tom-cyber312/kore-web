@@ -995,7 +995,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Corte de remera.
   const CORTES_REMERA = [
     { name: 'Regular', add: 0 },
-    { name: 'Boxy', add: 0 }
+    { name: 'Boxy', add: 2500 },
+    { name: 'Oversize', add: 3000 }
   ];
 
   // Talles sin stock segun el color elegido (y el corte, en shorts).
@@ -1106,7 +1107,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (Array.isArray(product.cortes) && product.cortes.length) return product.cortes;
     if (product.hasCorte) return getCorteOptions(product);
     if (product.category === 'shorts') return getCorteOptions(product);
-    if (product.category === 'remeras') return CORTES_REMERA.filter(c => c.name !== 'Oversize');
+    if (product.category === 'remeras') return CORTES_REMERA;
     return null;
   }
 
@@ -1473,6 +1474,11 @@ document.addEventListener('DOMContentLoaded', () => {
           const corte34 = cortes.find(c => c.name === '3/4');
           if (corte34 && corte34.add > 0) {
             corteNotice.textContent = 'El corte 3/4 suma $' + corte34.add.toLocaleString('es-AR') + ' al precio';
+          } else {
+            const corteConAdd = cortes.find(c => c.add > 0);
+            if (corteConAdd) {
+              corteNotice.textContent = 'El corte ' + corteConAdd.name + ' suma $' + corteConAdd.add.toLocaleString('es-AR') + ' al precio';
+            }
           }
         }
         corteContainer.querySelectorAll('.diseno-btn').forEach(cbtn => {
