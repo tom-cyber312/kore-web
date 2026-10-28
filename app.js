@@ -1305,6 +1305,7 @@ document.addEventListener('DOMContentLoaded', () => {
           dbtn.addEventListener('click', () => {
             disenoContainer.querySelectorAll('.diseno-btn').forEach(b => b.classList.remove('active'));
             dbtn.classList.add('active');
+            updateModalPrice();
           });
         });
       } else if (disenoSelector) {
@@ -1332,7 +1333,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ebtn.classList.add('active');
             const notice = document.getElementById('espaldaNotice');
             if (notice) {
-              notice.classList.toggle('visible', parseInt(ebtn.dataset.add || 0) > 0);
+              notice.classList.remove('visible');
             }
             if (data.hasDisenoColor && typeof updateDisenoColorVisibility === 'function') {
               updateDisenoColorVisibility();
@@ -1430,7 +1431,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mbtn.classList.add('active');
             const notice = document.getElementById('mangasNotice');
             if (notice) {
-              notice.classList.toggle('visible', parseInt(mbtn.dataset.add || 0) > 0);
+              notice.classList.remove('visible');
             }
             updateModalPrice();
           });
@@ -1462,7 +1463,7 @@ document.addEventListener('DOMContentLoaded', () => {
             pbtn.classList.add('active');
             const notice = document.getElementById('parteBajaNotice');
             if (notice) {
-              notice.classList.toggle('visible', parseInt(pbtn.dataset.add || 0) > 0);
+              notice.classList.remove('visible');
             }
             updateModalPrice();
           });
@@ -1497,15 +1498,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const corteNotice = document.getElementById('corteNotice');
         if (corteNotice) {
           corteNotice.classList.remove('visible');
-          const corte34 = cortes.find(c => c.name === '3/4');
-          if (corte34 && corte34.add > 0) {
-            corteNotice.textContent = 'El corte 3/4 suma $' + corte34.add.toLocaleString('es-AR') + ' al precio';
-          } else {
-            const corteConAdd = cortes.find(c => c.add > 0);
-            if (corteConAdd) {
-              corteNotice.textContent = 'El corte ' + corteConAdd.name + ' suma $' + corteConAdd.add.toLocaleString('es-AR') + ' al precio';
-            }
-          }
         }
         corteContainer.querySelectorAll('.diseno-btn').forEach(cbtn => {
           cbtn.addEventListener('click', () => {
@@ -1513,7 +1505,7 @@ document.addEventListener('DOMContentLoaded', () => {
             corteContainer.querySelectorAll('.diseno-btn').forEach(b => b.classList.remove('active'));
             cbtn.classList.add('active');
             const notice = document.getElementById('corteNotice');
-            if (notice) notice.classList.toggle('visible', parseInt(cbtn.dataset.add || 0) > 0);
+            if (notice) notice.classList.remove('visible');
             applyCorteColorAvailability(data, cbtn.dataset.corte);
             renderSizeButtons(data.category, data);
             updateModalPrice();
@@ -1527,6 +1519,15 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       updateModalPrice();
+
+      const qtySelectorModal = document.querySelector('.modal-qty');
+      if (qtySelectorModal) {
+        if (data.category === 'gorras') {
+          qtySelectorModal.style.display = 'none';
+        } else {
+          qtySelectorModal.style.display = '';
+        }
+      }
 
       modalQty = 1;
       if (modalQtyValue) modalQtyValue.textContent = '1';
