@@ -1196,9 +1196,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (d && d.category === 'pantalones') {
           modalImg.style.objectFit = 'cover';
           modalImg.style.background = 'none';
+        } else if (pid === 'gorra-chrome-hearts') {
+          modalImg.style.objectFit = 'contain';
+          modalImg.style.background = 'transparent';
+          modalImg.style.transform = 'scale(0.8)';
         } else {
           modalImg.style.objectFit = 'contain';
           modalImg.style.background = 'transparent';
+          modalImg.style.transform = 'scale(1)';
         }
       }
 
