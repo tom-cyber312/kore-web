@@ -165,7 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
     pantalones: ['drop-04', 'chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz', 'essentials', 'maison-margiela', 'acne-studios', 'comme-des-garcons', 'dog-running', 'nike', 'bape'],
     camperas: ['drop-04', 'chrome-heart', 'hellstar', 'trapstar', 'nocta', 'corteiz', 'jordan', 'nike', 'adidas', 'maison-margiela', 'comme-des-garcons', 'acne-studios', 'essentials', 'bape'],
     basicos: ['remeras', 'pantalones', 'camperas', 'shorts'],
-    shorts: ['doble-cintura', 'nike', 'nike-x-stussy', 'adidas', 'dog-running', 'acne-studios', 'essentials', 'maison-margiela', 'comme-des-garcons', 'syna', 'corteiz', 'bape']
+    shorts: ['doble-cintura', 'nike', 'nike-x-stussy', 'adidas', 'dog-running', 'acne-studios', 'essentials', 'maison-margiela', 'comme-des-garcons', 'syna', 'corteiz', 'bape'],
+    gorras: ['supreme', 'chrome-heart']
   };
 
   const subcategoryLabels = {
@@ -193,7 +194,8 @@ document.addEventListener('DOMContentLoaded', () => {
     'acne-studios': 'Acne Studios',
     'essentials': 'Essentials',
     'dog-running': 'Dog Running',
-    'syna': 'Syna Word'
+    'syna': 'Syna Word',
+    'gorras': 'Gorras'
   };
 
   function buildSubfilters(category) {
@@ -794,6 +796,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const productData = {
     'basicos-shorts': { brand: 'Basicos', name: 'Shorts', price: 15000, price3_4: 22500, watermark: 'BSC', category: 'basicos', hasCorte: true, sizes: ['S', 'M', 'L', 'XL', 'XXL'], images: ['img/shorts-basic-1.png','img/shorts-basic-2.png'], colors: [{ name: 'Negro', bg: '#1a1a1a', border: '1px solid #555' }, { name: 'Gris', bg: '#888', border: 'none' }, { name: 'Rojo', bg: '#e53935', border: 'none' }, { name: 'Rosado', bg: '#f8bbd0', border: 'none' }] },
+  // Gorras
+  'gorra-supreme-roja': { brand: 'Supreme', name: 'Supreme roja 7 3/8 58.7cm', price: 40000, watermark: 'SUP', category: 'gorras', noColors: true, sizes: ['Único'], images: ['img/sup-roja-gorra-1.png','img/sup-roja-gorra-2.png'] },
+  'gorra-supreme-azul': { brand: 'Supreme', name: 'Supreme azul 3/8 58.7cm', price: 40000, watermark: 'SUP', category: 'gorras', noColors: true, sizes: ['Único'], images: ['img/sup-azul-gorra-1.png','img/sup-azul-gorra-2.png'] },
+  'gorra-chrome-hearts': { brand: 'Chrome Heart', name: 'Chrome Hearts 7 3/8 58.7cm', price: 40000, watermark: 'CH', category: 'gorras', noColors: true, sizes: ['Único'], images: ['img/ch-gorra-1.png','img/ch-gorra-2.png'] },
+  'gorra-ny-cerezos': { brand: 'New York', name: 'Ney York cerezos 7 1/8 56.8cm', price: 40000, watermark: 'NY', category: 'gorras', noColors: true, sizes: ['Único'], images: ['img/ny-cerezos-gorra-1.png','img/ny-cerezos-gorra-2.png'] },
+  'gorra-supreme-skel-negra': { brand: 'Supreme', name: 'Supreme Skeleton negra 7 1/2 59.6cm', price: 40000, watermark: 'SUP', category: 'gorras', noColors: true, sizes: ['Único'], images: ['img/sup-skel-neg-gorra-1.png','img/sup-skel-neg-gorra-2.png'] },
+  'gorra-supreme-skel-camo': { brand: 'Supreme', name: 'Supreme Skeleton camuflada 7 1/2 59.6cm', price: 40000, watermark: 'SUP', category: 'gorras', noColors: true, sizes: ['Único'], images: ['img/sup-skel-camo-gorra-1.png','img/sup-skel-camo-gorra-2.png'] },
     'short-doble-negro': { brand: 'Shorts', name: 'Short doble cintura negro', price: 25000, watermark: 'SHT', category: 'shorts', noCorte: true, noColors: true, fixedColor: 'Negro', images: ['img/short-dob-neg-1.png','img/short-dob-neg-2.png'] },
     'short-doble-gris': { brand: 'Shorts', name: 'Short doble cintura gris', price: 25000, watermark: 'SHT', category: 'shorts', noCorte: true, noColors: true, fixedColor: 'Gris', images: ['img/short-dob-gris-1.png','img/short-dob-gris-2.png'] },
     'mm-paris-shorts': { brand: 'Maison Margiela', name: 'Maison Margiela Paris', price: 18500, watermark: 'MM', category: 'shorts', images: ['img/mm-paris-1.png','img/mm-paris-2.png','img/mm-paris-3.png'] },
@@ -1558,7 +1567,8 @@ document.addEventListener('DOMContentLoaded', () => {
     pantalones: ['2', '3', '4'],
     camperas: ['2', '3', '4'],
     shorts: ['1', '2', '3', '4', '5'],
-    basicos: ['S', 'M', 'L', 'XL']
+    basicos: ['S', 'M', 'L', 'XL'],
+    gorras: ['Único']
   };
 
   document.querySelectorAll('.product-card').forEach(card => {
