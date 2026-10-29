@@ -337,22 +337,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const transferSummaryEl = document.getElementById('transferSummary');
   let currentPaymentMethod = '';
 
-  const SHIPPING_DOMICILIO = 8500;
+  const SHIPPING_DOMICILIO = 9500;
 
   function getShippingCost() {
     if (shippingData.metodoValue === 'domicilio') return SHIPPING_DOMICILIO;
     const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
-    if (totalQty <= 3) return 6500;
-    if (totalQty <= 6) return 10000;
-    return 13000;
+    if (totalQty <= 3) return 7500;
+    if (totalQty <= 6) return 11000;
+    return 14000;
   }
 
   function getShippingLabel() {
-    if (shippingData.metodoValue === 'domicilio') return '$8.500 (aprox)';
+    if (shippingData.metodoValue === 'domicilio') return '$9.500 (aprox)';
     const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
-    if (totalQty <= 3) return '$6.500 (aprox)';
-    if (totalQty <= 6) return '$10.000 (aprox)';
-    return '$13.000 (aprox)';
+    if (totalQty <= 3) return '$7.500 (aprox)';
+    if (totalQty <= 6) return '$11.000 (aprox)';
+    return '$14.000 (aprox)';
   }
 
   // Coupon
