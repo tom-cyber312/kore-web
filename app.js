@@ -464,6 +464,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  const GLOBAL_DISCOUNT = { active: true, type: 'percent', value: 20, until: new Date('2026-11-03T03:00:00Z').getTime() }; // lunes 12am AR aprox
+
   function updateCartTotals() {
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
     let discount = 0;
@@ -473,6 +475,10 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         discount = Math.min(appliedCoupon.value, subtotal);
       }
+    }
+    if (GLOBAL_DISCOUNT.active && Date.now() < GLOBAL_DISCOUNT.until) {
+      const globalDiscount = Math.round(subtotal * GLOBAL_DISCOUNT.value / 100);
+      if (globalDiscount > discount) discount = globalDiscount;
     }
     const total = subtotal - discount;
     cartTotal.textContent = '$' + total.toLocaleString('es-AR');
@@ -486,11 +492,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
     let discount = 0;
+    let discountLabel = '';
     if (appliedCoupon) {
       if (appliedCoupon.type === 'percent') {
         discount = Math.round(subtotal * appliedCoupon.value / 100);
       } else {
         discount = Math.min(appliedCoupon.value, subtotal);
+      }
+      discountLabel = appliedCoupon.code;
+    }
+    if (GLOBAL_DISCOUNT.active && Date.now() < GLOBAL_DISCOUNT.until) {
+      const globalDiscount = Math.round(subtotal * GLOBAL_DISCOUNT.value / 100);
+      if (globalDiscount > discount) {
+        discount = globalDiscount;
+        discountLabel = GLOBAL_DISCOUNT.value + '% OFF';
       }
     }
     const isRetiro = shippingData.metodoValue === 'retiro';
@@ -499,7 +514,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const total = subtotal - discount + shippingCost;
     msg += '\nSubtotal: $' + subtotal.toLocaleString('es-AR');
     if (discount > 0) {
-      msg += '\nDescuento (' + appliedCoupon.code + '): -$' + discount.toLocaleString('es-AR');
+      msg += '\nDescuento (' + discountLabel + '): -$' + discount.toLocaleString('es-AR');
     }
     if (!isRetiro) {
       const shippingLabel = isViacargo ? 'Se paga al recibir' : getShippingLabel();
@@ -699,11 +714,20 @@ document.addEventListener('DOMContentLoaded', () => {
   function buildOrderSummary() {
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
     let discount = 0;
+    let discountLabel = '';
     if (appliedCoupon) {
       if (appliedCoupon.type === 'percent') {
         discount = Math.round(subtotal * appliedCoupon.value / 100);
       } else {
         discount = Math.min(appliedCoupon.value, subtotal);
+      }
+      discountLabel = appliedCoupon.code;
+    }
+    if (GLOBAL_DISCOUNT.active && Date.now() < GLOBAL_DISCOUNT.until) {
+      const globalDiscount = Math.round(subtotal * GLOBAL_DISCOUNT.value / 100);
+      if (globalDiscount > discount) {
+        discount = globalDiscount;
+        discountLabel = GLOBAL_DISCOUNT.value + '% OFF';
       }
     }
     const afterDiscount = subtotal - discount;
@@ -719,7 +743,7 @@ document.addEventListener('DOMContentLoaded', () => {
     html += '</div>';
     html += '<div class="finish__line finish__subtotal"><span>Subtotal</span><span>$' + subtotal.toLocaleString('es-AR') + '</span></div>';
     if (discount > 0) {
-      html += '<div class="finish__line finish__discount"><span>Descuento (' + appliedCoupon.code + ')</span><span>-$' + discount.toLocaleString('es-AR') + '</span></div>';
+      html += '<div class="finish__line finish__discount"><span>Descuento (' + discountLabel + ')</span><span>-$' + discount.toLocaleString('es-AR') + '</span></div>';
     }
     if (isRetiro) {
       html += '<div class="finish__line finish__shipping"><span>Envío</span><span style="color:#4caf50;">Gratis</span></div>';
@@ -861,7 +885,8 @@ document.addEventListener('DOMContentLoaded', () => {
     'coldculture': { brand: 'Drop 04', name: 'Campera camuflada coldculture verde', price: 39000, watermark: 'DRP', category: 'camperas', images: ['img/coldculture.webp'] },
     'camu-verde': { brand: 'Drop 04', name: 'Campera camuflada verde', price: 35000, watermark: 'DRP', category: 'camperas', images: ['img/camu-verde.webp'] },
     'strass-niki': { brand: 'Drop 04', name: 'Campera strass nikistreetwear', price: 39000, watermark: 'DRP', category: 'camperas', images: ['img/strass-niki-1.webp','img/strass-niki-2.webp'], outOfStock: ['2', '3', '4'] },
-    'camu-gris': { brand: 'Drop 04', name: 'Campera camuflada gris', price: 38000, watermark: 'DRP', category: 'camperas', images: ['img/camu-gris.webp'], outOfStock: ['3'] },
+    'camu-gris': { brand: 'Drop 04', name: 'Campera camuflada gris', price: 38000, watermark: 'DRP', category: 'camperas', images: ['img/camu-gris.webp'] },
+  'never-motions-die': { brand: 'Drop 04', name: 'Never Motions Die', price: 41000, watermark: 'DRP', category: 'camperas', noColors: true, sizes: ['2', '3', '4'], images: ['img/never-motions-die-1.png'] },
     'corteiz-chico': { brand: 'Corteiz', name: 'Corteiz Chico', price: 16900, watermark: 'CTZ', category: 'remeras', images: ['img/ctz-chi-1.webp','img/ctz-chi-2.webp','img/ctz-chi-3.webp'] },
     'corteiz-manos': { brand: 'Corteiz', name: 'Corteiz Manos', price: 17600, watermark: 'CTZ', category: 'remeras', images: ['img/ctz-man-1.webp','img/ctz-man-2.webp','img/ctz-man-3.webp','img/ctz-man-4.webp'] },
     'corteiz-lata': { brand: 'Corteiz', name: 'Corteiz Lata', price: 17600, watermark: 'CTZ', category: 'remeras', images: ['img/ctz-lat-1.webp','img/ctz-lat-2.webp','img/ctz-lat-3.webp','img/ctz-lat-4.webp'], outOfStock: ['S', 'M', 'L'] },
@@ -1017,7 +1042,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'Rojo': []
     },
     camperas: {
-      'Gris': ['2', '3', '4'],
+      'Gris': [],
       'Blanco': ['2', '3', '4'],
       'Rojo': ['2', '3']
     },
