@@ -1199,6 +1199,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalQtyMinus = document.querySelector('#modalQtySelector .qty-minus');
   const modalQtyPlus = document.querySelector('#modalQtySelector .qty-plus');
 
+  function isDiscountActive() {
+    return GLOBAL_DISCOUNT && GLOBAL_DISCOUNT.active && Date.now() < GLOBAL_DISCOUNT.until;
+  }
+
+  function getDiscountedPrice(price) {
+    if (!isDiscountActive()) return price;
+    return Math.round(price * (100 - GLOBAL_DISCOUNT.value) / 100);
+  }
+
   function updateModalPrice() {
     const data = currentModalProduct;
     if (!data || !modalPrice) return;
@@ -1211,7 +1220,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (activeManga) price += parseInt(activeManga.dataset.add || 0);
     if (activeParteBaja) price += parseInt(activeParteBaja.dataset.add || 0);
     if (activeCorte) price += parseInt(activeCorte.dataset.add || 0);
-    modalPrice.textContent = '$' + price.toLocaleString('es-AR');
+    if (isDiscountActive()) {
+      const discounted = Math.round(price * (100 - GLOBAL_DISCOUNT.value) / 100);
+      modalPrice.innerHTML = '<span style="text-decoration:line-through;opacity:.6;margin-right:6px;">$' + price.toLocaleString('es-AR') + '</span><span>$' + discounted.toLocaleString('es-AR') + '</span>';
+    } else {
+      modalPrice.textContent = '$' + price.toLocaleString('es-AR');
+    }
   }
 
   document.querySelectorAll('.product-card__quick-view').forEach(btn => {
@@ -1226,7 +1240,12 @@ document.addEventListener('DOMContentLoaded', () => {
       modalBrandWatermark.textContent = data.watermark;
       modalBrand.textContent = data.brand;
       modalName.textContent = data.name;
-      modalPrice.textContent = '$' + data.price.toLocaleString('es-AR');
+      if (isDiscountActive()) {
+        const discounted = Math.round(data.price * (100 - GLOBAL_DISCOUNT.value) / 100);
+        modalPrice.innerHTML = '<span style="text-decoration:line-through;opacity:.6;margin-right:6px;">$' + data.price.toLocaleString('es-AR') + '</span><span>$' + discounted.toLocaleString('es-AR') + '</span>';
+      } else {
+        modalPrice.textContent = '$' + data.price.toLocaleString('es-AR');
+      }
 
       const modalImg = document.getElementById('modalCarouselImg');
       const modalDotsEl = document.getElementById('modalDots');
@@ -1731,6 +1750,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const disenoColorSelectorEl = document.getElementById('disenoColorSelector');
       if (activeDisenoColor && disenoColorSelectorEl && disenoColorSelectorEl.style.display !== 'none') {
         color = color + ' / Diseño ' + activeDisenoColor.dataset.disenoColor;
+      }
+      if (isDiscountActive()) {
+        price = Math.round(price * (100 - GLOBAL_DISCOUNT.value) / 100);
       }
       addToCart(currentModalProduct.name, price, talle, color, modalQty, false, espalda, pecho, manga, parteBaja, corte);
       modalQty = 1;
