@@ -485,10 +485,29 @@ document.addEventListener('DOMContentLoaded', () => {
     if (transferSummaryEl) transferSummaryEl.innerHTML = buildOrderSummary();
   }
 
+  function getCategoryLabel(name) {
+    const map = {
+      'remeras': 'Remera',
+      'pantalones': 'Pantalón',
+      'camperas': 'Campera',
+      'shorts': 'Short',
+      'basicos': 'Básico',
+      'gorras': 'Gorra'
+    };
+    // find by productData
+    for (const key in productData) {
+      if (productData[key].name === name) {
+        return map[productData[key].category] || productData[key].category;
+      }
+    }
+    return '';
+  }
+
   function buildWhatsAppMessage(shippingData, paymentMethod) {
     let msg = 'Hola! Quiero hacer un pedido desde KØRE:\n\n';
     cart.forEach(item => {
-      msg += '- ' + item.name + ' (Talle: ' + item.talle + ', Color: ' + item.color + (item.espalda ? ', Espalda: ' + item.espalda : '') + (item.pecho ? ', Pecho: ' + item.pecho : '') + (item.manga ? ', Mangas: ' + item.manga : '') + (item.parteBaja ? ', Parte baja: ' + item.parteBaja : '') + (item.corte ? ', Corte: ' + item.corte : '') + ') x' + item.qty + ' — $' + (item.price * item.qty).toLocaleString('es-AR') + '\n';
+      const cat = getCategoryLabel(item.name);
+      msg += '- [' + (cat || 'Prenda') + '] ' + item.name + ' (Talle: ' + item.talle + ', Color: ' + item.color + (item.espalda ? ', Espalda: ' + item.espalda : '') + (item.pecho ? ', Pecho: ' + item.pecho : '') + (item.manga ? ', Mangas: ' + item.manga : '') + (item.parteBaja ? ', Parte baja: ' + item.parteBaja : '') + (item.corte ? ', Corte: ' + item.corte : '') + ') x' + item.qty + ' — $' + (item.price * item.qty).toLocaleString('es-AR') + '\n';
     });
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
     let discount = 0;
