@@ -814,7 +814,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const addToCartModalBtn = document.querySelector('.add-to-cart-modal-btn');
 
   const productData = {
-    'basicos-shorts': { brand: 'Basicos', name: 'Shorts', price: 15000, price3_4: 23500, watermark: 'BSC', category: 'basicos', hasCorte: true, sizes: ['S', 'M', 'L', 'XL', 'XXL'], images: ['img/shorts-basic-1.png','img/shorts-basic-2.png'], colors: [{ name: 'Negro', bg: '#1a1a1a', border: '1px solid #555' }, { name: 'Gris', bg: '#888', border: 'none' }, { name: 'Rojo', bg: '#e53935', border: 'none' }, { name: 'Rosado', bg: '#f8bbd0', border: 'none' }] },
+    'basicos-shorts': { brand: 'Basicos', name: 'Shorts', price: 15000, price3_4: 22500, watermark: 'BSC', category: 'basicos', hasCorte: true, sizes: ['S', 'M', 'L', 'XL', 'XXL'], images: ['img/shorts-basic-1.png','img/shorts-basic-2.png'], colors: [{ name: 'Negro', bg: '#1a1a1a', border: '1px solid #555' }, { name: 'Gris', bg: '#888', border: 'none' }, { name: 'Rojo', bg: '#e53935', border: 'none' }, { name: 'Rosado', bg: '#f8bbd0', border: 'none' }] },
   // Gorras
   'gorra-supreme-roja': { brand: 'Supreme', name: 'Supreme roja 7 3/8 58.7cm', price: 40000, watermark: 'SUP', category: 'gorras', noColors: true, sizes: ['Único'], images: ['img/sup-roja-gorra-1.png','img/sup-roja-gorra-2.png'] },
   'gorra-supreme-azul': { brand: 'Supreme', name: 'Supreme azul 3/8 58.7cm', price: 40000, watermark: 'SUP', category: 'gorras', noColors: true, sizes: ['Único'], images: ['img/sup-azul-gorra-1.png','img/sup-azul-gorra-2.png'] },
@@ -1019,7 +1019,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const colorSelectorContainer = document.querySelector('.color-selector');
 
-  const CORTE_ADD_PRESET = 7500;
+  const CORTE_ADD_PRESET = 6500;
 
   // Corte de remera.
   const CORTES_REMERA = [
