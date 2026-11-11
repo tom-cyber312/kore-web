@@ -880,7 +880,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'mixed-emotion': { brand: 'Drop 04', name: 'Campera Mixed Emotion Angel', price: 42000, watermark: 'DRP', category: 'camperas', images: ['img/mixed-emotion-1.webp','img/mixed-emotion-2.webp'] },
     'coldculture': { brand: 'Drop 04', name: 'Campera camuflada coldculture verde', price: 39000, watermark: 'DRP', category: 'camperas', images: ['img/coldculture.webp'] },
     'camu-verde': { brand: 'Drop 04', name: 'Campera camuflada verde', price: 35000, watermark: 'DRP', category: 'camperas', images: ['img/camu-verde.webp'] },
-    'strass-niki': { brand: 'Drop 04', name: 'Campera strass nikistreetwear', price: 39000, watermark: 'DRP', category: 'camperas', images: ['img/strass-niki-1.webp','img/strass-niki-2.webp'], outOfStock: ['2', '3', '4'] },
+    'strass-niki': { brand: 'Drop 04', name: 'Campera strass nikistreetwear', price: 39000, watermark: 'DRP', category: 'camperas', images: ['img/strass-niki-1.webp','img/strass-niki-2.webp'], outOfStock: ['4'], colors: [{ name: 'Negro', bg: '#1a1a1a', border: '1px solid #555' }, { name: 'Gris', bg: '#888', border: 'none' }] },
     'camu-gris': { brand: 'Drop 04', name: 'Campera camuflada gris', price: 38000, watermark: 'DRP', category: 'camperas', images: ['img/camu-gris.webp'] },
   'never-motions-die': { brand: 'Drop 04', name: 'Never Motions Die', price: 41000, watermark: 'DRP', category: 'camperas', noColors: true, sizes: ['2', '3', '4'], images: ['img/never-motions-die-1.png'] },
     'corteiz-chico': { brand: 'Corteiz', name: 'Corteiz Chico', price: 16900, watermark: 'CTZ', category: 'remeras', images: ['img/ctz-chi-1.webp','img/ctz-chi-2.webp','img/ctz-chi-3.webp'] },
@@ -1038,7 +1038,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'Rojo': []
     },
     camperas: {
-      'Gris': [],
+      'Gris': ['2', '4'],
       'Blanco': ['2', '3', '4'],
       'Rojo': ['2', '3']
     },
@@ -1279,7 +1279,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const colorSelectorParent = colorSelectorContainer.closest('.product-modal__selector');
 
-      if (data.brand === 'Drop 04' || data.noColors) {
+      const hasOwnColors = Array.isArray(data.colors) && data.colors.length > 0;
+      if ((data.brand === 'Drop 04' && !hasOwnColors) || data.noColors) {
         if (colorSelectorParent) colorSelectorParent.style.display = 'none';
         colorSelectorContainer.innerHTML = '';
       } else {
