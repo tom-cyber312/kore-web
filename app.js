@@ -322,6 +322,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const shippingCompany = document.getElementById('shippingCompany');
   const empresaField = document.getElementById('empresaField');
   const direccionField = document.getElementById('direccionField');
+  const provinceField = document.getElementById('provinceField');
+  const zipField = document.getElementById('zipField');
+  const phoneField = document.getElementById('phoneField');
+  const emailField = document.getElementById('emailField');
   let shippingData = {};
 
   // Back buttons
@@ -528,18 +532,16 @@ document.addEventListener('DOMContentLoaded', () => {
     msg += '\nTotal: $' + total.toLocaleString('es-AR');
     msg += '\n\n--- Datos de envío ---';
     msg += '\nMétodo: ' + shippingData.metodo;
+    msg += '\nNombre: ' + shippingData.nombre;
+    msg += '\nLocalidad: ' + shippingData.localidad;
     if (shippingData.metodo !== 'Retiro en persona') {
       msg += '\nEmpresa: ' + shippingData.empresa;
-    }
-    msg += '\nNombre: ' + shippingData.nombre;
-    if (shippingData.metodo !== 'Retiro en persona') {
       msg += '\nDirección: ' + shippingData.direccion;
+      msg += '\nProvincia: ' + shippingData.provincia;
+      msg += '\nCódigo Postal: ' + shippingData.cp;
+      msg += '\nTeléfono: ' + shippingData.telefono;
+      msg += '\nGmail: ' + shippingData.email;
     }
-    msg += '\nLocalidad: ' + shippingData.localidad;
-    msg += '\nProvincia: ' + shippingData.provincia;
-    msg += '\nCódigo Postal: ' + shippingData.cp;
-    msg += '\nTeléfono: ' + shippingData.telefono;
-    msg += '\nGmail: ' + shippingData.email;
     msg += '\n\n--- Pago ---';
     msg += '\nMétodo: ' + paymentMethod;
     if (paymentMethod === 'Transferencia') {
@@ -558,15 +560,24 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   shippingMethod.addEventListener('change', () => {
-    if (shippingMethod.value === 'retiro') {
-      empresaField.style.display = 'none';
-      direccionField.style.display = 'none';
-      shippingCompany.removeAttribute('required');
-    } else {
-      empresaField.style.display = 'block';
-      direccionField.style.display = 'block';
-      shippingCompany.setAttribute('required', 'true');
-    }
+    const isRetiro = shippingMethod.value === 'retiro';
+    const extraFields = [
+      { wrap: empresaField, input: shippingCompany },
+      { wrap: direccionField, input: document.getElementById('clientAddress') },
+      { wrap: provinceField, input: document.getElementById('clientProvince') },
+      { wrap: zipField, input: document.getElementById('clientZip') },
+      { wrap: phoneField, input: document.getElementById('clientPhone') },
+      { wrap: emailField, input: document.getElementById('clientEmail') }
+    ];
+    extraFields.forEach(({ wrap, input }) => {
+      if (!wrap || !input) return;
+      wrap.style.display = isRetiro ? 'none' : 'block';
+      if (isRetiro) {
+        input.removeAttribute('required');
+      } else if (input.id !== 'clientAddress') {
+        input.setAttribute('required', 'true');
+      }
+    });
   });
 
   shippingForm.addEventListener('submit', (e) => {
