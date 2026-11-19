@@ -483,7 +483,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (transferSummaryEl) transferSummaryEl.innerHTML = buildOrderSummary();
   }
 
-  function getCategoryLabel(name) {
+  function getCategoryLabel(item) {
     const map = {
       'remeras': 'Remera',
       'pantalones': 'Pantalón',
@@ -492,7 +492,10 @@ document.addEventListener('DOMContentLoaded', () => {
       'basicos': 'Básico',
       'gorras': 'Gorra'
     };
-    // find by productData
+    const name = typeof item === 'string' ? item : (item && item.name);
+    const category = (item && item.category) || '';
+    if (category) return map[category] || category;
+    // Fallback por nombre: hay productos con el mismo nombre en varias categorías.
     for (const key in productData) {
       if (productData[key].name === name) {
         return map[productData[key].category] || productData[key].category;
@@ -504,7 +507,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function buildWhatsAppMessage(shippingData, paymentMethod) {
     let msg = 'Hola! Quiero hacer un pedido desde KØRE:\n\n';
     cart.forEach(item => {
-      const cat = getCategoryLabel(item.name);
+      const cat = getCategoryLabel(item);
       msg += '- [' + (cat || 'Prenda') + '] ' + item.name + ' (Talle: ' + item.talle + ', Color: ' + item.color + (item.espalda ? ', Espalda: ' + item.espalda : '') + (item.pecho ? ', Pecho: ' + item.pecho : '') + (item.manga ? ', Mangas: ' + item.manga : '') + (item.parteBaja ? ', Parte baja: ' + item.parteBaja : '') + (item.corte ? ', Corte: ' + item.corte : '') + ') x' + item.qty + ' — $' + (item.price * item.qty).toLocaleString('es-AR') + '\n';
     });
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
@@ -636,13 +639,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function addToCart(name, price, talle, color, qty = 1, openAfter = true, espalda = '', pecho = '', manga = '', parteBaja = '', corte = '') {
-    const key = `${name}-${talle}-${color}-${espalda}-${pecho}-${manga}-${parteBaja}-${corte}`;
-    const existing = cart.find(item => `${item.name}-${item.talle}-${item.color}-${(item.espalda||'')}-${(item.pecho||'')}-${(item.manga||'')}-${(item.parteBaja||'')}-${(item.corte||'')}` === key);
+  function addToCart(name, price, talle, color, qty = 1, openAfter = true, espalda = '', pecho = '', manga = '', parteBaja = '', corte = '', category = '') {
+    const key = `${category}-${name}-${talle}-${color}-${espalda}-${pecho}-${manga}-${parteBaja}-${corte}`;
+    const existing = cart.find(item => `${(item.category||'')}-${item.name}-${item.talle}-${item.color}-${(item.espalda||'')}-${(item.pecho||'')}-${(item.manga||'')}-${(item.parteBaja||'')}-${(item.corte||'')}` === key);
     if (existing) {
       existing.qty += qty;
     } else {
-      cart.push({ name, price, talle, color, qty: qty, espalda, pecho, manga, parteBaja, corte });
+      cart.push({ name, price, talle, color, qty: qty, espalda, pecho, manga, parteBaja, corte, category });
     }
     updateCartUI();
     if (openAfter) {
@@ -1721,7 +1724,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (activeDisenoColor && disenoColorSelectorEl && disenoColorSelectorEl.style.display !== 'none') {
         color = color + ' / Diseño ' + activeDisenoColor.dataset.disenoColor;
       }
-      addToCart(currentModalProduct.name, price, talle, color, modalQty, false, espalda, pecho, manga, parteBaja, corte);
+      addToCart(currentModalProduct.name, price, talle, color, modalQty, false, espalda, pecho, manga, parteBaja, corte, currentModalProduct.category);
       modalQty = 1;
       if (modalQtyValue) modalQtyValue.textContent = '1';
     }
